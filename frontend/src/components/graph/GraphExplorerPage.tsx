@@ -297,6 +297,28 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
                     setActorInputText('');
                   }
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && actorInputText.trim()) {
+                    const partialMatch = actorsList.find((a) =>
+                      a.name.toLowerCase().includes(actorInputText.trim().toLowerCase())
+                    );
+                    if (partialMatch) {
+                      handleAddActor(partialMatch.id);
+                      setActorInputText('');
+                    }
+                  }
+                }}
+                onBlur={() => {
+                  if (actorInputText.trim()) {
+                    const partialMatch = actorsList.find((a) =>
+                      a.name.toLowerCase().includes(actorInputText.trim().toLowerCase())
+                    );
+                    if (partialMatch) {
+                      handleAddActor(partialMatch.id);
+                      setActorInputText('');
+                    }
+                  }
+                }}
                 disabled={actorsList.length === 0}
                 style={{ minWidth: '280px' }}
               />

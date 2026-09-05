@@ -1321,6 +1321,14 @@ def _resolve_authority(conn, key: str) -> str | None:
     if flex:
         return flex["authority_name"]
 
+    candidates = rows(conn, """
+        SELECT authority_name, count(*) AS n FROM meetings
+        WHERE authority_name IS NOT NULL GROUP BY authority_name ORDER BY n DESC
+    """)
+    for row in candidates:
+        if person_id(row["authority_name"]) == key:
+            return row["authority_name"]
+
     term = f"%{key.strip().lower()}%"
     flex_row = one(conn, """
         SELECT authority_name FROM meetings
