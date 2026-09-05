@@ -61,10 +61,10 @@ export const AntunesPage: React.FC<AntunesPageProps> = ({ onNavigateTab }) => {
         </div>
       </section>
 
-      {/* SEÇÃO DA FILOSOFIA DE TRABALHO DO ANTUNES */}
+      {/* SEÇÃO DA HISTÓRIA DE ORIGEM DO ANTUNES */}
       <section className={styles.philosophySection}>
         <h2 className={styles.sectionTitle}>
-          A Filosofia de Trabalho de Antunes
+          A Origem de Antunes: Do Papel Carbonado ao Algoritmo Forense
         </h2>
 
         <div className={styles.cardsGrid}>
@@ -72,9 +72,9 @@ export const AntunesPage: React.FC<AntunesPageProps> = ({ onNavigateTab }) => {
             <div className={styles.cardIcon} style={{ background: '#ECFDF5', color: '#059669' }}>
               <Search size={24} />
             </div>
-            <h3>- Achismo + Dados</h3>
+            <h3>Menos Achismo, Mais Dados</h3>
             <p>
-              Antunes não aceita especulações ou desculpas formais. Sua regra de ouro é simples: toda afirmação deve ser comprovada por registros oficiais do e-Agendas da CGU e do Diário Oficial da União.
+              Antunes começou sua jornada nos corredores da Esplanada nos tempos em que os compromissos eram anotados em cadernos físicos. Ao evoluir para o universo digital, trouxe consigo o rigor implacável do verdadeiro auditor: <strong>não aceita desculpas, ilações ou opiniões</strong>. Para o Antunes, a única verdade é o dado público auditável extraído do e-Agendas e do Diário Oficial da União.
             </p>
           </div>
 
@@ -84,7 +84,7 @@ export const AntunesPage: React.FC<AntunesPageProps> = ({ onNavigateTab }) => {
             </div>
             <h3>Independência Absoluta</h3>
             <p>
-              Antunes fiscaliza 100% das autoridades sem distinção de partido ou ideologia: da Presidência da República até as secretarias executivas de todos os 38 ministérios.
+              Em seu tradicional terno azul e gravata verde, Antunes não possui filiação partidária, preferências ideológicas ou amizades de gabinete. Sua missão é 100% republicana: auditar com a mesma régua desde a Presidência da República até as secretarias executivas de todos os ministérios e autarquias federais.
             </p>
           </div>
 
@@ -92,9 +92,9 @@ export const AntunesPage: React.FC<AntunesPageProps> = ({ onNavigateTab }) => {
             <div className={styles.cardIcon} style={{ background: '#F5F3FF', color: '#7C3AED' }}>
               <FileText size={24} />
             </div>
-            <h3>Cruzamento de Evidências</h3>
+            <h3>A Lupa de Auditoria Forense</h3>
             <p>
-              Com sua lendária lupa de auditoria, Antunes compara o dia e horário de cada audiência com a publicação posterior de portarias, nomeações e decretos no DOU.
+              Equipado com sua inseparável lupa pericial e sua maleta <em>ANTUNES - RIGOR</em>, ele realiza o cruzamento sistemático de milhões de minutos de reuniões com atos contratuais, dispensas de licitação e portarias publicadas no DOU. Se houve audiência prévia antes de uma grande concessão ou contrato, o Antunes identifica a proximidade temporal e mostra à sociedade.
             </p>
           </div>
         </div>

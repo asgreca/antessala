@@ -10,11 +10,11 @@
   grid-template-columns: 1fr 340px;
   gap: 2.5rem;
   align-items: center;
-  background: #0b1329;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
   border-radius: 20px;
   padding: 3rem 2.5rem;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08);
   margin-bottom: 3rem;
   position: relative;
   overflow: hidden;
@@ -26,7 +26,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 5px;
   background: linear-gradient(90deg, #00A859, #0284C7, #7C3AED);
 }
 
@@ -35,11 +35,11 @@
   align-items: center;
   gap: 8px;
   padding: 6px 14px;
-  background: rgba(0, 168, 89, 0.15);
-  border: 1px solid rgba(0, 168, 89, 0.35);
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
   border-radius: 20px;
-  color: #34D399;
-  font-size: 0.82rem;
+  color: #047857;
+  font-size: 0.85rem;
   font-weight: 700;
   margin-bottom: 1.25rem;
 }
@@ -47,33 +47,37 @@
 .heroTitle {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #FFFFFF;
+  color: #0F172A;
   line-height: 1.15;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
 }
 
 .highlightTitle {
-  color: #34D399;
+  color: #00A859;
 }
 
 .heroSubtitle {
-  font-size: 1.1rem;
-  color: #94A3B8;
+  font-size: 1.15rem;
+  color: #334155;
+  font-weight: 500;
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
 
 .heroQuote {
   font-style: italic;
-  font-size: 0.95rem;
-  color: #CBD5E1;
-  background: rgba(255, 255, 255, 0.05);
-  border-left: 3px solid #00A859;
-  padding: 1rem 1.25rem;
-  border-radius: 0 8px 8px 0;
+  font-size: 1rem;
+  color: #1E293B;
+  background: #F8FAFC;
+  border-left: 4px solid #00A859;
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 10px 10px 0;
   margin-bottom: 1.5rem;
-  line-height: 1.55;
+  line-height: 1.6;
+  border-top: 1px solid #F1F5F9;
+  border-right: 1px solid #F1F5F9;
+  border-bottom: 1px solid #F1F5F9;
 }
 
 .pillGrid {
@@ -86,13 +90,13 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
-  color: #E2E8F0;
-  font-size: 0.84rem;
-  font-weight: 600;
+  padding: 8px 14px;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  color: #0F172A;
+  font-size: 0.88rem;
+  font-weight: 700;
 }
 
 .heroImageCard {
@@ -101,28 +105,29 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at center, rgba(0, 168, 89, 0.15) 0%, rgba(11, 19, 41, 0.8) 70%);
+  background: radial-gradient(circle at center, #ECFDF5 0%, #F8FAFC 80%);
   border-radius: 16px;
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid #E2E8F0;
 }
 
 .antunesMainImg {
   max-width: 100%;
   max-height: 340px;
   object-fit: contain;
-  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.12));
 }
 
 .imageBadge {
   margin-top: 1rem;
-  padding: 4px 10px;
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  color: #64748B;
-  font-family: monospace;
-  font-size: 0.72rem;
+  padding: 4px 12px;
+  background: #0F172A;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  color: #34D399;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 /* Filosofia */
