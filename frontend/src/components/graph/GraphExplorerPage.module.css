@@ -94,6 +94,40 @@
   white-space: nowrap;
 }
 
+.actorChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #E0F2FE;
+  color: #0369A1;
+  border: 1px solid #BAE6FD;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+}
+
+.chipRemoveBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(3, 105, 161, 0.12);
+  color: #0369A1;
+  border: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s ease;
+}
+
+.chipRemoveBtn:hover {
+  background: #EF4444;
+  color: #FFFFFF;
+}
+
 .filterSelect:focus,
 .filterInput:focus {
   border-color: #00A859;

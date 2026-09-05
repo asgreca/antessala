@@ -27,7 +27,7 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
   const [ministries, setMinistries] = useState<string[]>([]);
   const [selectedMinistry, setSelectedMinistry] = useState<string>('TODOS');
   const [actorsList, setActorsList] = useState<{ id: string; name: string; meetingsCount?: number }[]>([]);
-  const [selectedActor, setSelectedActor] = useState<string>(personId || '');
+  const [selectedActors, setSelectedActors] = useState<string[]>(personId ? [personId] : []);
   const [actorVisitedBodies, setActorVisitedBodies] = useState<string[]>([]);
   const [dateFilter, setDateFilter] = useState<string>('');
   const [filtersLoading, setFiltersLoading] = useState<boolean>(false);
@@ -47,9 +47,9 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
         }
         if (data.actors && data.actors.length > 0) {
           setActorsList(data.actors);
-          if (!selectedActor) {
+          if (selectedActors.length === 0) {
             const initialId = personId || data.actors[0].id;
-            setSelectedActor(initialId);
+            setSelectedActors([initialId]);
             setCurrentPersonId(initialId);
           }
         }
@@ -65,23 +65,29 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
       });
   }, []);
 
+  // Adiciona um ator/pessoa ao conjunto comparativo da rede
+  const handleAddActor = (actorId: string) => {
+    if (!selectedActors.includes(actorId)) {
+      setSelectedActors((prev) => [...prev, actorId]);
+    }
+  };
+
+  // Remove um ator da lista comparativa
+  const handleRemoveActor = (actorId: string) => {
+    if (selectedActors.length > 1) {
+      setSelectedActors((prev) => prev.filter((id) => id !== actorId));
+    }
+  };
+
   // Quando o usuário seleciona um Ministério: filtra os atores exclusivamente para os deste ministério
   const handleMinistryChange = async (newMinistry: string) => {
     setSelectedMinistry(newMinistry);
     setFiltersLoading(true);
     try {
-      const data = await graphService.getFilterOptions(newMinistry, selectedActor || undefined);
+      const firstActor = selectedActors[0] || undefined;
+      const data = await graphService.getFilterOptions(newMinistry, firstActor);
       if (data.actors && data.actors.length > 0) {
         setActorsList(data.actors);
-        
-        // Verifica se o ator atualmente selecionado pertence ao novo ministério
-        const existsInNewMinistry = data.actors.some((a) => a.id === selectedActor);
-        if (!existsInNewMinistry) {
-          // Muda automaticamente para o primeiro ator registrado neste órgão
-          const nextActor = data.actors[0];
-          setSelectedActor(nextActor.id);
-          setCurrentPersonId(nextActor.id);
-        }
       } else {
         setActorsList([]);
       }
@@ -92,53 +98,64 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
     }
   };
 
-  // Quando o usuário seleciona um Ator: busca os ministérios frequentados por ele
-  const handleActorChange = async (newActorId: string) => {
-    setSelectedActor(newActorId);
-    setCurrentPersonId(newActorId);
-    try {
-      const data = await graphService.getFilterOptions(undefined, newActorId);
-      if (data.actorMinistries && data.actorMinistries.length > 0) {
-        setActorVisitedBodies(data.actorMinistries);
-        
-        // Se o ministério atualmente selecionado não tiver sido visitado por este ator,
-        // ajustamos para "TODOS" para garantir que o grafo dele seja exibido perfeitamente
-        if (selectedMinistry !== 'TODOS' && !data.actorMinistries.includes(selectedMinistry)) {
-          setSelectedMinistry('TODOS');
-        }
-      }
-    } catch (err) {
-      console.error('Erro ao buscar órgãos visitados pelo ator:', err);
-    }
-  };
-
   const loadGraph = async () => {
-    const targetId = selectedActor || currentPersonId;
-    if (!targetId) return;
+    const targets = selectedActors.length > 0 ? selectedActors : (currentPersonId ? [currentPersonId] : []);
+    if (targets.length === 0) return;
     setLoading(true);
     setError(null);
     try {
-      const res = await graphService.getSubgraph(targetId, depth, selectedMinistry);
-      setGraphData(res);
+      // Busca os subgrafos de todas as pessoas selecionadas em paralelo
+      const subgraphs = await Promise.all(
+        targets.map((id) => graphService.getSubgraph(id, depth, selectedMinistry))
+      );
+
+      // Mescla nós e arestas sem duplicidade para visualizar a interseção da rede
+      const mergedNodesMap = new Map<string, any>();
+      const mergedEdgesMap = new Map<string, any>();
+
+      subgraphs.forEach((sub) => {
+        sub.nodes.forEach((n) => {
+          if (!mergedNodesMap.has(n.data.id)) {
+            mergedNodesMap.set(n.data.id, n);
+          } else {
+            // Se o nó já existe e é um dos atores selecionados, marca como principal
+            const existing = mergedNodesMap.get(n.data.id)!;
+            if (n.data.isLobbyist || n.data.type === 'PERSON') {
+              existing.data.isLobbyist = true;
+            }
+          }
+        });
+        sub.edges.forEach((e) => {
+          const edgeKey = `${e.data.source}->${e.data.target}:${e.data.label}`;
+          if (!mergedEdgesMap.has(edgeKey)) {
+            mergedEdgesMap.set(edgeKey, e);
+          }
+        });
+      });
+
+      setGraphData({
+        nodes: Array.from(mergedNodesMap.values()),
+        edges: Array.from(mergedEdgesMap.values()),
+      });
     } catch (err: any) {
-      console.error('Erro ao carregar grafo:', err);
-      setError('Falha ao carregar conexões de rede para o ator.');
+      console.error('Erro ao carregar grafos comparativos:', err);
+      setError('Falha ao carregar conexões de rede comparativas.');
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (selectedActor || currentPersonId) {
+    if (selectedActors.length > 0) {
       loadGraph();
     }
-  }, [selectedActor, depth, selectedMinistry]);
+  }, [selectedActors, depth, selectedMinistry]);
 
   const handleGenerateGraphReport = async () => {
     setLlmLoading(true);
     setShowLlmModal(true);
     try {
-      const activeActorName = actorsList.find((a) => a.id === (selectedActor || currentPersonId))?.name || 'Ator em Análise';
+      const activeActorName = selectedActors.map(id => actorsList.find(a => a.id === id)?.name || id).join(', ') || 'Atores em Análise';
       const res = await fetch(getApiUrl('/api/v1/graph/generate-report'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -232,11 +249,11 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
           </select>
         </div>
 
-        {/* Filtro 2: Ator / Representante (Filtrado Dinamicamente pelo Ministério) */}
-        <div className={styles.filterGroup}>
+        {/* Filtro 2: Seleção Múltipla de Pessoas & Interlocutores para Grafo Comparativo */}
+        <div className={styles.filterGroup} style={{ flexWrap: 'wrap', gap: '8px' }}>
           <User size={16} color="#0284C7" />
           <span>
-            {selectedMinistry !== 'TODOS' ? 'Pessoas deste Órgão:' : 'Ator / Representante:'}
+            {selectedMinistry !== 'TODOS' ? 'Adicionar Pessoas deste Órgão:' : 'Adicionar Pessoas à Rede:'}
           </span>
           {filtersLoading ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: '#64748B' }}>
@@ -246,27 +263,47 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
           ) : (
             <select
               className={styles.filterSelect}
-              value={selectedActor || currentPersonId || ''}
-              onChange={(e) => handleActorChange(e.target.value)}
+              value=""
+              onChange={(e) => {
+                if (e.target.value) handleAddActor(e.target.value);
+              }}
               disabled={actorsList.length === 0}
             >
-              {actorsList.length === 0 ? (
-                <option value="">Nenhum representante registrado</option>
-              ) : (
-                actorsList.map((act) => (
-                  <option key={act.id} value={act.id}>
-                    {act.name} {act.meetingsCount ? `(${act.meetingsCount} ${act.meetingsCount === 1 ? 'reunião' : 'reuniões'})` : ''}
+              <option value="">+ Selecionar pessoa para comparar redes...</option>
+              {actorsList.map((act) => {
+                const isSelected = selectedActors.includes(act.id);
+                return (
+                  <option key={act.id} value={act.id} disabled={isSelected}>
+                    {isSelected ? '✓ ' : ''}{act.name} {act.meetingsCount ? `(${act.meetingsCount} ${act.meetingsCount === 1 ? 'reunião' : 'reuniões'})` : ''}
                   </option>
-                ))
-              )}
+                );
+              })}
             </select>
           )}
 
-          {selectedMinistry !== 'TODOS' && actorsList.length > 0 && (
-            <span className={styles.countBadge} title="Interlocutores com reuniões registradas neste órgão">
-              {actorsList.length} pessoas
-            </span>
-          )}
+          {/* Chips de Pessoas Selecionadas para o Grafo */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+            {selectedActors.map((actId) => {
+              const actObj = actorsList.find((a) => a.id === actId);
+              const labelName = actObj?.name || (actId === personId ? 'Ator Inicial' : actId);
+              return (
+                <span key={actId} className={styles.actorChip}>
+                  <User size={12} />
+                  <span>{labelName}</span>
+                  {selectedActors.length > 1 && (
+                    <button
+                      type="button"
+                      className={styles.chipRemoveBtn}
+                      onClick={() => handleRemoveActor(actId)}
+                      title={`Remover ${labelName} da análise de rede`}
+                    >
+                      <X size={12} />
+                    </button>
+                  )}
+                </span>
+              );
+            })}
+          </div>
         </div>
 
         {/* Filtro 3: Período */}
