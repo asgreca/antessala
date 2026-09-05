@@ -272,19 +272,14 @@ export const InfluenceGraph: React.FC<Props> = ({
       }
     });
 
-    // Filtra estritamente as arestas que ligam nós válidos
+    // Inclui todos os nós que deram match ou estão no caminho até a autoridade pública
+    const nodes = data.nodes.filter((n) => validPathNodeIds.has(n.data.id));
+
+    // Filtra estritamente as arestas que ligam nós presentes no filtro
+    const activeNodeSet = new Set(nodes.map((n) => n.data.id));
     const edges = data.edges.filter((e) => {
-      return validPathNodeIds.has(e.data.source) && validPathNodeIds.has(e.data.target);
+      return activeNodeSet.has(e.data.source) && activeNodeSet.has(e.data.target);
     });
-
-    // Mantém apenas os nós que possuem arestas ativas após o filtro (eliminando todos os nós translúcidos/órfãos)
-    const activeEdgeNodeIds = new Set<string>();
-    edges.forEach((e) => {
-      activeEdgeNodeIds.add(e.data.source);
-      activeEdgeNodeIds.add(e.data.target);
-    });
-
-    const nodes = data.nodes.filter((n) => activeEdgeNodeIds.has(n.data.id));
 
     return { filteredNodes: nodes, filteredEdges: edges };
   }, [data, nodeTypeFilter, themeFilter, organFilter, searchQuery]);
