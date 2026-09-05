@@ -4,7 +4,7 @@ import { NodeDetailDrawer } from './NodeDetailDrawer';
 import { GraphNetworkData, GraphNodeData } from '../../types/graph.types';
 import { graphService } from '../../services/graphService';
 import { getApiUrl } from '../../services/api';
-import { Share2, RefreshCw, Sparkles, Loader2, Filter, X, Building2, Calendar, User } from 'lucide-react';
+import { Share2, RefreshCw, Sparkles, Loader2, Filter, X, Building2, Calendar, User, FileText } from 'lucide-react';
 import styles from './GraphExplorerPage.module.css';
 
 interface GraphExplorerPageProps {
@@ -227,11 +227,22 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
                 setFiltersLoading(false);
               }
             }}
-            title="Carregar diretamente a rede da Presidência da República e do Presidente Lula"
+            title="Carregar diretamente o mapa de rede da Presidência da República e do Presidente Lula"
           >
             <span role="img" aria-label="Brasil">🇧🇷</span>
-            <span>Atalho Especial: Presidência da República</span>
+            <span>Grafo Presidencial</span>
           </button>
+
+          <button
+            type="button"
+            className={styles.dossierBadgeBtn}
+            onClick={() => onOpenDossier('c3f4c2c8c370bc04')}
+            title="Abrir a Ficha Unificada de Auditoria e Agenda do Presidente Lula"
+          >
+            <FileText size={15} />
+            <span>Ver Agenda &amp; Dossiê de Lula</span>
+          </button>
+
           <button className={styles.reloadBtn} onClick={loadGraph} title="Recarregar Rede">
             <RefreshCw size={16} />
             <span>Recarregar</span>
