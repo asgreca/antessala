@@ -144,15 +144,14 @@ export const InfluenceGraph: React.FC<Props> = ({
         }
       }
 
-      // Filtro por órgão
+      // Filtro por órgão: checa organRoot, label, array de órgãos ou correspondência parcial de nome
       if (organFilter !== 'TODOS') {
-        if (
-          n.data.organRoot !== organFilter &&
-          n.data.label !== organFilter &&
-          (!Array.isArray(n.data.organs) || !n.data.organs.includes(organFilter))
-        ) {
-          isMatch = false;
-        }
+        const oFilterLow = organFilter.toLowerCase();
+        const matchesOrgan =
+          (n.data.organRoot && n.data.organRoot.toLowerCase().includes(oFilterLow)) ||
+          n.data.label.toLowerCase().includes(oFilterLow) ||
+          (Array.isArray(n.data.organs) && n.data.organs.some((o: string) => o && o.toLowerCase().includes(oFilterLow)));
+        if (!matchesOrgan) isMatch = false;
       }
 
       // Filtro por texto de busca
@@ -235,8 +234,7 @@ export const InfluenceGraph: React.FC<Props> = ({
         }
       }
 
-      // Se o nó filtrado não tem caminho até o root, mas é uma empresa/autoridade correspondente, mantém o nó
-      if (!pathFound) {
+      if (pathFound) {
         connectedPathNodeIds.add(matchedId);
       }
     });
@@ -245,24 +243,22 @@ export const InfluenceGraph: React.FC<Props> = ({
     rootNodeIds.forEach((rId) => connectedPathNodeIds.add(rId));
 
     // Filtra estritamente os nós e arestas pertencentes a caminhos ativos
-    let nodes = data.nodes.filter((n) => connectedPathNodeIds.has(n.data.id));
-
-    // Remove nós puramente isolados (sem nenhuma aresta conectada nesta amostragem filtrada) exceto se for o nó pesquisado
-    const activeEdgeNodeIds = new Set<string>();
     const edges = data.edges.filter((e) => {
-      const matchS = connectedPathNodeIds.has(e.data.source);
-      const matchT = connectedPathNodeIds.has(e.data.target);
-      if (matchS && matchT) {
-        activeEdgeNodeIds.add(e.data.source);
-        activeEdgeNodeIds.add(e.data.target);
-        return true;
-      }
-      return false;
+      return connectedPathNodeIds.has(e.data.source) && connectedPathNodeIds.has(e.data.target);
     });
 
-    nodes = nodes.filter(
-      (n) => activeEdgeNodeIds.has(n.data.id) || matchedNodeIds.has(n.data.id) || n.data.isLobbyist
+    const activeEdgeNodeIds = new Set<string>();
+    edges.forEach((e) => {
+      activeEdgeNodeIds.add(e.data.source);
+      activeEdgeNodeIds.add(e.data.target);
+    });
+
+    // Filtra para manter apenas nós que tem conexões ou são o próprio root pesquisado
+    const nodes = data.nodes.filter(
+      (n) => activeEdgeNodeIds.has(n.data.id) || (matchedNodeIds.has(n.data.id) && rootNodeIds.has(n.data.id))
     );
+
+    return { filteredNodes: nodes, filteredEdges: edges };
 
     return { filteredNodes: nodes, filteredEdges: edges };
   }, [data, nodeTypeFilter, themeFilter, organFilter, searchQuery]);
