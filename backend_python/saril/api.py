@@ -1761,27 +1761,42 @@ def graph_filter_options(public_body: Optional[str] = None, actor_id: Optional[s
 
         if public_body and public_body != 'TODOS':
             actors_rows = rows(conn, """
-                SELECT lobbyist_name, count(*) AS meetings_count
-                FROM meetings
-                WHERE (public_body = ? OR lower(public_body) LIKE ?)
-                  AND lobbyist_name IS NOT NULL AND length(trim(lobbyist_name)) > 3
-                GROUP BY lobbyist_name
+                SELECT name, SUM(meetings_count) AS meetings_count FROM (
+                    SELECT authority_name AS name, count(*) AS meetings_count
+                    FROM meetings
+                    WHERE (public_body = ? OR lower(public_body) LIKE ?)
+                      AND authority_name IS NOT NULL AND length(trim(authority_name)) > 3
+                    GROUP BY authority_name
+                    UNION ALL
+                    SELECT lobbyist_name AS name, count(*) AS meetings_count
+                    FROM meetings
+                    WHERE (public_body = ? OR lower(public_body) LIKE ?)
+                      AND lobbyist_name IS NOT NULL AND length(trim(lobbyist_name)) > 3
+                    GROUP BY lobbyist_name
+                ) GROUP BY name
                 ORDER BY meetings_count DESC
-                LIMIT 100
-            """, [public_body, f"%{public_body.lower()}%"])
+                LIMIT 120
+            """, [public_body, f"%{public_body.lower()}%", public_body, f"%{public_body.lower()}%"])
         else:
             actors_rows = rows(conn, """
-                SELECT lobbyist_name, count(*) AS meetings_count
-                FROM meetings
-                WHERE lobbyist_name IS NOT NULL AND length(trim(lobbyist_name)) > 3
-                GROUP BY lobbyist_name
+                SELECT name, SUM(meetings_count) AS meetings_count FROM (
+                    SELECT authority_name AS name, count(*) AS meetings_count
+                    FROM meetings
+                    WHERE authority_name IS NOT NULL AND length(trim(authority_name)) > 3
+                    GROUP BY authority_name
+                    UNION ALL
+                    SELECT lobbyist_name AS name, count(*) AS meetings_count
+                    FROM meetings
+                    WHERE lobbyist_name IS NOT NULL AND length(trim(lobbyist_name)) > 3
+                    GROUP BY lobbyist_name
+                ) GROUP BY name
                 ORDER BY meetings_count DESC
-                LIMIT 100
+                LIMIT 120
             """)
 
         actors = [{
-            "id": person_id(r["lobbyist_name"]),
-            "name": r["lobbyist_name"],
+            "id": person_id(r["name"]),
+            "name": r["name"],
             "meetingsCount": r["meetings_count"],
         } for r in actors_rows]
 
