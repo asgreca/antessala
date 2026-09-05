@@ -44,15 +44,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigateTab }) => {
               O <strong>Projeto Antessala</strong> cruza mais de 800 mil registros de audiências públicas oficiais de autoridades federais com os atos, portarias e decretos publicados no <strong>Diário Oficial da União</strong>, aplicando inteligência de dados, redes topológicas e métricas exclusivas como o <strong>IAI (Índice de Acesso e Influência)</strong> e o <strong>ETT (Coeficiente de Entropia Térmica de Transparência)</strong>.
             </p>
           </div>
-
-          <div className={styles.heroImageContainer}>
-            <img
-              src="/logo_antessala.png"
-              alt="Projeto Antessala"
-              className={styles.antunesImg}
-              style={{ objectFit: 'contain', padding: '1rem' }}
-            />
-          </div>
         </div>
       </section>
 
