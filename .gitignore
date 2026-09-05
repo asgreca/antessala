@@ -4,6 +4,11 @@
 !.env.example
 *.env
 
+# Roteiros e Documentos Internos de Produção de Vídeo (Não devem subir para o GitHub)
+*.txt
+ROTEIRO_*.txt
+roteiro_*.txt
+
 # Arquivos Grandes de Dados (Superiores a 100MB - GitHub Limit)
 *.duckdb
 *.duckdb.*
