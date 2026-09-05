@@ -25,7 +25,7 @@ O sistema responde de forma pericial e com fundamentação estatística à pergu
 ## Arquitetura do Pipeline de Dados
 
 ```
-Dados Abertos CGU (dados.gov.br) ──── 43 CSVs e-Agendas (2023–2026, 1.22M compromissos)
+Dados Abertos CGU (dados.gov.br) ──── CSVs Mensais e-Agendas (2023–presente, 1M+ compromissos)
                      │
                      ▼
          saril/cgu_downloader.py ──── Download resiliente, retries e hash SHA-256
