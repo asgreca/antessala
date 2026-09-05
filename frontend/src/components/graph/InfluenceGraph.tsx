@@ -241,14 +241,14 @@ export const InfluenceGraph: React.FC<Props> = ({
           path.forEach((id) => validPathNodeIds.add(id));
           pathFound = true;
 
-          // Preserva os nós do caminho + vizinhos diretos (Atores Privados azuis, Empresas, Órgãos e Atos do DOU)
+          // Preserva os nós do caminho de conexão e vizinhos que deram match ou são Atos do DOU/Órgãos publicadores diretos
           path.forEach((nodeId) => {
             const neighbors = adjMap.get(nodeId) || new Set();
             neighbors.forEach((nbrId) => {
+              // Se o vizinho for uma pessoa (nó azul), mantém apenas se ela também der match nos filtros ativos ou fizer parte do caminho
               const nbrNode = data.nodes.find((n) => n.data.id === nbrId);
               if (nbrNode) {
-                // Preserva o vizinho direto (Pessoa/Ator Privado azul, Órgão, Ato do DOU ou nó que deu match)
-                if (nbrNode.data.type === 'PERSON' || nbrNode.data.type === 'PUBLIC_BODY' || nbrNode.data.type === 'DOU_ACT' || matchedNodeIds.has(nbrId)) {
+                if (matchedNodeIds.has(nbrId) || nbrNode.data.type === 'PUBLIC_BODY' || nbrNode.data.type === 'DOU_ACT') {
                   validPathNodeIds.add(nbrId);
                 }
               }
