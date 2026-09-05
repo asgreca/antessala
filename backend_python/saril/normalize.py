@@ -1,10 +1,13 @@
-"""Normalização de nomes de empresas e CNPJs.
+"""Módulo de Sanitização, Normalização Nominal e Tratamento de CNPJs (`normalize.py`).
 
-Este módulo é o ponto onde o cruzamento e-Agendas x DOU acerta ou erra. O
-e-Agendas registra "Telefônica", "Telefonica", "TELEFONICA BRASIL S.A."; o DOU
-registra "TELEFONICA BRASIL S.A." ou só o CNPJ. Sem canonicalização o
-cruzamento gera falso negativo em massa (e, com match por prefixo ingênuo,
-falso positivo: "Vale" casaria com "Vale do Rio Doce", "Valec" e "Valença").
+FUNÇÃO NO PROJETO:
+- Padroniza e limpa strings de nomes de empresas, pessoas físicas, órgãos e números de CNPJ provenientes do e-Agendas e do DOU.
+- Remove ruídos (acentos, sufixos societários como S/A e LTDA, conectores e caracteres especiais) para viabilizar cruzamentos periciais sem falsos positivos ou falsos negativos.
+
+COMO FUNCIONA:
+1. `clean_cnpj`: remove pontuação e formata CNPJs no padrão oficial de 14 dígitos.
+2. `normalize_name`: converte texto para minúsculas, remove acentuação Unicode e elimina sufixos societários e palavras vazias.
+3. `is_public_entity`: reconhece e filtra entes governamentais, autarquias e agências para que não sejam tratados incorretamente como lobistas privados.
 """
 from __future__ import annotations
 

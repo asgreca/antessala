@@ -1,13 +1,14 @@
-"""Sincronização Contínua e Automática de Fotos Oficiais de Ministros e Autoridades.
+"""Sincronizador Automático de Retratos Oficiais de Autoridades (Wikimedia Commons / Wikipedia API).
 
-Identifica autoridades de primeiro escalão (Ministros de Estado, Presidente e
-Vice-Presidente da República) presentes nas reuniões do e-Agendas, consulta bases oficiais
-abertas (Wikimedia Commons / Wikipedia API) para localizar seus retratos oficiais,
-valida correspondência estrita de nomes (evitando falsos positivos) e realiza o
-download para `frontend/public/authorities/`, atualizando
-`frontend/src/data/authorityPhotos.json` automaticamente.
+FUNÇÃO NO PROJETO:
+- Garante a presença de fotos e retratos oficiais de Ministros de Estado, Presidente e autoridades de 1º escalão nas fichas e dossiês da plataforma.
+- Busca automaticamente imagens oficiais em repositórios abertos, salva localmente em `frontend/public/authorities/` e mapeia em `authorityPhotos.json`.
 
-Funciona de forma resiliente, idempotente e sem onerar a máquina do usuário.
+COMO FUNCIONA:
+1. Consulta a tabela de reuniões no DuckDB e identifica nomes de autoridades classificadas em Tier 1 (Ministros e Presidente).
+2. Faz consultas sanitizadas à API da Wikipedia / Wikimedia Commons com filtros rígidos de correspondência nominal (evitando falsos positivos).
+3. Efetua o download das fotos em alta resolução, redimensionando/otimizando para o padrão de avatares do frontend.
+4. Atualiza o catálogo JSON estático para que o frontend exiba os retratos instantaneamente sem dependência de rede externa em runtime.
 """
 
 from __future__ import annotations

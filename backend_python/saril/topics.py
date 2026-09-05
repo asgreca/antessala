@@ -1,14 +1,13 @@
-"""Classificação temática das pautas.
+"""Classificador Temático Determinístico de Reuniões e Atos (`topics.py`).
 
-Determinística e por palavra-chave, de propósito: o auditor precisa poder
-conferir por que uma reunião caiu num tema, e a classificação não pode mudar
-entre execuções. O órgão entra como indício forte — uma reunião na ANVISA é
-quase certamente de saúde —, mas o texto da pauta tem precedência quando diz
-algo específico.
+FUNÇÃO NO PROJETO:
+- Classifica todas as reuniões e atos oficiais em setores da economia (Telecom, Energia, Saúde, Defesa, Mineração, Financeiro, etc.) e naturezas de encontro.
+- Fornece taxonomia auditável e reprodutível sem dependência de probabilística aleatória.
 
-Duas dimensões independentes, porque são perguntas diferentes:
-  * SETOR   — sobre o que se trata (saúde, energia, telecom…)
-  * NATUREZA — que tipo de encontro é (técnico, institucional, cortesia…)
+COMO FUNCIONA:
+1. `SECTORS`: dicionário de palavras-chave e acrônimos setoriais mapeados para órgãos federais reguladores.
+2. `classify`: recebe o texto da pauta e a sigla do órgão, aplicando regras de prioridade baseadas em termos específicos.
+3. Permite a filtragem por segmento em toda a plataforma e nos dossiês comparativos.
 """
 from __future__ import annotations
 

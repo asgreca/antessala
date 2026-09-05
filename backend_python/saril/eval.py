@@ -1,12 +1,13 @@
-"""Medição do julgamento de relação pauta↔ato.
+"""Módulo de Avaliação Forense e Dataset Gold Standard (`eval.py`).
 
-Um classificador que influencia a leitura de um achado precisa ter erro
-conhecido. Sem isso, "mesma matéria" na tela é uma afirmação sem lastro — o
-mesmo defeito das correlações sorteadas que este projeto removeu, só que mais
-difícil de detectar, porque a saída parece fundamentada.
+FUNÇÃO NO PROJETO:
+- Fornece a infraestrutura de medição de acurácia da classificação temática e relacional efetuada pelos modelos de IA e heurísticas do Antessala.
+- Valida preditivos contra o dataset de referência humana (*Gold Standard Dataset*) em `data/eval/gold_relations.json`.
 
-O conjunto de referência fica em `data/eval/gold_relations.json`, versionado à
-mão e revisável. Cada item traz a pauta, o ato e o rótulo correto com a razão.
+COMO FUNCIONA:
+1. Carrega itens rotulados manualmente (reuniões reais vs atos do DOU com rótulos `mesma_materia`, `materia_conexa`, `sem_relacao`).
+2. Calcula matriz de confusão, precisão, revocação e métrica de `highStakesPrecision` (precisão em alertas de alto impacto).
+3. Impede que alucinações de modelos de IA afetem a confiabilidade das auditorias.
 """
 from __future__ import annotations
 

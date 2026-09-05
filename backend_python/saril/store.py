@@ -1,8 +1,13 @@
-"""Persistência do SARIL em DuckDB — fonte única de verdade.
+"""Gerenciador de Banco de Dados DuckDB e Persistência do Antessala (`store.py`).
 
-Substitui o arranjo anterior (JSONs pré-gerados no Python + H2 em memória com
-seed de demonstração no Java), em que nenhum dos dois lados via os dados do
-outro e o banco era zerado a cada reinício.
+FUNÇÃO NO PROJETO:
+- Define o schema SQL, conexões e operações de banco de dados analítico de altíssima performance (DuckDB).
+- Garante a consistência entre a base de escrita do pipeline (`saril.duckdb`) e a base de leitura atômica da API (`saril_serving.duckdb`).
+
+COMO FUNCIONA:
+1. `init_db`: cria tabelas otimizadas (`meetings`, `entities`, `dou_acts`, `correlations`, `sanctions`, `ingest_log`).
+2. `write_connection`: abre conexão exclusiva para processos de escrita do pipeline.
+3. `serving_connection`: abre conexões somente leitura para a API FastAPI servindo requisições dos usuários em tempo real sem concorrência de trava.
 """
 from __future__ import annotations
 

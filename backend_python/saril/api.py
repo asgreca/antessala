@@ -1,10 +1,15 @@
-"""API do SARIL — backend único, servindo exclusivamente dados reais.
+"""Servidor de API RESTful do Antessala (FastAPI).
 
-Consolida o que antes estava partido entre o FastAPI (JSONs pré-gerados, parte
-deles sintéticos) e o Spring Boot (H2 em memória com seed de demonstração).
-Toda resposta sai do DuckDB alimentado pelo pipeline de ingestão.
+FUNÇÃO NO PROJETO:
+- Expõe todos os endpoints RESTful que alimentam o painel web (React / Vite).
+- Disponibiliza dados de auditoria em tempo real, incluindo ranking de lobistas, fichas de ministérios, dossiês de autoridades, matrizes de correlação e gráficos de rede de influência.
+- Garante integridade e auditoria fornecendo documentação Swagger/OpenAPI e monitoramento de saúde do pipeline (`/api/v1/sync/status`).
 
-Princípio inegociável: toda resposta sai de fontes públicas reais. Um sistema de auditoria não pode preencher lacunas com invenção.
+COMO FUNCIONA:
+1. Conecta-se de forma otimizada ao snapshot atômico DuckDB (`data/saril_serving.duckdb`) em modo somente leitura.
+2. Processa parâmetros de consulta (filtros por data, órgão, severidade, busca textual, paginação).
+3. Calcula métricas em tempo real (Índice de Acesso Ilegítimo - IAI, Entropia de Trânsito - ETT, estatísticas de transparência de pauta).
+4. Retorna respostas estruturadas em JSON estritamente baseadas em dados reais auditáveis.
 """
 from __future__ import annotations
 

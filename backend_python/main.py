@@ -1,9 +1,14 @@
-"""Ponto de entrada do backend SARIL.
+"""Ponto de Entrada Principal da API Backend (FastAPI).
 
-    uvicorn main:app --port 8000
+FUNÇÃO NO PROJETO:
+- Atua como o script principal para inicialização da API RESTful do Antessala via Uvicorn.
+- Garante o carregamento automático de variáveis de ambiente do arquivo `.env` (como chaves de IA/LLM e configurações de banco).
+- Re-exporta a aplicação FastAPI `app` do módulo `saril.api` para manter compatibilidade com scripts de inicialização (ex: `start.sh`).
 
-A implementação vive em saril/api.py; este módulo existe para preservar o
-comando de inicialização já usado pelo start.sh.
+COMO FUNCIONA:
+1. Localiza e lê o arquivo `.env` na raiz do projeto, populando `os.environ`.
+2. Importa e expõe a instância `app` do FastAPI configurada em `saril.api.py`.
+3. Servido normalmente pelo comando: `uvicorn main:app --host 0.0.0.0 --port 8000`.
 """
 import os
 from pathlib import Path

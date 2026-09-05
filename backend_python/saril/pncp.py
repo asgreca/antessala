@@ -1,14 +1,13 @@
-"""Cliente do PNCP — Portal Nacional de Contratações Públicas.
+"""Cliente e Integração com o Portal Nacional de Contratações Públicas - PNCP (`pncp.py`).
 
-Complementa o DOU em vez de substituí-lo. O DOU publica o ato (inexigibilidade,
-portaria, nomeação) em texto corrido, do qual CNPJ e valor precisam ser
-extraídos por expressão regular — e falham em parte dos casos. O PNCP publica o
-**contrato** já estruturado: CNPJ do fornecedor, valor global, objeto, órgão e
-datas em campos próprios.
+FUNÇÃO NO PROJETO:
+- Realiza a consulta aos dados de contratos e dispensas estruturados no PNCP (`pncp.gov.br`).
+- Enriquece os achados do Diário Oficial da União com dados contratuais oficiais estruturados (valor exato, vigência, fornecedor por CNPJ e órgão contratante).
 
-Isso habilita também o teste inverso, que o DOU sozinho não permite: empresas
-com contrato relevante num órgão e **nenhuma reunião declarada** na agenda dele.
-Esse é um achado de subnotificação contra o órgão, não contra a empresa.
+COMO FUNCIONA:
+1. Conecta-se à API RESTful pública do PNCP.
+2. Recupera contratos publicados por CNPJ de fornecedores ou órgãos contratantes.
+3. Permite identificar achados de subnotificação (empresas com grande volume de contratos sem registro equivalente no e-Agendas).
 """
 from __future__ import annotations
 

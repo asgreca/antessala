@@ -1,9 +1,13 @@
-"""Extração forense de entidades dos atos do DOU.
+"""Parser Forense de Texto de Atos do Diário Oficial da União (DOU).
 
-Transforma o texto integral de um ato em fatos auditáveis: quem foi contratado,
-com qual CNPJ, por quanto, sob qual fundamento legal e por qual órgão. Tudo o
-que este módulo devolve é rastreável até um trecho literal do ato publicado —
-nada é inferido ou completado.
+FUNÇÃO NO PROJETO:
+- Analisa o texto bruto de extratos de contratos, portarias e dispensas publicadas no DOU.
+- Extrai com precisão cirúrgica dados estruturados: CNPJ da contratada, razão social, valores monetários (R$), modalidade de contratação e objeto.
+
+COMO FUNCIONA:
+1. Aplica Expressões Regulares (Regex) especializadas para identificação de CNPJs (matriz e filiais).
+2. Extrai valores monetários através de padrões de contexto (identificando valor global, anual ou mensal).
+3. Classifica o tipo de ato (Contrato, Aditivo, Dispensa, Inexigibilidade, Portaria Normativa) e extrai a ementa do ato.
 """
 from __future__ import annotations
 

@@ -1,10 +1,14 @@
-"""Orquestração do pipeline SARIL, de ponta a ponta.
+"""CLI e Orquestrador Principal do Pipeline de Dados (`pipeline.py`).
 
-    python -m saril.pipeline build-meetings   # parquet real -> tabelas meetings/entities
-    python -m saril.pipeline ingest-dou       # varredura dirigida do DOU real
-    python -m saril.pipeline correlate        # cruzamento temporal e alertas
-    python -m saril.pipeline all              # tudo em sequência
-    python -m saril.pipeline status           # o que já foi ingerido
+FUNÇÃO NO PROJETO:
+- Atua como a Interface de Linha de Comando (CLI) e o motor orquestrador de execução de todas as etapas de dados do Antessala.
+- Permite rodar a sincronização contínua do e-Agendas (`sync-cgu`), a varredura dirigida do DOU (`ingest-dou`), o recálculo de correlações (`correlate`) ou a carga completa (`all`).
+
+COMO FUNCIONA:
+1. `sync-cgu`: baixa novos CSVs mensais do e-Agendas, identifica deltas e insere no DuckDB de forma incremental e atômica.
+2. `ingest-dou`: executa a varredura dirigida de atos oficiais no Diário Oficial para as entidades mais frequentes da Esplanada.
+3. `correlate`: executa o algoritmo de cruzamento temporal e gera os alertas de proximidade entre reuniões e atos contratuais.
+4. `publish_serving_snapshot`: copia o banco primário (`saril.duckdb`) para o snapshot atômico (`saril_serving.duckdb`) com `os.replace`, garantindo zero downtime para a API.
 """
 from __future__ import annotations
 

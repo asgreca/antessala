@@ -1,18 +1,14 @@
-"""Leitura assistida de atos do DOU com DeepSeek Cloud API (sem inferência local).
+"""Integração com Inteligência Artificial / LLM (DeepSeek Cloud API / OpenAI API).
 
-Duas tarefas, ambas de saída estruturada:
+FUNÇÃO NO PROJETO:
+- Fornece sínteses executivas de atos do DOU e auxílio pericial na comparação conceitual entre a pauta da reunião e o teor do ato normativo/contratual.
+- Gera justificativas em linguagem natural legível para os relatórios e dossiês do painel.
 
-  * `summarize_act`  — o que o ato concedeu, em uma linha legível
-  * `judge_relation` — se o ato trata da matéria declarada na reunião
-
-O modelo **não julga legalidade nem irregularidade**, e sua saída não altera o
-score de risco, que continua determinístico. Ele lê documento e classifica; a
-conclusão é do auditor.
-
-Cada resposta é gravada com modelo, versão do prompt e hash da entrada. Um
-achado citado num relatório precisa ser reproduzível meses depois — sem isso
-não sustenta contraditório. Todo o processamento ocorre via DeepSeek Cloud API,
-protegendo a CPU/GPU do servidor de produção.
+COMO FUNCIONA:
+1. Conecta-se de forma assíncrona à API de Nuvem da DeepSeek / OpenAI sem comprometer a CPU/GPU local.
+2. `summarize_act`: resume em uma frase o objeto e o valor do ato oficial.
+3. `judge_relation`: avalia se o ato publicado no DOU tem correlação temática com a pauta declarada no e-Agendas.
+4. Armazena o resultado em cache determinístico (por hash do prompt) para reprodutibilidade pericial completa.
 """
 from __future__ import annotations
 

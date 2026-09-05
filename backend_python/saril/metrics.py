@@ -1,8 +1,13 @@
-"""Métricas de risco do SARIL, calculadas sobre dados reais.
+"""Cálculo de Métricas Estatísticas e Risco Institucional (`metrics.py`).
 
-Nenhum número aqui é arbitrado: entropia vem da distribuição observada de
-órgãos visitados, e o IAI compõe alcance institucional com correlações
-documentais efetivamente encontradas no DOU.
+FUNÇÃO NO PROJETO:
+- Implementa as fórmulas estatísticas e forenses que sustentam as análises quantitativas do Antessala.
+- Calcula a **Entropia de Trânsito (ETT)** de Shannon, o **Índice de Acesso Ilegítimo (IAI)** e os índices de opacidade de pauta.
+
+COMO FUNCIONA:
+1. `shannon_entropy`: calcula a dispersão de um ator privado por múltiplos órgãos da administração pública.
+2. `iai_score`: combina volume de acessos, entropia, nível hierárquico da autoridade e existência de atos no DOU.
+3. `is_opaque_topic`: verifica se a pauta declarada no e-Agendas é vaga ("Visita de cortesia", "Assuntos gerais", "Alinhamento") violando a transparência pública.
 """
 from __future__ import annotations
 

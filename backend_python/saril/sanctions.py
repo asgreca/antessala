@@ -1,13 +1,13 @@
-"""Cadastros de sanção da CGU (CEIS, CNEP) e seu cruzamento com o e-Agendas.
+"""Módulo de Ingestão e Cruzamento de Sanções Administrativas da CGU (CEIS / CNEP).
 
-O achado mais direto de uma auditoria de lobby: uma empresa **impedida de
-contratar com a administração** circulando em gabinete, ou recebendo ato no
-Diário durante a vigência da sanção. Não exige interpretação — ou o CNPJ está
-no cadastro com sanção ativa naquela data, ou não está.
+FUNÇÃO NO PROJETO:
+- Cruza os dados do e-Agendas e do DOU com as listas de sanções da CGU: **CEIS** (Cadastro de Empresas Inidôneas e Suspensas) e **CNEP** (Cadastro Nacional de Empresas Punidas).
+- Sinaliza interações críticas e de alto risco: empresas sancionadas/impedidas de licitar reunindo-se com autoridades ou sendo contempladas por atos contratuais durante a vigência da punição.
 
-Fonte: Portal da Transparência, download em massa (um arquivo por cadastro),
-que evita as ~1.600 requisições que a paginação da API exigiria sob o limite
-de 30 req/min.
+COMO FUNCIONA:
+1. Faz o download em lote ou leitura local dos arquivos abertos do CEIS/CNEP.
+2. Indexa empresas punidas por CNPJ e razão social sanitizada.
+3. Cruza datas de reuniões e publicação de atos com o período de vigência da sanção administrativa.
 """
 from __future__ import annotations
 

@@ -1,8 +1,13 @@
-"""Módulo de Inteligência Temática, Leitura nas Entrelinhas e Tradução Cívica.
+"""Motor de Inteligência Temática e Tradução Cívica de Pautas (`topic_intelligence.py`).
 
-Analisa e decodifica as pautas declaradas no e-Agendas, cruzando palavras-chave
-técnicas com a competência oficial da autoridade pública demandada, desvendando
-o conteúdo real subjacente e traduzindo seu impacto direto para o cidadão comum.
+FUNÇÃO NO PROJETO:
+- Analisa o texto declarativo das pautas de reuniões no e-Agendas, extraindo a "leitura nas entrelinhas" e o impacto cívico direto para a população em geral.
+- Identifica setores regulados (Energia, Farmacêutico, Mineração, Tecnologia, Defesa) e clusters temáticos recorrentes.
+
+COMO FUNCIONA:
+1. `extract_topic_intelligence`: agrupa pautas por proximidade temática e calcula estatísticas de opacidade.
+2. Mapeia termos burocráticos/técnicos para explicações cívicas acessíveis ao público geral.
+3. Alimenta os painéis de inteligência e os relatórios resumidos da plataforma.
 """
 from __future__ import annotations
 

@@ -1,10 +1,14 @@
-"""Módulo de download e sincronização contínua de dados do e-Agendas da CGU.
+"""Gerenciador de Download e Descoberta de Dados Abertos e-Agendas (CGU).
 
-Suporta:
-- Descoberta automatizada via API de dados abertos (dados.gov.br e dadosabertos.cgu.gov.br)
-- Resiliência com retries, backoff exponencial e detecção de novidades por hash SHA-256
-- Suporte a fallback gracioso para arquivos locais (data/extracted e data/dados_e-agendas.zip)
-- Gerenciamento de estado de sincronização persistente em data/cgu_sync_state.json
+FUNÇÃO NO PROJETO:
+- Realiza a busca, verificação de novidades e download resiliente de arquivos CSV mensais das agendas públicas do Governo Federal no Portal de Dados Abertos (dados.gov.br).
+- Mantém o controle de quais arquivos já foram baixados e processados, calculando hashes SHA-256 e salvando o estado em `data/cgu_sync_state.json`.
+
+COMO FUNCIONA:
+1. Conecta-se à API do Portal CKAN/dados.gov.br e identifica os links dos pacotes de dados do e-Agendas (desde 2023 até o mês corrente).
+2. Compara a lista remota com os hashes locais gravados no estado de sincronização (`cgu_sync_state.json`).
+3. Baixa apenas arquivos novos ou alterados, com retry automático e backoff exponencial em caso de falha de conexão.
+4. Descompacta e disponibiliza os CSVs para o ingestor incremental (`cgu_incremental.py`).
 """
 from __future__ import annotations
 

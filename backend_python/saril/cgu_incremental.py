@@ -1,7 +1,14 @@
-"""Motor de processamento e classificação incremental de audiências do e-Agendas (CGU).
+"""Motor de Ingestão Incremental e Normalização de Audiências e-Agendas.
 
-Identifica estritamente registros novos (deltas), classifica transparência de pauta,
-normaliza entidades e insere de forma transacional no DuckDB sem reprocessar a base histórica.
+FUNÇÃO NO PROJETO:
+- Lê os arquivos CSV brutos baixados do e-Agendas e insere de forma incremental no banco DuckDB (`saril.duckdb`).
+- Desduplica registros por `event_id` composto, filtra agentes públicos de representantes privados e classifica o grau de transparência das pautas.
+
+COMO FUNCIONA:
+1. Faz o parsing eficiente de CSVs (com tratamento de encoding, datas e separadores).
+2. Separa os participantes da reunião entre Autoridades Públicas e Visitantes Privados (`explode_private_participants`).
+3. Remove da base entes exclusivamente públicos (órgãos, governos estaduais, conselhos profissional).
+4. Insere transacionalmente no DuckDB e dispara os recalculadores de canonização de entidades e correlações no DOU.
 """
 from __future__ import annotations
 

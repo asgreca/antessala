@@ -1,12 +1,13 @@
-"""Leitura e estruturação da base real do e-Agendas (1,22M compromissos).
+"""Parser de Participantes e Estruturação de Compromissos do e-Agendas.
 
-O campo `raw_participants` é texto livre com três blocos separados por "||":
-  Agentes públicos participantes: NOME (CPF: ***.x.**) / CARGO / ORGAO | ...
-  Agentes privados participantes: Nome - Cargo representando ENTIDADE | ...
-  Representantes de governo estrangeiro ou organismo internacional: ...
+FUNÇÃO NO PROJETO:
+- Realiza o desmembramento (parsing) das strings livres de participantes do e-Agendas.
+- Identifica quem são os agentes públicos (autoridades) e quem são os representantes privados (lobistas / visitantes) com suas respectivas empresas.
 
-Só o segundo bloco interessa à auditoria de lobby: é ali que está o ator
-privado e a organização que ele representa.
+COMO FUNCIONA:
+1. Divide o campo `raw_participants` pelos delimitadores oficiais do e-Agendas (`||`).
+2. Isolando o bloco de participantes privados, extrai o nome do representante, seu cargo e a empresa/entidade representada.
+3. Remove prefixos institucionais ("Gerente de Relações de...", "Representante de...") para garantir que a empresa seja corretamente identificada.
 """
 from __future__ import annotations
 

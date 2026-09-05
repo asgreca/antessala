@@ -1,13 +1,13 @@
-"""Canonicalização e unificação de grafias de entidades no SARIL (Antessala).
+"""Engine de Canonização e Unificação de Entidades Privadas (`entity_canonical.py`).
 
-Resolve o problema de empresas cadastradas sob múltiplas grafias, siglas ou razões
-sociais no e-Agendas (ex.: "Petrobras" vs "PETROLEO BRASILEIRO S A PETROBRAS",
-"Telefonica" vs "Vivo", "FEBRABAN" vs "Federacao Brasileira de Bancos").
+FUNÇÃO NO PROJETO:
+- Soluciona a fragmentação de nomes de empresas no e-Agendas (onde uma mesma empresa aparece com dezenas de grafias, marcas ou filiais com CNPJs diferentes).
+- Consolida as reuniões de filiais, marcas e razões sociais sob uma única **Entidade Canônica** (ex: funde "Meta", "Facebook Brasil", "WhatsApp" sob o grupo canônico Meta).
 
-Utiliza três estratégias complementares e seguras:
-1. Dicionário curado de alta relevância com marcas, siglas e razões sociais do Brasil.
-2. Unificação determinística por CNPJ (matriz e filiais) com verificação de compatibilidade de nome nuclear.
-3. Propagação global de CNPJ canônico para registros órfãos da mesma entidade.
+COMO FUNCIONA:
+1. Aplica unificação determinística por CNPJ (agrupando CNPJs com a mesma raiz de 8 dígitos ou explicitamente declarados).
+2. Utiliza dicionário curado de equivalências corporativas nacionais (siglas de federações como FEBRABAN, FIESP, CNI e marcas comerciais).
+3. Propaga a entidade canônica no banco DuckDB sem misturar empresas distintas (evitando falsos positivos entre homônimos).
 """
 from __future__ import annotations
 

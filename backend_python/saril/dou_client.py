@@ -1,12 +1,14 @@
-"""Cliente real do Diário Oficial da União (Imprensa Nacional).
+"""Cliente HTTP para Varredura e Coleta do Diário Oficial da União (in.gov.br).
 
-Substitui o scraper anterior, que apontava para o catálogo CKAN de metadados
-do dados.gov.br — um endpoint que jamais devolveu atos do DOU — e caía num
-fallback de três registros escritos à mão.
+FUNÇÃO NO PROJETO:
+- Realiza requisições HTTP públicas para o sistema de busca da Imprensa Nacional (`in.gov.br`), coletando atos oficiais das Seções DO1 e DO3.
+- Mantém o cache local dos atos baixados em `data/dou_cache/` para evitar consumo desnecessário da rede e garantir reprodutibilidade.
 
-A busca pública do in.gov.br devolve HTML com um <script type="application/json">
-embutido contendo os atos já estruturados (órgão, tipo de ato, data, título,
-ementa e slug do artigo). O texto integral vem da página do próprio ato.
+COMO FUNCIONA:
+1. Faz requisições HTTP para a API de busca do portal da Imprensa Nacional.
+2. Extrai o JSON estruturado embutido nos resultados HTML (`<script type="application/json">`).
+3. Recupera o texto integral de cada ato oficial (contratos, aditivos, portarias).
+4. Persiste o conteúdo bruto em cache de arquivos locais e entrega para o parser (`dou_parser.py`).
 """
 from __future__ import annotations
 

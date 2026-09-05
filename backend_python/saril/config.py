@@ -1,4 +1,14 @@
-"""Configuração central do SARIL. Todos os caminhos e parâmetros de ingestão."""
+"""Módulo de Configurações Globais e Parâmetros do Antessala (`config.py`).
+
+FUNÇÃO NO PROJETO:
+- Centraliza todos os caminhos do sistema de arquivos (`DATA_DIR`, `DB_PATH`, `SERVING_DB_PATH`, `CACHE_DIR`), URLs de dados abertos do governo, formatos de data e parâmetros de janelas de correlação.
+- Garante padronização e constância entre o pipeline de ingestão, banco DuckDB e a API FastAPI.
+
+COMO FUNCIONA:
+1. Define a estrutura de diretórios base e caminhos estáticos.
+2. Armazena limites de janelas temporais de correlação (ex: `CORRELATION_WINDOW_DAYS = 365`).
+3. Define os endpoints oficiais de busca do Diário Oficial da União (in.gov.br) e portais da CGU.
+"""
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent

@@ -1,13 +1,15 @@
-"""Motor de correlação temporal e-Agendas x DOU.
+"""Motor Forense de Correlação Temporal (e-Agendas x Diário Oficial da União).
 
-Regra de negócio central do SARIL: uma reunião entre agente privado e
-autoridade pública que ANTECEDE a publicação de um ato favorável à empresa
-representada é um sinal de alerta, tanto mais forte quanto menor o Δt, maior o
-valor e mais direta a relação órgão-autoridade.
+FUNÇÃO NO PROJETO:
+- Implementa o núcleo pericial da plataforma: cruza os encontros de representação privada registrados no e-Agendas com as publicações posteriores do Diário Oficial da União (DOU).
+- Identifica indícios de favorecimento ou proximidade temporal entre reuniões com autoridades e atos de benefício (contratos, aditivos, dispensas, inexigibilidades, portarias normativas).
 
-Nada aqui é simulado. O gerador anterior (`run_dou_temporal_correlation.py`)
-sorteava o Δt com `np.random.exponential(scale=14)` e publicava o resultado
-como correlação forense; toda essa base foi descartada.
+COMO FUNCIONA:
+1. Filtra rigorosamente atos de benefício (ignorando penalidades ou avisos neutros).
+2. Valida o vínculo entidade-ato por correspondência de CNPJ (matriz/filiais) ou razão social normalizada.
+3. Garante a causalidade temporal (reunião DEVE anteceder a publicação do ato em até 365 dias).
+4. Calcula a métrica de `Lift` de proximidade (ajustando pela cadência habitual da empresa para evitar falsos positivos em empresas de alto volume).
+5. Atribui a classificação de severidade (CRÍTICA, ALTA, MÉDIA, BAIXA) e razões do alerta.
 """
 from __future__ import annotations
 
