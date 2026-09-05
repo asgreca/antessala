@@ -78,13 +78,6 @@ export const AuthorProfilePage: React.FC<AuthorProfilePageProps> = ({ onNavigate
 
         {/* Coluna de Conteúdo e Manifesto */}
         <div className={styles.contentCol}>
-          <div style={{ marginBottom: '16px' }}>
-            <img
-              src="/logo_antessala.png"
-              alt="Antessala Logo"
-              style={{ height: '48px', width: 'auto', display: 'block' }}
-            />
-          </div>
           <div className={styles.authorHeader}>
             <h1 id="author-title" className={styles.authorName}>
               AISLAN GRECA<span className={styles.authorNameDot}>.</span>
