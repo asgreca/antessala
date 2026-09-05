@@ -417,7 +417,7 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
                     style={{ width: '56px', height: '56px', objectFit: 'contain' }} 
                   />
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Loader2 size={18} className="spin" color="#00A859" />
+                    <Loader2 size={20} className={styles.spinIcon} color="#00A859" />
                     <span>O Robô Antunes está processando os caminhos da rede...</span>
                   </div>
                 </div>

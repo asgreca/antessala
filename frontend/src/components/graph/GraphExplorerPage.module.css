@@ -221,3 +221,17 @@
   color: #1E293B;
   white-space: pre-wrap;
 }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinIcon {
+  animation: spin 1s linear infinite !important;
+  display: inline-block;
+}
