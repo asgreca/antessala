@@ -341,6 +341,13 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
                 <td>Extração de audiências, agentes públicos, pessoas físicas visitantes, entidades representadas e pautas declaradas.</td>
               </tr>
               <tr>
+                <td><strong>Agenda do Presidente da República</strong></td>
+                <td>Presidência da República (PR)</td>
+                <td>LAI - Lei 12.527/2011 &amp; Dados Abertos PR</td>
+                <td>CSV / API CKAN Presidência (Diária)</td>
+                <td>Registros de compromissos públicos oficiais do Chefe do Executivo Federal, audiências no Palácio do Planalto e encontros com autoridades/setor privado.</td>
+              </tr>
+              <tr>
                 <td><strong>Diário Oficial da União (DOU)</strong></td>
                 <td>Imprensa Nacional (IN / Presidência)</td>
                 <td>Decreto nº 9.215/2017 e LAI</td>
