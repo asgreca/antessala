@@ -186,6 +186,30 @@
 
 @media (max-width: 768px) {
   .filterPanel {
-    padding: 14px 16px;
+    padding: 14px;
+    gap: 12px;
+  }
+  .filterGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .dateRangeRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+  .dateSep {
+    text-align: center;
+  }
+  .filterRowBottom {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .datePresets {
+    justify-content: flex-start;
+  }
+  .secondaryControl {
+    width: 100%;
   }
 }
