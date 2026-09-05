@@ -241,14 +241,14 @@ export const InfluenceGraph: React.FC<Props> = ({
           path.forEach((id) => validPathNodeIds.add(id));
           pathFound = true;
 
-          // Se o nó do caminho for uma Empresa (ORGANIZATION), preserva apenas os Atatores Privados (PERSON) que representam essa empresa
+          // Preserva os Atores Privados (PERSON) vinculados às empresas que fazem parte dos caminhos filtrados
           path.forEach((nodeId) => {
             const currNode = data.nodes.find((n) => n.data.id === nodeId);
             if (currNode?.data.type === 'ORGANIZATION') {
               const neighbors = adjMap.get(nodeId) || new Set();
               neighbors.forEach((nbrId) => {
                 const nbrNode = data.nodes.find((n) => n.data.id === nbrId);
-                if (nbrNode?.data.type === 'PERSON' && matchedNodeIds.has(nbrId)) {
+                if (nbrNode?.data.type === 'PERSON') {
                   validPathNodeIds.add(nbrId);
                 }
               });
