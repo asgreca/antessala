@@ -137,7 +137,7 @@ export const RankingPage: React.FC<RankingPageProps> = ({ onInspectPerson }) => 
             <img
               src="/antessala_logo_sem_slogan.png"
               alt="Antessala — Plataforma de Inteligência Cívica"
-              style={{ height: '76px', width: 'auto', display: 'block', filter: 'drop-shadow(0 2px 8px rgba(255,255,255,0.1))' }}
+              style={{ height: '76px', width: 'auto', display: 'block', filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.06))' }}
             />
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px', flexWrap: 'wrap' }}>
