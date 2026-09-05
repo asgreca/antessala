@@ -1481,7 +1481,21 @@ def graph_subgraph(person_key: str, depth: int = 2, public_body: Optional[str] =
             sec_code = classified.get("sector") or ""
             body = m.get("public_body") or ""
 
-            # Nó da Autoridade Pública
+            # 1. Nó do Órgão Público onde ocorreu a reunião
+            bid = None
+            if body:
+                bid = "body-" + person_id(body)
+                add_node(bid, body, "PUBLIC_BODY",
+                         sector=sec_code,
+                         sectorLabel=sec_label)
+                if bid not in node_sectors:
+                    node_sectors[bid] = set()
+                    node_organs[bid] = set()
+                if sec_label:
+                    node_sectors[bid].add(sec_label)
+                node_organs[bid].add(body)
+
+            # 2. Nó da Autoridade Pública (Agente Público)
             aid = None
             if m.get("authority_name"):
                 aid = "auth-" + person_id(m["authority_name"])
@@ -1502,46 +1516,37 @@ def graph_subgraph(person_key: str, depth: int = 2, public_body: Optional[str] =
                     node_sectors[aid].add(sec_label)
                 if body:
                     node_organs[aid].add(body)
+                # A Autoridade Pública conecta ao Órgão Público onde é lotada
+                if bid:
+                    add_edge(aid, bid, "lotada em", 1)
 
-            # Nó da Empresa/Entidade Representada
-            eid = None
-            if m.get("entity_name"):
-                eid = "org-" + person_id(m["entity_name"])
-                add_node(eid, m["entity_name"], "ORGANIZATION",
-                         sector=sec_code,
-                         sectorLabel=sec_label,
-                         organRoot=body)
-                add_edge(root, eid, "representa", m["n"])
-                if eid not in node_sectors:
-                    node_sectors[eid] = set()
-                    node_organs[eid] = set()
-                if sec_label:
-                    node_sectors[eid].add(sec_label)
-                if body:
-                    node_organs[eid].add(body)
+            # 3. Empresa / Entidade Representada
+            ent = m.get("entity_name")
+            if not ent or ent in ("Não especificada", "Não informado", "") or is_role_description(ent):
+                ent = f"Atuação Individual ({body or 'Geral'})"
 
-                # A Empresa conecta ao Agente Público se houver autoridade registrada
-                if aid:
-                    add_edge(eid, aid, "audiência com", m["n"])
-            else:
-                # Se não houver empresa registrada, a pessoa conecta direto à autoridade
-                if aid:
-                    add_edge(root, aid, "reuniu-se com", m["n"])
-
-            # Nó do Órgão Público
+            eid = "org-" + person_id(ent)
+            add_node(eid, ent, "ORGANIZATION",
+                     sector=sec_code,
+                     sectorLabel=sec_label,
+                     organRoot=body)
+            if eid not in node_sectors:
+                node_sectors[eid] = set()
+                node_organs[eid] = set()
+            if sec_label:
+                node_sectors[eid].add(sec_label)
             if body:
-                bid = "body-" + person_id(body)
-                add_node(bid, body, "PUBLIC_BODY",
-                         sector=sec_code,
-                         sectorLabel=sec_label)
-                if bid not in node_sectors:
-                    node_sectors[bid] = set()
-                    node_organs[bid] = set()
-                if sec_label:
-                    node_sectors[bid].add(sec_label)
-                node_organs[bid].add(body)
-                if aid:
-                    add_edge(aid, bid, "lotado em", 1)
+                node_organs[eid].add(body)
+
+            # A Empresa conecta ao Órgão Público onde a audiência ocorreu (ou à Autoridade caso não haja Órgão)
+            if bid:
+                add_edge(eid, bid, "audiência no órgão", m["n"])
+            elif aid:
+                add_edge(eid, aid, "audiência com", m["n"])
+
+            # 4. Pessoa Física / Ator Privado (Foco ou Interlocutor)
+            # A Pessoa Física conecta EXCLUSIVAMENTE à Empresa / Entidade Representada
+            add_edge(root, eid, "representa", m["n"])
 
         # Enriquecer os nós com as listas completas de setores e órgãos
         for nid, sec_set in node_sectors.items():
@@ -1645,7 +1650,7 @@ def _authority_subgraph(conn, auth_name: str, depth: int = 2, public_body: Optio
 
     bid = "body-" + person_id(main_body)
     add_node(bid, main_body, "PUBLIC_BODY", organRoot=main_body)
-    add_edge(root, bid, "lotada em", len(meetings))
+    add_edge(bid, root, "órgão da autoridade", len(meetings))
 
     for m in meetings:
         classified = classify_topic(m.get("main_topic"), m.get("public_body"))
@@ -1654,22 +1659,33 @@ def _authority_subgraph(conn, auth_name: str, depth: int = 2, public_body: Optio
         body = m.get("public_body") or main_body
         count = m.get("n") or 1
 
-        ent = m.get("entity_name")
-        if ent and ent not in ("Não especificada", "Não informado", "") and not is_role_description(ent):
-            eid = "org-" + person_id(ent)
-            add_node(eid, ent, "ORGANIZATION",
-                     sector=sec_code,
-                     sectorLabel=sec_label,
-                     organRoot=body)
-            add_edge(eid, root, "recebida em audiência", count)
-            if eid not in node_sectors:
-                node_sectors[eid] = set()
-                node_organs[eid] = set()
-            if sec_label:
-                node_sectors[eid].add(sec_label)
-            if body:
-                node_organs[eid].add(body)
+        # 1. Nó do Órgão Público onde ocorreu a reunião
+        body_id = "body-" + person_id(body)
+        add_node(body_id, body, "PUBLIC_BODY", organRoot=body)
+        # O Órgão conecta à Autoridade Pública (Agente Público)
+        add_edge(body_id, root, "órgão da autoridade", count)
 
+        # 2. Empresa / Entidade Representada
+        ent = m.get("entity_name")
+        if not ent or ent in ("Não especificada", "Não informado", "") or is_role_description(ent):
+            ent = f"Atuação Individual ({body})"
+        
+        eid = "org-" + person_id(ent)
+        add_node(eid, ent, "ORGANIZATION",
+                 sector=sec_code,
+                 sectorLabel=sec_label,
+                 organRoot=body)
+        # A Empresa conecta ao Órgão Público (Ministério/Autarquia/Estatal)
+        add_edge(eid, body_id, "audiência no órgão", count)
+        if eid not in node_sectors:
+            node_sectors[eid] = set()
+            node_organs[eid] = set()
+        if sec_label:
+            node_sectors[eid].add(sec_label)
+        if body:
+            node_organs[eid].add(body)
+
+        # 3. Pessoa Física / Ator Privado
         lob = m.get("lobbyist_name")
         if lob and lob.strip():
             lid = person_id(lob)
@@ -1681,12 +1697,8 @@ def _authority_subgraph(conn, auth_name: str, depth: int = 2, public_body: Optio
                 node_sectors[lid].add(sec_label)
             if body:
                 node_organs[lid].add(body)
-            if ent and ent not in ("Não especificada", "Não informado", "") and not is_role_description(ent):
-                eid = "org-" + person_id(ent)
-                add_edge(lid, eid, "representa", count)
-            else:
-                # Se não declarou empresa representada, conecta a pessoa física diretamente ao agente público
-                add_edge(lid, root, "despachou com", count)
+            # A Pessoa Física conecta EXCLUSIVAMENTE à Empresa/Entidade Representada
+            add_edge(lid, eid, "representa", count)
 
     for nid, sec_set in node_sectors.items():
         if nid in nodes:
