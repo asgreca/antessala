@@ -4,9 +4,7 @@ Consolida o que antes estava partido entre o FastAPI (JSONs pré-gerados, parte
 deles sintéticos) e o Spring Boot (H2 em memória com seed de demonstração).
 Toda resposta sai do DuckDB alimentado pelo pipeline de ingestão.
 
-Princípio inegociável: quando uma fonte ainda não foi ingerida (Receita
-Federal, TSE), os campos correspondentes voltam vazios e sinalizados como não
-disponíveis. Um sistema de auditoria não pode preencher lacuna com invenção.
+Princípio inegociável: toda resposta sai de fontes públicas reais. Um sistema de auditoria não pode preencher lacunas com invenção.
 """
 from __future__ import annotations
 
@@ -50,10 +48,7 @@ app.add_middleware(
 
 # Fontes ainda não ingeridas. Declaradas explicitamente para que a interface
 # possa dizer "não disponível" em vez de exibir um vazio ambíguo.
-UNAVAILABLE_SOURCES = {
-    "receita_federal_qsa": "Quadro societário (Receita Federal) não ingerido",
-    "tse_doacoes": "Doações eleitorais (TSE) não ingeridas",
-}
+UNAVAILABLE_SOURCES = {}
 
 
 def db() -> duckdb.DuckDBPyConnection:

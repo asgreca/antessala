@@ -52,14 +52,8 @@ continua respondendo durante a ingestão.
 
 | Fonte | Situação | Observação |
 |---|---|---|
-| e-Agendas / CGU | **ingerida** | Parquet consolidado 2023–2026, 1,22 M compromissos |
+| e-Agendas / CGU | **ingerida** | CSVs mensais 2023–presente, 1M+ compromissos |
 | DOU / Imprensa Nacional | **ingerida (dirigida)** | Busca pública do in.gov.br, seções DO1 e DO3 |
-| Receita Federal (QSA) | **não ingerida** | Vínculos societários voltam vazios e sinalizados |
-| TSE (doações) | **não ingerida** | Idem |
-
-As duas últimas aparecem em `data_gaps` nas respostas da API. O sistema nunca
-preenche uma lacuna com dado plausível: num instrumento de controle, um campo
-inventado é pior que um campo vazio.
 
 ### Como o DOU é lido
 

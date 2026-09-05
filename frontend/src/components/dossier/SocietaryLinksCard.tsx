@@ -17,7 +17,7 @@ export const SocietaryLinksCard: React.FC<SocietaryLinksCardProps> = ({ links })
       </div>
       <div className={styles.cardBody}>
         {links.length === 0 ? (
-          <p className={styles.empty}>Nenhum vínculo registrado no QSA da Receita Federal.</p>
+          <p className={styles.empty}>Nenhum vínculo societário ou de representação registrado.</p>
         ) : (
           <div className={styles.grid}>
             {links.map((item, idx) => (
