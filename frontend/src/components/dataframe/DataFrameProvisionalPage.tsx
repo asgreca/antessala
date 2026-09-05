@@ -124,28 +124,28 @@ export const DataFrameProvisionalPage: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {data?.records.map((row, rIdx) => (
+                {data?.records.map((row: any, rIdx) => (
                   <tr key={rIdx} className={styles.tr}>
-                    <td className="font-mono">{row.event_id}</td>
-                    <td className="font-mono">{row.date_time}</td>
-                    <td><strong>{row.visitor_name}</strong></td>
-                    <td className="font-mono">{row.masked_cpf}</td>
-                    <td>{row.role}</td>
-                    <td>{row.company_name}</td>
-                    <td className="font-mono">{row.cnpj}</td>
-                    <td><span className={styles.bodyBadge}>{row.public_body}</span></td>
-                    <td className={styles.topicCell}>{row.declared_topic}</td>
+                    <td className="font-mono">{row.event_id ?? '-'}</td>
+                    <td className="font-mono">{row.date_time ?? '-'}</td>
+                    <td><strong>{row.visitor_name || row.lobbyist_name || 'Desconhecido'}</strong></td>
+                    <td className="font-mono">{row.masked_cpf ?? row.cpf ?? 'não disponível'}</td>
+                    <td>{row.role || '-'}</td>
+                    <td>{row.company_name || row.entity_name || '-'}</td>
+                    <td className="font-mono">{row.cnpj || '-'}</td>
+                    <td><span className={styles.bodyBadge}>{row.public_body || '-'}</span></td>
+                    <td className={styles.topicCell}>{row.declared_topic || row.main_topic || '-'}</td>
                     <td className={styles.llmCell}>
                       <Bot size={14} className={styles.botIcon} />
-                      <span>{row.disambiguated_topic_llm}</span>
+                      <span>{row.disambiguated_topic_llm || row.act_type || 'Auditoria Automatizada'}</span>
                     </td>
-                    <td className="font-mono"><strong>{row.entropy_ett.toFixed(2)}</strong></td>
-                    <td className="font-mono">{row.iai_score}</td>
-                    <td className="font-mono">{row.red_flags_count}</td>
-                    <td>{row.dou_act_correlated}</td>
+                    <td className="font-mono"><strong>{typeof row.entropy_ett === 'number' ? row.entropy_ett.toFixed(2) : (row.delta_days ?? '-')}</strong></td>
+                    <td className="font-mono">{row.iai_score ?? row.risk_score ?? '-'}</td>
+                    <td className="font-mono">{row.red_flags_count ?? row.correlations ?? 0}</td>
+                    <td>{row.dou_act_correlated || row.act_type || '-'}</td>
                     <td className="font-mono">
-                      {row.dou_monetary_value > 0
-                        ? `R$ ${row.dou_monetary_value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
+                      {(row.dou_monetary_value || row.dou_value) > 0
+                        ? `R$ ${Number(row.dou_monetary_value || row.dou_value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
                         : '-'}
                     </td>
                   </tr>
