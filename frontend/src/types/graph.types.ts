@@ -20,6 +20,7 @@ export interface GraphNodeData {
   severity?: string;
   url?: string;
   isLobbyist?: boolean;
+  isAuthority?: boolean;
   isMinister?: boolean;
   iaiScore?: number;
   cnpj?: string;

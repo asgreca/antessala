@@ -1744,27 +1744,35 @@ def graph_filter_options(public_body: Optional[str] = None, actor_id: Optional[s
     try:
         all_bodies = rows(conn, """
             SELECT public_body, count(*) as n
-            FROM meetings
-            WHERE public_body IS NOT NULL AND length(trim(public_body)) > 1
+            FROM (
+                SELECT public_body FROM meetings WHERE public_body IS NOT NULL AND length(trim(public_body)) > 1
+                UNION ALL
+                SELECT 'Presidência da República' AS public_body FROM meetings WHERE authority_role = 'Presidente da República' OR public_body = 'Presidência da República'
+            )
             GROUP BY public_body
             ORDER BY n DESC
             LIMIT 150
         """)
         ministries_list = [b["public_body"] for b in all_bodies]
+        # Garante que 'Presidência da República' esteja presente na lista de órgãos se houver registros
+        if 'Presidência da República' not in ministries_list:
+            ministries_list.insert(0, 'Presidência da República')
 
         actor_ministries = []
         resolved_actor_name = None
         if actor_id:
             resolved_actor_name = _resolve_person(conn, actor_id)
+            if not resolved_actor_name:
+                resolved_actor_name = _resolve_authority(conn, actor_id)
             if resolved_actor_name:
                 actor_bodies = rows(conn, """
                     SELECT public_body, count(*) as n
                     FROM meetings
-                    WHERE lobbyist_name = ?
+                    WHERE (lobbyist_name = ? OR authority_name = ?)
                       AND public_body IS NOT NULL AND length(trim(public_body)) > 1
                     GROUP BY public_body
                     ORDER BY n DESC
-                """, [resolved_actor_name])
+                """, [resolved_actor_name, resolved_actor_name])
                 actor_ministries = [b["public_body"] for b in actor_bodies]
 
         if public_body and public_body != 'TODOS':

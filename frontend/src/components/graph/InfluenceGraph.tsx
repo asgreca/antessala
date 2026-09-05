@@ -183,9 +183,11 @@ export const InfluenceGraph: React.FC<Props> = ({
       return { filteredNodes: [], filteredEdges: [] };
     }
 
-    // Coleção de IDs de nós principais (root / ator principal)
+    // Coleção de IDs de nós principais (root / agente público / autoridade / ator foco)
     const rootNodeIds = new Set(
-      data.nodes.filter((n) => n.data.isLobbyist).map((n) => n.data.id)
+      data.nodes
+        .filter((n) => n.data.isLobbyist || n.data.isAuthority || n.data.type === 'AUTHORITY' || n.data.type === 'PERSON')
+        .map((n) => n.data.id)
     );
 
     // Constrói mapa de adjacência de conexões
