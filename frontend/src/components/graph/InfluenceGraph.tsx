@@ -241,10 +241,18 @@ export const InfluenceGraph: React.FC<Props> = ({
           path.forEach((id) => validPathNodeIds.add(id));
           pathFound = true;
 
-          // Preserva também os nós vizinhos diretos (como o Órgão publicador e Atos do DOU) conectados aos nós deste caminho
+          // Preserva os nós do caminho + vizinhos diretos estritamente relacionados ao filtro (como Órgãos e Atos do DOU do mesmo contexto)
           path.forEach((nodeId) => {
             const neighbors = adjMap.get(nodeId) || new Set();
-            neighbors.forEach((nbrId) => validPathNodeIds.add(nbrId));
+            neighbors.forEach((nbrId) => {
+              const nbrNode = data.nodes.find((n) => n.data.id === nbrId);
+              if (nbrNode) {
+                // Mantém o vizinho se for Órgão publicador ou Ato do DOU, ou se atender aos filtros ativos
+                if (nbrNode.data.type === 'PUBLIC_BODY' || nbrNode.data.type === 'DOU_ACT' || matchedNodeIds.has(nbrId)) {
+                  validPathNodeIds.add(nbrId);
+                }
+              }
+            });
           });
 
           break;
