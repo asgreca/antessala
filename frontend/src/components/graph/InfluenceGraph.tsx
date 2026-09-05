@@ -92,23 +92,38 @@ export const InfluenceGraph: React.FC<Props> = ({
     return data.nodes.filter((n) => isMinisterOrPresident(n.data)).length;
   }, [data]);
 
-  // Extrai temas e órgãos presentes nesta rede especificamente em nós de empresas/atos/representantes
+  // Extrai temas e órgãos presentes nesta rede especificamente considerando os outros filtros ativos (cascateamento intercambiável)
   const availableThemes = useMemo(() => {
     const s = new Set<string>();
     data.nodes.forEach((n) => {
+      // Checa se o nó atende ao filtro de Órgão se houver um ativo
+      if (organFilter !== 'TODOS') {
+        const oFilterLow = organFilter.toLowerCase();
+        const matchesOrgan =
+          (n.data.organRoot && n.data.organRoot.toLowerCase().includes(oFilterLow)) ||
+          (Array.isArray(n.data.organs) && n.data.organs.some((o: string) => o && o.toLowerCase().includes(oFilterLow)));
+        if (!matchesOrgan) return;
+      }
       if (n.data.type !== 'AUTHORITY' && n.data.type !== 'PUBLIC_BODY') {
-        if (n.data.sectorLabel && n.data.sectorLabel !== 'Indefinido') s.add(n.data.sectorLabel);
+        if (n.data.sectorLabel) s.add(n.data.sectorLabel);
         if (Array.isArray(n.data.sectors)) {
-          n.data.sectors.forEach((sec: string) => sec && sec !== 'Indefinido' && s.add(sec));
+          n.data.sectors.forEach((sec: string) => sec && s.add(sec));
         }
       }
     });
     return Array.from(s).sort();
-  }, [data]);
+  }, [data, organFilter]);
 
   const availableOrgans = useMemo(() => {
     const o = new Set<string>();
     data.nodes.forEach((n) => {
+      // Checa se o nó atende ao filtro de Tema se houver um ativo
+      if (themeFilter !== 'TODOS') {
+        const matchesTheme =
+          n.data.sectorLabel === themeFilter ||
+          (Array.isArray(n.data.sectors) && n.data.sectors.includes(themeFilter));
+        if (!matchesTheme) return;
+      }
       if (n.data.type !== 'AUTHORITY' && n.data.type !== 'PUBLIC_BODY') {
         if (n.data.organRoot) o.add(n.data.organRoot);
         if (Array.isArray(n.data.organs)) {
@@ -117,7 +132,7 @@ export const InfluenceGraph: React.FC<Props> = ({
       }
     });
     return Array.from(o).sort();
-  }, [data]);
+  }, [data, themeFilter]);
 
   // Aplica filtros de temas, ministérios, pessoas e papéis
   const { filteredNodes, filteredEdges } = useMemo(() => {
