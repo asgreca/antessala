@@ -18,8 +18,8 @@ interface Props {
 const CATEGORIES = [
   { key: 'PERSON', name: 'Ator privado', color: '#38BDF8' },
   { key: 'ORGANIZATION', name: 'Empresa representada', color: '#A78BFA' },
-  { key: 'AUTHORITY', name: 'Autoridade pública', color: '#2DD4BF' },
-  { key: 'PUBLIC_BODY', name: 'Órgão', color: '#FBBF24' },
+  { key: 'AUTHORITY', name: 'Autoridade pública', color: '#F59E0B' },
+  { key: 'PUBLIC_BODY', name: 'Órgão', color: '#10B981' },
   { key: 'DOU_ACT', name: 'Ato do DOU', color: '#EF4444' },
 ];
 
