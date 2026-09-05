@@ -200,17 +200,11 @@ export const InfluenceGraph: React.FC<Props> = ({
       return { filteredNodes: [], filteredEdges: [] };
     }
 
-    // Coleção de IDs de nós de autoridade/foco (nó central pesquisado/carregado)
-    // Se houver um nó marcado explicitamente como autoridade ou pesquisado, definimos como root
+    // Coleção de IDs de nós de autoridade/foco (nó central do Agente Público)
+    const authorityNodes = data.nodes.filter((n) => n.data.isAuthority || n.data.isMinister || n.data.type === 'AUTHORITY');
     const focusNodeIds = new Set(
-      data.nodes
-        .filter((n) => n.data.isAuthority || n.data.isMinister || n.data.isLobbyist || n.data.type === 'AUTHORITY')
-        .map((n) => n.data.id)
+      (authorityNodes.length > 0 ? authorityNodes : data.nodes.filter((n) => n.data.isLobbyist || n.data.type === 'PERSON')).map((n) => n.data.id)
     );
-    // Se não houver autoridade explícita, usa todos os PERSON
-    if (focusNodeIds.size === 0) {
-      data.nodes.filter((n) => n.data.type === 'PERSON').forEach((n) => focusNodeIds.add(n.data.id));
-    }
 
     // Constrói mapa de adjacência de conexões
     const adjMap = new Map<string, Set<string>>();
@@ -227,7 +221,7 @@ export const InfluenceGraph: React.FC<Props> = ({
     const validPathNodeIds = new Set<string>();
 
     matchedNodeIds.forEach((matchedId) => {
-      // Se o próprio nó filtrado for a Autoridade/Foco, adiciona
+      // Se o próprio nó filtrado for a Autoridade/Foco, só adiciona se tiver match explícito ou se houver outro nó que conecte a ela
       if (focusNodeIds.has(matchedId)) {
         validPathNodeIds.add(matchedId);
         return;
@@ -243,7 +237,7 @@ export const InfluenceGraph: React.FC<Props> = ({
         const curr = path[path.length - 1];
 
         if (focusNodeIds.has(curr)) {
-          // Caminho até a autoridade pública encontrado! Mantém todos os nós desse caminho
+          // Caminho até a autoridade pública encontrado! Mantém apenas os nós pertencentes a este caminho
           path.forEach((id) => validPathNodeIds.add(id));
           pathFound = true;
           break;
@@ -257,29 +251,23 @@ export const InfluenceGraph: React.FC<Props> = ({
           }
         }
       }
-
-      if (pathFound) {
-        validPathNodeIds.add(matchedId);
-      }
     });
 
-    // Se encontramos caminhos válidos, inclui os nós de foco que fazem parte dos caminhos
     if (validPathNodeIds.size === 0) {
       return { filteredNodes: [], filteredEdges: [] };
     }
 
-    // Garante que a autoridade/agente foco conectada aos caminhos filtrados permanece no grafo
+    // Garante que a autoridade/agente foco conectada aos caminhos filtrados permanece no grafo se houver conexões ativas
     focusNodeIds.forEach((fId) => {
-      // Adiciona o nó de foco se ele se conecta a pelo menos um nó filtrado
       const neighbors = adjMap.get(fId) || new Set();
       let isConnectedToFiltered = false;
       for (const nxt of neighbors) {
-        if (validPathNodeIds.has(nxt)) {
+        if (validPathNodeIds.has(nxt) && nxt !== fId) {
           isConnectedToFiltered = true;
           break;
         }
       }
-      if (isConnectedToFiltered || matchedNodeIds.has(fId)) {
+      if (isConnectedToFiltered) {
         validPathNodeIds.add(fId);
       }
     });
@@ -289,7 +277,7 @@ export const InfluenceGraph: React.FC<Props> = ({
       return validPathNodeIds.has(e.data.source) && validPathNodeIds.has(e.data.target);
     });
 
-    // Mantém apenas os nós que possuem arestas ativas após o filtro ou são a própria autoridade foco conectada
+    // Mantém apenas os nós que possuem arestas ativas após o filtro (eliminando todos os nós translúcidos/órfãos)
     const activeEdgeNodeIds = new Set<string>();
     edges.forEach((e) => {
       activeEdgeNodeIds.add(e.data.source);
