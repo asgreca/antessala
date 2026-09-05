@@ -911,14 +911,16 @@ def person_dossier(
         score = breakdown["score"]
 
         # Estatísticas de Benchmark & Quartil do Setor/Geral
-        total_lobbyists = one(conn, "SELECT COUNT(DISTINCT lobbyist_name) FROM meetings") or 1
-        higher_score_count = one(conn, """
-            SELECT COUNT(DISTINCT lobbyist_name) FROM (
+        row_tot = one(conn, "SELECT COUNT(DISTINCT lobbyist_name) AS cnt FROM meetings")
+        total_lobbyists = list(row_tot.values())[0] if row_tot else 1
+        row_high = one(conn, """
+            SELECT COUNT(DISTINCT lobbyist_name) AS cnt FROM (
                 SELECT lobbyist_name, COUNT(*) as cnt FROM meetings GROUP BY lobbyist_name HAVING cnt > ?
             )
-        """, [len(meetings)]) or 0
+        """, [len(meetings)])
+        higher_score_count = list(row_high.values())[0] if row_high else 0
 
-        percentile = max(1.0, round((higher_score_count / total_lobbyists) * 100, 1))
+        percentile = max(1.0, round((higher_score_count / (total_lobbyists or 1)) * 100, 1))
 
         entities = sorted(
             {m["entity_name"] for m in meetings if m["entity_name"]}
