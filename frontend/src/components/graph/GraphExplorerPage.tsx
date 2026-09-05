@@ -112,9 +112,9 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
     setLoading(true);
     setError(null);
     try {
-      // Busca os subgrafos de todas as pessoas selecionadas em paralelo
+      // Busca os subgrafos de todas as pessoas selecionadas em paralelo (sem restringir o subgrafo ao ministério)
       const subgraphs = await Promise.all(
-        targets.map((id) => graphService.getSubgraph(id, depth, selectedMinistry))
+        targets.map((id) => graphService.getSubgraph(id, depth))
       );
 
       // Mescla nós e arestas sem duplicidade para visualizar a interseção da rede
