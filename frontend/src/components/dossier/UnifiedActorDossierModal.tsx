@@ -726,13 +726,13 @@ export const UnifiedActorDossierModal: React.FC<UnifiedActorDossierModalProps> =
                   {(Boolean(dossier.aiSummary?.betweenTheLines?.length) ||
                     Boolean(dossier.aiSummary?.citizenImpacts?.length) ||
                     Boolean(dossier.aiSummary?.thematicClusters?.length)) && (
-                    <div className={styles.sectionBox} style={{ border: '1px solid rgba(16, 185, 129, 0.35)', background: 'linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, rgba(6, 11, 24, 0.7) 100%)' }}>
+                    <div className={styles.sectionBox} style={{ border: '1px solid #A7F3D0', background: 'linear-gradient(180deg, #ECFDF5 0%, #FFFFFF 100%)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
-                        <div className={styles.sectionTitle} style={{ margin: 0, color: '#10B981' }}>
-                          <Compass size={18} color="#10B981" />
+                        <div className={styles.sectionTitle} style={{ margin: 0, color: '#047857' }}>
+                          <Compass size={18} color="#00A859" />
                           <span>Inteligência Cívica: Decodificação de Pautas &amp; Interesse Público</span>
                         </div>
-                        <span style={{ fontSize: '0.74rem', padding: '2px 8px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.15)', color: '#34D399', fontWeight: 600 }}>
+                        <span style={{ fontSize: '0.74rem', padding: '2px 10px', borderRadius: '12px', background: '#DCFCE7', color: '#15803D', fontWeight: 700, border: '1px solid #A7F3D0' }}>
                           Controle Social · CF/88 Art. 5º XXXIII
                         </span>
                       </div>
@@ -742,12 +742,12 @@ export const UnifiedActorDossierModal: React.FC<UnifiedActorDossierModalProps> =
                         (dossier.aiSummary.highlightedPartners && dossier.aiSummary.highlightedPartners.length > 0)) && (
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '14px' }}>
                           {dossier.aiSummary.highlightedAssets && dossier.aiSummary.highlightedAssets.map((asset, aIdx) => (
-                            <span key={`ast-${aIdx}`} style={{ fontSize: '0.74rem', padding: '3px 8px', borderRadius: '6px', background: 'rgba(56, 189, 248, 0.12)', color: '#38BDF8', border: '1px solid rgba(56, 189, 248, 0.25)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                            <span key={`ast-${aIdx}`} style={{ fontSize: '0.74rem', padding: '3px 8px', borderRadius: '6px', background: '#F0F9FF', color: '#0369A1', border: '1px solid #BAE6FD', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                               🚢 {asset}
                             </span>
                           ))}
                           {dossier.aiSummary.highlightedPartners && dossier.aiSummary.highlightedPartners.map((partner, pIdx) => (
-                            <span key={`prt-${pIdx}`} style={{ fontSize: '0.74rem', padding: '3px 8px', borderRadius: '6px', background: 'rgba(168, 85, 247, 0.12)', color: '#C084FC', border: '1px solid rgba(168, 85, 247, 0.25)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                            <span key={`prt-${pIdx}`} style={{ fontSize: '0.74rem', padding: '3px 8px', borderRadius: '6px', background: '#F3E8FF', color: '#6B21A8', border: '1px solid #E9D5FF', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                               🤝 Consórcio: {partner}
                             </span>
                           ))}
@@ -757,14 +757,14 @@ export const UnifiedActorDossierModal: React.FC<UnifiedActorDossierModalProps> =
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '12px', marginBottom: '12px' }}>
                         {/* COLUNA 1: LEITURA NAS ENTRELINHAS */}
                         {dossier.aiSummary.betweenTheLines && dossier.aiSummary.betweenTheLines.length > 0 && (
-                          <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '8px', padding: '12px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px', fontSize: '0.84rem', fontWeight: 600, color: '#FCD34D' }}>
-                              <Eye size={15} color="#FBBF24" />
+                          <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '14px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px', fontSize: '0.86rem', fontWeight: 700, color: '#B45309' }}>
+                              <Eye size={16} color="#D97706" />
                               <span>Decodificação Pericial: Leitura nas Entrelinhas</span>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                               {dossier.aiSummary.betweenTheLines.map((btl, bIdx) => (
-                                <div key={bIdx} style={{ fontSize: '0.8rem', color: '#CBD5E1', margin: 0, lineHeight: 1.45 }}>
+                                <div key={bIdx} style={{ fontSize: '0.82rem', color: '#334155', margin: 0, lineHeight: 1.5 }}>
                                   <MarkdownRenderer content={btl} />
                                 </div>
                               ))}
@@ -774,14 +774,14 @@ export const UnifiedActorDossierModal: React.FC<UnifiedActorDossierModalProps> =
 
                         {/* COLUNA 2: O QUE ESTÁ EM JOGO PARA O CIDADÃO */}
                         {dossier.aiSummary.citizenImpacts && dossier.aiSummary.citizenImpacts.length > 0 && (
-                          <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '8px', padding: '12px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px', fontSize: '0.84rem', fontWeight: 600, color: '#6EE7B7' }}>
-                              <Users size={15} color="#34D399" />
+                          <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '14px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px', fontSize: '0.86rem', fontWeight: 700, color: '#047857' }}>
+                              <Users size={16} color="#059669" />
                               <span>O Que Está em Jogo para o Cidadão Comum</span>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                               {dossier.aiSummary.citizenImpacts.map((ci, cIdx) => (
-                                <div key={cIdx} style={{ fontSize: '0.8rem', color: '#CBD5E1', margin: 0, lineHeight: 1.45 }}>
+                                <div key={cIdx} style={{ fontSize: '0.82rem', color: '#334155', margin: 0, lineHeight: 1.5 }}>
                                   <MarkdownRenderer content={ci} />
                                 </div>
                               ))}
@@ -792,20 +792,20 @@ export const UnifiedActorDossierModal: React.FC<UnifiedActorDossierModalProps> =
 
                       {/* EIXOS TEMÁTICOS SUBSTANTIVOS MAPEADOS */}
                       {dossier.aiSummary.thematicClusters && dossier.aiSummary.thematicClusters.length > 0 && (
-                        <div style={{ marginTop: '10px', paddingTop: '10px', borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                          <div style={{ fontSize: '0.78rem', fontWeight: 600, color: '#94A3B8', marginBottom: '8px' }}>
+                        <div style={{ marginTop: '10px', paddingTop: '12px', borderTop: '1px solid #E2E8F0' }}>
+                          <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#64748B', marginBottom: '8px' }}>
                             Núcleos Temáticos Monitorados no e-Agendas ({dossier.aiSummary.thematicClusters.length} eixos identificados):
                           </div>
                           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '8px' }}>
                             {dossier.aiSummary.thematicClusters.map((cluster, clIdx) => (
-                              <div key={clIdx} style={{ background: 'rgba(2, 6, 23, 0.4)', borderRadius: '6px', padding: '8px 10px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                              <div key={clIdx} style={{ background: '#FFFFFF', borderRadius: '6px', padding: '10px 12px', border: '1px solid #E2E8F0', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                                  <span style={{ fontSize: '0.78rem', fontWeight: 600, color: '#E2E8F0' }}>{cluster.category}</span>
-                                  <span style={{ fontSize: '0.72rem', color: '#10B981', fontWeight: 700, padding: '1px 6px', background: 'rgba(16, 185, 129, 0.12)', borderRadius: '4px' }}>
+                                  <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#0F172A' }}>{cluster.category}</span>
+                                  <span style={{ fontSize: '0.72rem', color: '#047857', fontWeight: 800, padding: '2px 6px', background: '#DCFCE7', borderRadius: '4px', border: '1px solid #A7F3D0' }}>
                                     {cluster.count} aud.
                                   </span>
                                 </div>
-                                <p style={{ fontSize: '0.74rem', color: '#94A3B8', margin: 0, lineHeight: 1.35 }}>
+                                <p style={{ fontSize: '0.76rem', color: '#475569', margin: 0, lineHeight: 1.4 }}>
                                   {cluster.description}
                                 </p>
                               </div>
