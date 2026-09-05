@@ -1,0 +1,135 @@
+:root {
+  /* ==========================================================================
+     PALETA DE CORES INSTITUCIONAL — TEMA CLARO / FUNDO BRANCO
+     ========================================================================== */
+  --bg-void: #FFFFFF;
+  --bg-main: #F8FAFC;
+  --bg-canvas: #F1F5F9;
+  --bg-card: #FFFFFF;
+  --bg-card-solid: #FFFFFF;
+  --bg-card-hover: #F8FAFC;
+  --bg-card-active: #F1F5F9;
+  --bg-subtle: #F1F5F9;
+  --bg-input: #FFFFFF;
+  --bg-header: #FFFFFF;
+  --bg-glass-overlay: rgba(15, 23, 42, 0.45);
+
+  /* ==========================================================================
+     ACENTOS INSTITUCIONAIS CGU (Verde Governo & Azul Federal)
+     ========================================================================== */
+  /* Verde Institucional CGU (Integridade, transparência e aprovação) */
+  --primary: #00A859;
+  --primary-hover: #008F4C;
+  --primary-dark: #006B38;
+  --primary-light: #E8F5E9;
+  --primary-border: #A7F3D0;
+  --primary-glow: rgba(0, 168, 89, 0.18);
+
+  /* Azul Auditoria & Inteligência Federal */
+  --accent-cyan: #0284C7;
+  --accent-cyan-hover: #0369A1;
+  --accent-cyan-light: #E0F2FE;
+  --accent-cyan-border: #BAE6FD;
+  --accent-cyan-glow: rgba(2, 132, 199, 0.15);
+
+  /* Azul Marinho Institucional */
+  --accent-blue: #1E3A8A;
+  --accent-blue-light: #EFF6FF;
+  --accent-blue-border: #BFDBFE;
+
+  /* Violeta de Inteligência Artificial do Robô Antunes */
+  --accent-ai: #7C3AED;
+  --accent-ai-hover: #6D28D9;
+  --accent-ai-light: #F5F3FF;
+  --accent-ai-border: #DDD6FE;
+  --accent-ai-glow: rgba(124, 58, 237, 0.15);
+
+  /* ==========================================================================
+     SEVERIDADES & SINAIS DE ALERTA (Conformidade Rigorosa WCAG 2.1 AA)
+     ========================================================================== */
+  /* Crítico: Vermelho Carmesim Alerta */
+  --severity-critical: #DC2626;
+  --severity-critical-light: #991B1B;
+  --severity-critical-bg: #FEF2F2;
+  --severity-critical-border: #FECACA;
+  --severity-critical-glow: rgba(220, 38, 38, 0.15);
+
+  /* Alto: Laranja Âmbar */
+  --severity-high: #EA580C;
+  --severity-high-light: #9A3412;
+  --severity-high-bg: #FFF7ED;
+  --severity-high-border: #FFEDD5;
+  --severity-high-glow: rgba(234, 88, 12, 0.15);
+
+  /* Médio: Amarelo Atenção */
+  --severity-medium: #D97706;
+  --severity-medium-light: #854D0E;
+  --severity-medium-bg: #FFFBEB;
+  --severity-medium-border: #FEF3C7;
+  --severity-medium-glow: rgba(217, 119, 6, 0.15);
+
+  /* Baixo: Verde Regular */
+  --severity-low: #059669;
+  --severity-low-light: #065F46;
+  --severity-low-bg: #ECFDF5;
+  --severity-low-border: #A7F3D0;
+  --severity-low-glow: rgba(5, 150, 105, 0.15);
+
+  /* ==========================================================================
+     TIPOGRAFIA E TEXTOS (Alto Contraste)
+     ========================================================================== */
+  --text-primary: #0F172A;        /* Slate 900 — Contraste 16.2:1 */
+  --text-secondary: #334155;      /* Slate 700 — Contraste 9.4:1 */
+  --text-muted: #64748B;          /* Slate 500 — Contraste 4.8:1 */
+  --text-dim: #94A3B8;
+  --text-white: #0F172A;          /* Textos de destaque agora em Slate escuro */
+  --text-on-accent: #FFFFFF;      /* Branco puro para dentro de botões/badges */
+  --text-inverse: #0F172A;
+
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* ==========================================================================
+     BORDAS, ELEVAÇÕES E SOMBRAS LIMPAS
+     ========================================================================== */
+  --border-color: #E2E8F0;
+  --border-color-light: #CBD5E1;
+  --border-subtle: #F1F5F9;
+  --border-glow-cyan: rgba(2, 132, 199, 0.3);
+  --border-glow-emerald: rgba(0, 168, 89, 0.3);
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Sombras Claras Sutis e Elegantes */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-glow-cyan: 0 0 15px rgba(2, 132, 199, 0.15);
+  --shadow-glow-emerald: 0 0 15px rgba(0, 168, 89, 0.15);
+  --shadow-glow-critical: 0 0 15px rgba(220, 38, 38, 0.15);
+
+  --glass-blur-sm: blur(4px);
+  --glass-blur: blur(8px);
+  --glass-blur-lg: blur(16px);
+
+  /* Transições Suaves */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+
+  /* ==========================================================================
+     ESCALA DE HIERARQUIA Z-INDEX
+     ========================================================================== */
+  --z-base: 1;
+  --z-canvas: 10;
+  --z-sticky-nav: 100;
+  --z-dropdown: 500;
+  --z-modal-backdrop: 900;
+  --z-modal-content: 1000;
+  --z-command-palette: 9999;
+}

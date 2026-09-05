@@ -1,0 +1,882 @@
+ROTEIRO DE VÍDEO — ANTESSALA
+Apresentador: ANTUNES (mascote 3D do projeto)
+Duração total: 3:00 (180 segundos) — 18 blocos de 10 segundos
+Formato: 16:9 horizontal
+Uso: cada bloco tem descrição de cena (PT-BR), a fala com quem fala, e um prompt
+de storyboard (em inglês, padrão da indústria de geração de imagem/vídeo por IA)
+para gerar o pôster de cena daquele bloco.
+
+================================================================================
+⚠️ AVISO GERAL — ARQUIVOS DE REFERÊNCIA A ANEXAR
+================================================================================
+
+O Antunes aparece (ou fala em voz off) em TODOS os 18 blocos. Em TODO bloco,
+ao rodar o prompt no gerador de imagem/vídeo, anexe junto:
+
+  1. Assets/antunes-rindo-640.png   → referência do personagem (rosto, cabelo,
+     terno azul-marinho, gravata verde). É a ÚNICA imagem do Antunes que existe
+     hoje — o gerador precisa dela em toda cena para manter a identidade do
+     personagem consistente entre os blocos.
+
+Além disso, em blocos ONDE A LOGO OU O WORDMARK DA ANTESSALA APARECEM NA TELA
+(blocos 01, 03, 17 e 18 — marcados com 🔶 abaixo), anexe TAMBÉM:
+
+  2. site/img/logo.png       → logo completa (prédio + wordmark + slogan)
+     — ou —
+  3. site/img/wordmark.png   → só o texto "ANTESSALA" (azul + verde), quando
+     a cena pedir apenas a marca textual, sem o desenho do prédio.
+
+Um quarto arquivo serve de referência de ESTILO DE FUNDO (o "vazio branco estilo
+Pocoyo" com ilustração de traço fino) e vale para todos os blocos:
+
+  4. Assets/fundo_site.jpeg  → referência do fundo branco com o Palácio do
+     Planalto em traço contínuo e as trilhas coloridas pontilhadas.
+
+Sem esses anexos, o gerador tende a inventar um rosto, um terno ou uma logo
+diferentes a cada bloco — e a identidade visual quebra a cada corte.
+
+================================================================================
+IDENTIDADE VISUAL — TRAVAS DE ESTILO (usadas em todo prompt abaixo)
+================================================================================
+
+PERSONAGEM (ANTUNES): caricatura 3D estilo Pixar/DreamWorks de um senhor
+brasileiro idoso, careca no topo com cabelo branco penteado nas laterais,
+sobrancelhas brancas grossas e expressivas, sorriso largo e caloroso com dentes
+à mostra, bochechas rosadas. Veste terno azul-marinho (#081436) bem cortado,
+camisa branca e gravata verde-oliva (#466A28), lenço branco no bolso. Proporção
+levemente estilizada (cabeça grande em relação ao corpo, ~1:3), mas com
+acabamento de renderização 3D de altíssima qualidade — luz global suave,
+subsurface scattering na pele, nível Pixar/Illumination. DEVE bater exatamente
+com a referência anexada (Assets/antunes-rindo-640.png).
+
+FUNDO: vazio branco infinito, estilo Pocoyo — sem paredes, sem linha de
+horizonte, sem textura de chão (branco #FFFFFF a cinza muito claro #F2F4F7no
+máximo), só uma sombra de contato suave sob o personagem. Flutuando nesse
+espaço: ilustrações de traço único preto contínuo, no estilo editorial da
+Antessala — o Palácio do Planalto (desenho arquitetônico de linha fina), uma
+silhueta andando com uma maleta, e trilhas pontilhadas/curvas coloridas em
+azul-marinho (#081436), verde-oliva (#466A28) e dourado (#EBC723), com pontos
+sólidos marcando nós ao longo das trilhas — exatamente como em
+site/img/logo.png e Assets/fundo_site.jpeg.
+
+TIPOGRAFIA: títulos em caixa alta, sans-serif condensada e em negrito (estilo
+PT Sans), sempre no tratamento bicolor característico da marca — primeira
+parte em azul-marinho (#081436), segunda parte em verde-oliva (#466A28) —
+igual ao site/img/wordmark.png. Textos de apoio em sans-serif limpa (estilo
+Work Sans), tinta azul-marinho escura.
+
+PALETA TRAVADA: azul-marinho #081436 · verde-oliva #466A28 · dourado #EBC723 ·
+laranja de alerta #F15A2A (só para destacar um dado crítico) · branco #FFFFFF.
+Nunca introduzir cores fora dessa paleta.
+
+RENDERIZAÇÃO: híbrido de personagem 3D com elementos gráficos 2D flutuando no
+mesmo espaço (como um vídeo explicativo de dados, não uma cena realista) —
+qualidade de estúdio de animação, iluminação de estúdio branco puro, sem
+sombras duras, sem grão de câmera.
+
+================================================================================
+SINOPSE
+================================================================================
+
+Antunes aparece sozinho no vazio branco da Antessala e, em 3 minutos, explica
+o que é o projeto: por que ele existe, que dados cruza, como organiza os
+achados em "trilhas de auditoria", por que duas trilhas foram descontinuadas
+(prova de rigor metodológico), como o site permite conferir tudo na fonte, e
+termina convidando o espectador a explorar o site.
+
+================================================================================
+BLOCO 01 — [00:00–00:10] — ABERTURA 🔶 (logo aparece)
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+O vazio branco está vazio por um instante. A silhueta de traço fino do Palácio
+do Planalto se desenha sozinha, como se uma caneta invisível a traçasse. As
+trilhas coloridas (azul, verde, dourado) começam a se mover pela tela. O
+Antunes "entra" andando por uma das trilhas, para no centro, sorri largo para
+a câmera e acena. Atrás dele, a logo completa da Antessala se monta.
+
+FALA (quem fala):
+ANTUNES (em câmera, olhando direto pro espectador):
+"Oi! Eu sou o Antunes. Vim te apresentar a Antessala: um site que junta agenda
+pública, contratos e sanções pra mostrar quem circula pelo poder."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + site/img/logo.png +
+Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background (#FFFFFF), Pocoyo-style flat white void with no walls or floor texture, only soft contact shadows. Clean editorial civic-tech graphic design layout.",
+  "header": {
+    "title": "BLOCO 01: ABERTURA — 'EU SOU O ANTUNES'",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: WARM, WELCOMING, CONFIDENT | PACING: BRISK BUT FRIENDLY",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 01: \\"Oi! Eu sou o Antunes. Vim te apresentar a Antessala: um site que junta agenda pública, contratos e sanções pra mostrar quem circula pelo poder.\\""
+  },
+  "grid_layout": "A single row of 3 panels with razor-sharp thin black frame borders, left to right, covering the 10-second beat.",
+  "panels": [
+    {"id": "P01", "time": "00:00-00:03", "title": "THE VOID DRAWS ITSELF", "desc": "Empty seamless white background. A thin continuous black line begins drawing itself in mid-air, tracing the modernist silhouette of the Palácio do Planalto (as in site/img/logo.png), as if an invisible pen were sketching it. No character yet."},
+    {"id": "P02", "time": "00:03-00:06", "title": "THE TRAILS AWAKEN", "desc": "Dashed color trails (navy #081436, olive green #466A28, gold #EBC723) animate into existence, curving across the white void with small solid dots marking nodes, echoing the Antessala logo's walking-path motif."},
+    {"id": "P03", "time": "00:06-00:10", "title": "ANTUNES ARRIVES", "desc": "ANTUNES — 3D Pixar-style caricature elderly man, bald with white side hair, navy suit (#081436), forest green tie (#466A28), big warm laughing smile, matching reference image exactly — walks in along one of the gold trails, stops center-frame, waves at camera with a big grin. Behind him, the full Antessala logo (site/img/logo.png) assembles piece by piece: building illustration, then wordmark 'ANTESSALA' in navy+green split type, then tagline."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 35mm | Time 00-03 | Notes: static wide, line-art draws in via animated stroke reveal",
+    "Card P02: Lens 35mm | Time 03-06 | Notes: slow push-in, trails animate left-to-right",
+    "Card P03: Lens 50mm | Time 06-10 | Notes: character walk-in from screen-left, settle center, logo assembles behind via soft parallax"
+  ],
+  "footer": "RENDER SPECS: Pixar/DreamWorks-tier 3D character render composited with flat 2D vector line-art elements in the same white void, studio-white global illumination, no hard shadows, no camera grain. COLOR LOCK: navy #081436, olive green #466A28, gold #EBC723, white #FFFFFF only. CHARACTER REFERENCE: must exactly match Assets/antunes-rindo-640.png (face, hairline, suit, tie). LOGO REFERENCE: must exactly match site/img/logo.png typography and building illustration. CONTINUITY NOTE: Antunes' final pose in P03 (center-frame, facing camera, big smile, weight on both feet) is the start pose for Bloco 02."
+}
+
+================================================================================
+BLOCO 02 — [00:10–00:20] — O PROBLEMA
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+Antunes continua no centro, agora conversando com mais intensidade. Ao redor
+dele, pequenos ícones de traço fino (documentos, uma lupa, sites diferentes
+representados como janelas simples) aparecem espalhados e desconectados,
+flutuando longe uns dos outros — visualizando a dispersão dos dados. No fim
+do bloco, uma trilha dourada começa a costurar esses ícones entre si.
+
+FALA (quem fala):
+ANTUNES (em câmera, gesticulando com as mãos):
+"Todo mês, milhares de reuniões entre autoridades e o setor privado ficam
+espalhadas em sites diferentes. Ninguém cruzava esses dados. Agora, alguém
+cruzou."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 02: O PROBLEMA — DADOS ESPALHADOS",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: EXPLANATORY, SLIGHTLY URGENT | PACING: STEADY",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 02: \\"Todo mês, milhares de reuniões entre autoridades e o setor privado ficam espalhadas em sites diferentes. Ninguém cruzava esses dados. Agora, alguém cruzou.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "00:10-00:13", "title": "SCATTERED ICONS APPEAR", "desc": "ANTUNES center-frame (same pose continuity from Bloco 01 end), gesturing outward with both hands. Around him, thin black line-art icons — a document page, a magnifying glass, three simple browser-window shapes — appear scattered far apart across the white void, disconnected, no color trails linking them."},
+    {"id": "P02", "time": "00:13-00:17", "title": "THE DISCONNECT", "desc": "Camera drifts slightly wider. The scattered icons remain isolated; ANTUNES shakes his head slightly with a knowing, concerned-but-warm expression, one eyebrow raised."},
+    {"id": "P03", "time": "00:17-00:20", "title": "THE THREAD BEGINS", "desc": "A single gold dashed trail line (#EBC723) begins animating, stitching between the scattered icons one by one, small solid dots landing on each icon as the line passes. ANTUNES points at the connecting line with a satisfied smile."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 35mm | Time 10-13 | Notes: icons pop in with soft scale-up animation, staggered timing",
+    "Card P02: Lens 40mm | Time 13-17 | Notes: slow dolly-out, subtle head-tilt on character",
+    "Card P03: Lens 35mm | Time 17-20 | Notes: line-draw animation left to right, ending on a held frame"
+  ],
+  "footer": "RENDER SPECS: same as Bloco 01 — Pixar-tier 3D character + flat 2D line-art icons in white void. COLOR LOCK: navy, olive green, gold, white only; icons in thin black outline only (no fill) until the gold trail connects them. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: Antunes stays center-frame throughout; his gesture at end of P03 (pointing at the completed thread) leads into Bloco 03's reveal."
+}
+
+================================================================================
+BLOCO 03 — [00:20–00:30] — O QUE É A ANTESSALA 🔶 (wordmark aparece)
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+As trilhas conectadas do bloco anterior se organizam e formam, ao fundo, o
+desenho do Palácio do Planalto novamente — dessa vez de forma mais "montada",
+como se os dados tivessem virado o prédio. O wordmark "ANTESSALA" aparece
+suavemente no canto superior. Antunes fala olhando para os dados que se
+organizam ao seu redor.
+
+FALA (quem fala):
+ANTUNES (em câmera, com uma mão apontando para trás, para o prédio se
+formando):
+"Desde janeiro de 2023, cruzamos a agenda de autoridades federais com
+contratos, sanções e o cadastro de servidores. Tudo em fonte oficial, tudo
+verificável."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + site/img/wordmark.png +
+Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 03: O QUE É A ANTESSALA",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: REVEALING, CONFIDENT, INSTITUTIONAL | PACING: STEADY BUILD",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 03: \\"Desde janeiro de 2023, cruzamos a agenda de autoridades federais com contratos, sanções e o cadastro de servidores. Tudo em fonte oficial, tudo verificável.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "00:20-00:23", "title": "DATA BECOMES BUILDING", "desc": "The connected icons and gold trail from Bloco 02 morph and reassemble behind ANTUNES into the thin single-line architectural illustration of the Palácio do Planalto, exactly as in site/img/logo.png. ANTUNES gestures backward toward it with one hand, still facing camera."},
+    {"id": "P02", "time": "00:23-00:26", "title": "WORDMARK APPEARS", "desc": "The 'ANTESSALA' wordmark (navy + green split typography, matching site/img/wordmark.png exactly) fades in softly in the upper portion of the frame, small and unobtrusive, not covering the character."},
+    {"id": "P03", "time": "00:26-00:30", "title": "TRUST SIGNAL", "desc": "Close-up push-in on ANTUNES' face, calm and assured expression, slight nod, as small icon glyphs (a document with a checkmark, a small padlock-free open-data symbol) appear briefly floating near his shoulder in thin black line-art, reinforcing 'official source, verifiable'."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 40mm | Time 20-23 | Notes: background morph animation, character static gesture",
+    "Card P02: Lens 40mm | Time 23-26 | Notes: wordmark fade-in, no camera movement",
+    "Card P03: Lens 65mm | Time 26-30 | Notes: slow push-in on face, subtle icon pop-ins near shoulder"
+  ],
+  "footer": "RENDER SPECS: same style lock as previous blocos. WORDMARK REFERENCE: must exactly match site/img/wordmark.png color split (navy left portion 'ANTES', green right portion 'SALA') and condensed bold sans-serif letterforms. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: building illustration stays visible faintly in background for Bloco 04."
+}
+
+================================================================================
+BLOCO 04 — [00:30–00:40] — AS FONTES DE DADOS
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+Cinco pequenos selos/ícones de traço fino, cada um com um nome curto embaixo
+(e-Agendas, Portal da Transparência, Diário Oficial, Painel de Compras),
+aparecem em sequência ao redor do Antunes, como se fossem carimbos oficiais
+flutuando. Ele conta nos dedos enquanto fala.
+
+FALA (quem fala):
+ANTUNES (em câmera, contando nos dedos):
+"Usamos cinco bases públicas: e-Agendas da CGU, Portal da Transparência,
+Diário Oficial e o Painel de Compras do governo federal."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 04: AS CINCO FONTES OFICIAIS",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: INFORMATIVE, LIGHT, LIST-STYLE | PACING: QUICK COUNTING RHYTHM",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 04: \\"Usamos cinco bases públicas: e-Agendas da CGU, Portal da Transparência, Diário Oficial e o Painel de Compras do governo federal.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "00:30-00:33", "title": "FIRST SEALS APPEAR", "desc": "ANTUNES center-frame, holding up two fingers, counting. Two thin-line circular seal/stamp icons float in near his raised hand, each with small caption text below in Work Sans style: 'e-AGENDAS' and 'PORTAL DA TRANSPARÊNCIA'."},
+    {"id": "P02", "time": "00:33-00:37", "title": "MORE SEALS JOIN", "desc": "ANTUNES raises a third and fourth finger. Two more thin-line seal icons appear, arranged in a loose arc around his head, captioned 'DIÁRIO OFICIAL' and 'PAINEL DE COMPRAS (PNCP)'."},
+    {"id": "P03", "time": "00:37-00:40", "title": "THE FULL ARC", "desc": "Wide framing showing all seal icons now arranged in a gentle arc behind ANTUNES like a halo of official stamps, connected to each other by faint gold dotted lines. He smiles, arms slightly open in a 'that's it' gesture."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 40mm | Time 30-33 | Notes: icons pop in synced to finger-count gesture",
+    "Card P02: Lens 40mm | Time 33-37 | Notes: continue staggered icon pop-in, slight orbit motion",
+    "Card P03: Lens 30mm | Time 37-40 | Notes: wide reveal, all icons visible, slow settle"
+  ],
+  "footer": "RENDER SPECS: seal icons are thin black line-art circles with a simple pictogram inside (a calendar page, a magnifying glass over a document, an open newspaper, a shopping-cart-like public-procurement glyph) — no photographic logos, no real government seals, purely abstract line-art matching the site's illustration style. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: the five seal icons remain faintly visible, receding to the background, for Bloco 05."
+}
+
+================================================================================
+BLOCO 05 — [00:40–00:50] — OS NÚMEROS DO PROJETO
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+Painel de dados estilo "infográfico" surge ao lado do Antunes: grandes números
+em tipografia mono (estilo IBM Plex Mono, como no site) sobem em contagem
+rápida (count-up) enquanto ele narra. Antunes fica de lado, meio corpo,
+gesticulando para o painel como um apresentador de telejornal de dados.
+
+FALA (quem fala):
+ANTUNES (em câmera, de lado, apontando para o painel):
+"São 821 mil compromissos, 227 órgãos federais, quase 9 mil autoridades e 48
+mil pessoas do setor privado. Tudo em um só lugar."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 05: OS NÚMEROS EM TELA",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: DATA-DRIVEN, IMPRESSIVE, CRISP | PACING: FAST COUNT-UP RHYTHM",
+    "audio": "ÁUDIO (ANTUNES, VOZ EM OFF SOBRE O PAINEL DE DADOS) 05: \\"São 821 mil compromissos, 227 órgãos federais, quase 9 mil autoridades e 48 mil pessoas do setor privado. Tudo em um só lugar.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "00:40-00:43", "title": "PANEL SLIDES IN", "desc": "ANTUNES steps to screen-left, three-quarter body view, gesturing right with open palm toward empty space. A thin-bordered rectangular data card slides in from the right, currently empty, matching the site's card component style (thin gray border, white fill)."},
+    {"id": "P02", "time": "00:43-00:47", "title": "NUMBERS COUNT UP", "desc": "Inside the card, four rows appear with bold monospace numerals rapidly counting up: '821.844 COMPROMISSOS', '227 ÓRGÃOS', '8.942 AUTORIDADES', '48.293 PESSOAS DO SETOR PRIVADO' — each label in small caps Work Sans below the number, numbers in navy #081436."},
+    {"id": "P03", "time": "00:47-00:50", "title": "HELD REVEAL", "desc": "All four numbers now static and fully counted, card fully visible beside ANTUNES who smiles proudly at camera, one hand still gesturing toward the panel."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 35mm | Time 40-43 | Notes: card slide-in from right, character side-step",
+    "Card P02: Lens 35mm | Time 43-47 | Notes: numeral count-up animation, staggered row reveal",
+    "Card P03: Lens 40mm | Time 47-50 | Notes: static hold, camera settles"
+  ],
+  "footer": "RENDER SPECS: data card typography must use a monospace font matching IBM Plex Mono (site's --f-dados token), numerals in navy #081436, labels in muted gray-navy, card border thin light gray (#E3E7EC) matching site/style.css --rule token. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: data card fades out softly at the very start of Bloco 06."
+}
+
+================================================================================
+BLOCO 06 — [00:50–01:00] — O CONCEITO DE TRILHAS
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+O painel de números se transforma em quatro caminhos/trilhas coloridas
+diferentes que saem do Antunes em direções distintas pela tela branca — cada
+uma com uma cor e um pequeno rótulo "T-01", "T-02", "T-03", "T-04" — sem
+ainda revelar o que cada uma significa. Antunes caminha um passo à frente,
+como quem convida o espectador a seguir por um desses caminhos.
+
+FALA (quem fala):
+ANTUNES (em câmera, andando um passo à frente, sério mas acolhedor):
+"Organizamos tudo em trilhas de auditoria: perguntas específicas que qualquer
+pessoa pode conferir, com prova na fonte primária. Nada aqui é acusação."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 06: O CONCEITO DE TRILHA DE AUDITORIA",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: SERIOUS BUT INVITING, PIVOTAL | PACING: DELIBERATE",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 06: \\"Organizamos tudo em trilhas de auditoria: perguntas específicas que qualquer pessoa pode conferir, com prova na fonte primária. Nada aqui é acusação.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "00:50-00:53", "title": "PANEL DISSOLVES INTO PATHS", "desc": "The data card from Bloco 05 dissolves into four separate dashed trail lines (navy, olive green, gold, and a fourth in a slightly muted teal-gray tone for visual distinction) that radiate outward from behind ANTUNES in different directions across the white void."},
+    {"id": "P02", "time": "00:53-00:56", "title": "LABELS APPEAR", "desc": "Small thin-line tag labels appear at the start of each trail: 'T-01', 'T-02', 'T-03', 'T-04' in small caps monospace, no further explanation yet — like unopened folders."},
+    {"id": "P03", "time": "00:56-01:00", "title": "ANTUNES STEPS FORWARD", "desc": "ANTUNES takes one confident step toward camera (slight push-in), expression turning warm-but-serious, one hand gesturing as if inviting the viewer to follow along one of the paths."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 35mm | Time 50-53 | Notes: dissolve/morph transition, radiating line-draw animation",
+    "Card P02: Lens 35mm | Time 53-56 | Notes: label pop-ins, staggered",
+    "Card P03: Lens 50mm | Time 56-60 | Notes: subtle dolly-in with character step, tone shift in lighting (slightly warmer key light on face)"
+  ],
+  "footer": "RENDER SPECS: trail colors strictly navy #081436, olive green #466A28, gold #EBC723, and one additional muted slate tone #6E7788 (site's --muted token) for the fourth trail — no other colors introduced. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: the four trails and labels remain on screen, camera will follow the navy trail first (T-01) into Bloco 07."
+}
+
+================================================================================
+BLOCO 07 — [01:00–01:10] — TRILHA 1: PORTA GIRATÓRIA
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+A câmera segue a trilha azul-marinho (T-01). Uma pequena animação de traço
+fino mostra uma silhueta saindo de um prédio de governo (o Planalto
+simplificado), caminhando, e depois voltando a entrar no mesmo prédio pela
+outra porta — ilustrando a "porta giratória". Antunes narra ao lado da
+animação, como quem comenta um desenho num quadro-branco.
+
+FALA (quem fala):
+ANTUNES (em câmera, ao lado da animação, apontando para ela):
+"A primeira trilha é a porta giratória: quem saiu do governo e, pouco depois,
+voltou representando uma empresa no mesmo órgão onde trabalhava."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 07: TRILHA T-01 — PORTA GIRATÓRIA",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: EXPLANATORY, LIGHT NARRATIVE ANIMATION | PACING: STEADY",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 07: \\"A primeira trilha é a porta giratória: quem saiu do governo e, pouco depois, voltou representando uma empresa no mesmo órgão onde trabalhava.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "01:00-01:03", "title": "FIGURE EXITS", "desc": "Camera follows the navy dashed trail to a small thin-line illustration of a simplified government building with a door. A tiny walking silhouette figure exits through the door, label 'T-01' visible nearby in small caps. ANTUNES stands beside the mini-scene, pointing at it."},
+    {"id": "P02", "time": "01:03-01:06", "title": "A SHORT WALK", "desc": "The silhouette walks a short dashed navy path away from the building, a small briefcase icon appears in its hand, symbolizing joining private representation."},
+    {"id": "P03", "time": "01:06-01:10", "title": "THE RETURN", "desc": "The same silhouette turns and walks back, re-entering the SAME building through a different door on the other side, illustrating the 'revolving door'. ANTUNES nods, serious expression, gesturing at the loop the path makes."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 50mm | Time 100-103 | Notes: static two-shot, character + mini diagram",
+    "Card P02: Lens 50mm | Time 103-106 | Notes: silhouette walk-cycle animation along path",
+    "Card P03: Lens 50mm | Time 106-110 | Notes: return walk-cycle, loop completes, brief hold"
+  ],
+  "footer": "RENDER SPECS: the mini building/silhouette diagram is thin black line-art only, no color fill, sitting on a small invisible 'stage' area beside ANTUNES within the white void — same illustration style as site/img/logo.png's walking figure. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: the T-01 diagram fades out as the green trail (T-02) becomes highlighted for Bloco 08."
+}
+
+================================================================================
+BLOCO 08 — [01:10–01:20] — TRILHA 2: CONTRATO SEM DISPUTA
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+A trilha verde-oliva (T-02) se destaca. Uma pequena animação mostra dois
+ícones simples — um "aperto de mão" de traço fino (reunião) e, logo depois,
+um ícone de documento com um carimbo (contrato) — aparecendo em sequência
+rápida e próxima no tempo, com um pequeno relógio/calendário entre os dois
+para reforçar "logo depois".
+
+FALA (quem fala):
+ANTUNES (em câmera, alternando o olhar entre os dois ícones):
+"A segunda mostra contratos por dispensa ou inexigibilidade, assinados logo
+depois de uma reunião entre a empresa e o órgão contratante."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 08: TRILHA T-02 — REUNIÃO E CONTRATO DIRETO",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: EXPLANATORY, CAUSE-AND-EFFECT RHYTHM | PACING: QUICK",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 08: \\"A segunda mostra contratos por dispensa ou inexigibilidade, assinados logo depois de uma reunião entre a empresa e o órgão contratante.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "01:10-01:13", "title": "THE MEETING ICON", "desc": "The olive-green trail highlights and brightens. A thin-line handshake icon appears floating beside ANTUNES, label 'T-02' nearby. He gestures toward it with an open palm."},
+    {"id": "P02", "time": "01:13-01:16", "title": "THE CLOCK TICKS", "desc": "A small thin-line clock/calendar icon appears between the handshake and empty space to its right, with a subtle fast-forward visual cue (a few small arc arrows) suggesting short elapsed time."},
+    {"id": "P03", "time": "01:16-01:20", "title": "THE CONTRACT STAMP", "desc": "A thin-line document icon with a stamp mark appears to the right, completing the sequence: handshake → clock → stamped document, connected by the green dashed line. ANTUNES looks at the full sequence with a raised eyebrow, slightly concerned expression."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 50mm | Time 110-113 | Notes: icon pop-in, character gesture",
+    "Card P02: Lens 50mm | Time 113-116 | Notes: clock icon with arc-arrow animation",
+    "Card P03: Lens 50mm | Time 116-120 | Notes: final icon pop-in, full row visible, brief hold on character's expression"
+  ],
+  "footer": "RENDER SPECS: three icons (handshake, clock, stamped document) in thin black line-art, connected by the olive-green dashed trail with small solid dots at each icon, matching the visual language of site/img/logo.png. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: the three-icon sequence recedes softly as the gold trail (T-03) highlights for Bloco 09."
+}
+
+================================================================================
+BLOCO 09 — [01:20–01:30] — TRILHA 3: EMPRESA SANCIONADA
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+A trilha dourada (T-03) se destaca. Um ícone de traço fino com um "X" ou selo
+de proibição (representando a sanção) aparece ao lado de um pequeno prédio de
+governo — o mesmo prédio que aplicou a sanção — e uma linha tracejada volta a
+conectar os dois, com o ícone de aperto de mão reaparecendo entre eles,
+indicando que a reunião aconteceu MESMO com a sanção ativa.
+
+FALA (quem fala):
+ANTUNES (em câmera, com expressão mais séria, quase de alerta):
+"A terceira sinaliza empresas sancionadas que se reuniram com o próprio órgão
+que aplicou a punição, enquanto a sanção ainda valia."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 09: TRILHA T-03 — EMPRESA SANCIONADA NA ANTESSALA",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: MORE SERIOUS, CAUTIONARY | PACING: STEADY, SLIGHT WEIGHT",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 09: \\"A terceira sinaliza empresas sancionadas que se reuniram com o próprio órgão que aplicou a punição, enquanto a sanção ainda valia.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "01:20-01:23", "title": "THE SANCTION MARK", "desc": "The gold trail highlights. A thin-line circular icon with a diagonal bar (prohibition/sanction symbol, orange #F15A2A accent only on this one glyph as an alert color) appears floating, label 'T-03' nearby. ANTUNES's expression turns a touch more serious, brow slightly furrowed but still composed."},
+    {"id": "P02", "time": "01:23-01:26", "title": "THE SAME BUILDING", "desc": "A small thin-line government building icon (the same simplified Planalto silhouette used in Bloco 07) appears connected to the sanction mark by a gold dashed line, indicating this is the sanctioning body."},
+    {"id": "P03", "time": "01:26-01:30", "title": "THE MEETING HAPPENS ANYWAY", "desc": "A handshake icon reappears, positioned between the sanction mark and the building, with the orange alert accent pulsing subtly once, showing the meeting occurred despite the active sanction. ANTUNES gestures with a flat, cautionary hand motion."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 50mm | Time 120-123 | Notes: sanction icon pop-in, single orange accent flash",
+    "Card P02: Lens 50mm | Time 123-126 | Notes: building icon connects via line-draw",
+    "Card P03: Lens 50mm | Time 126-130 | Notes: handshake icon settles between the two, one subtle pulse animation on the connecting line"
+  ],
+  "footer": "RENDER SPECS: this is the ONLY panel sequence in the whole video permitted to use the orange alert color (#F15A2A), and only as a single small accent on the sanction glyph — never as a dominant color, never on the character or background. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: icons recede, muted-slate trail (T-04) highlights for Bloco 10."
+}
+
+================================================================================
+BLOCO 10 — [01:30–01:40] — TRILHA 4: "SEM VÍNCULO", MAS...
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+A quarta trilha (tom cinza-azulado) se destaca. Uma pequena cena mostra duas
+silhuetas de traço fino sentadas lado a lado numa "mesa" simplificada; uma
+delas tem um balão de fala com um traço (representando "Interesse Próprio"),
+e a outra tem um pequeno ícone de prédio/empresa sobre a cabeça — mostrando
+que, apesar de uma se declarar sem vínculo, a outra na mesma sala representa
+uma organização.
+
+FALA (quem fala):
+ANTUNES (em câmera, com uma expressão de "olha só que interessante"):
+"A quarta mostra quem se declarou 'sem vínculo' numa reunião, mas representava
+uma organização sentada ao lado, na mesma sala."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 10: TRILHA T-04 — INTERESSE PRÓPRIO NA SALA",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: CURIOUS, ATTENTIVE | PACING: STEADY",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 10: \\"A quarta mostra quem se declarou 'sem vínculo' numa reunião, mas representava uma organização sentada ao lado, na mesma sala.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "01:30-01:33", "title": "TWO SEATS, ONE TABLE", "desc": "The muted slate-gray trail (#6E7788) highlights, label 'T-04' nearby. A simple thin-line illustration of a small table with two simplified seated silhouette figures appears beside ANTUNES."},
+    {"id": "P02", "time": "01:33-01:36", "title": "'SEM VÍNCULO'", "desc": "A small speech-bubble icon with a single dash/line inside (representing 'declared no affiliation') appears above the first seated silhouette."},
+    {"id": "P03", "time": "01:36-01:40", "title": "THE ORGANIZATION BESIDE THEM", "desc": "A tiny building/briefcase icon appears above the second seated silhouette, connected by a short thin dotted line to the first figure, showing proximity in the same meeting. ANTUNES raises an eyebrow with a subtle knowing smile, one finger tapping the air near the diagram."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 50mm | Time 130-133 | Notes: mini diagram pop-in beside character",
+    "Card P02: Lens 55mm | Time 133-136 | Notes: speech-bubble icon pop-in above first figure",
+    "Card P03: Lens 55mm | Time 136-140 | Notes: second icon pop-in, connecting dotted line draws, character reaction beat"
+  ],
+  "footer": "RENDER SPECS: seated silhouettes and table are thin black line-art only, no facial features, purely iconographic — consistent with the walking-figure style in site/img/logo.png. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: all four trail diagrams (T-01 to T-04) briefly flash together in miniature at the very end of P03, setting up Bloco 11's theme of methodological rigor."
+}
+
+================================================================================
+BLOCO 11 — [01:40–01:50] — RIGOR: O QUE FOI DESCONTINUADO
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+Duas outras trilhas (representadas por duas linhas tracejadas mais claras/
+apagadas) aparecem por um instante e depois se desfazem, como um traço sendo
+apagado por uma borracha invisível — simbolizando as duas trilhas que foram
+testadas e descontinuadas. Antunes fica com uma postura mais séria e honesta,
+como quem admite um erro com transparência.
+
+FALA (quem fala):
+ANTUNES (em câmera, tom mais sóbrio e honesto):
+"Testamos outras duas trilhas e descontinuamos as duas: os números não se
+sustentaram. Preferimos publicar menos e mostrar a prova de cada decisão."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 11: RIGOR METODOLÓGICO — O QUE FOI DESCARTADO",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: HONEST, SOBER, TRUST-BUILDING | PACING: SLOWER, MORE WEIGHT",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 11: \\"Testamos outras duas trilhas e descontinuamos as duas: os números não se sustentaram. Preferimos publicar menos e mostrar a prova de cada decisão.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "01:40-01:43", "title": "TWO FAINT TRAILS", "desc": "Two additional faint, lighter-gray dashed trail lines (labeled 'T-06' and 'T-08' in small caps) appear briefly beside ANTUNES, drawn thinner and paler than the four main colored trails. His expression shifts to more serious, composed, honest."},
+    {"id": "P02", "time": "01:43-01:46", "title": "THE ERASE", "desc": "An invisible-eraser effect animates across the two faint trails, causing them to dissolve into small particle/dust motes that drift and fade upward, like chalk being wiped from a board."},
+    {"id": "P03", "time": "01:46-01:50", "title": "TRANSPARENCY GESTURE", "desc": "ANTUNES places one open hand flat over his chest in a sincere, transparent gesture, looking directly at camera. Behind him, only the four original colored trails (navy, green, gold, slate-gray) remain, clean and steady."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 50mm | Time 140-143 | Notes: faint trail pop-in, subdued color grade shift (slightly cooler/desaturated)",
+    "Card P02: Lens 50mm | Time 143-146 | Notes: particle-dissolve erase animation",
+    "Card P03: Lens 55mm | Time 146-150 | Notes: slow push-in on character's sincere gesture, warm key light returns"
+  ],
+  "footer": "RENDER SPECS: the two discontinued trails must look visually distinct from the four active ones — thinner stroke weight, lower opacity, cooler gray tone — to communicate 'removed' without needing text. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: lighting warms back up at the end of P03, transitioning into Bloco 12's reassuring tone."
+}
+
+================================================================================
+BLOCO 12 — [01:50–02:00] — INDÍCIO NÃO É PROVA
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+Um pequeno cartão de "evidência" aparece flutuando: um ícone de planilha/CSV e
+um ícone de link, lado a lado, com uma pequena seta apontando para fora da
+tela (como se levasse o espectador à fonte). Antunes segura as mãos como quem
+faz um convite sincero.
+
+FALA (quem fala):
+ANTUNES (em câmera, tom claro e didático):
+"Todo caso vem com CSV pra baixar e link pra fonte oficial. Indício não é
+prova: cada linha é um convite pra você conferir."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 12: 'INDÍCIO NÃO É PROVA'",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: CLEAR, DIDACTIC, REASSURING | PACING: STEADY",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 12: \\"Todo caso vem com CSV pra baixar e link pra fonte oficial. Indício não é prova: cada linha é um convite pra você conferir.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "01:50-01:53", "title": "THE EVIDENCE CARD", "desc": "A small thin-bordered card appears floating beside ANTUNES, showing a simple spreadsheet/CSV grid icon in thin black line-art."},
+    {"id": "P02", "time": "01:53-01:56", "title": "THE LINK ICON", "desc": "Beside the CSV icon, a small chain-link icon appears, with a thin dashed arrow pointing off the right edge of the frame, symbolizing 'goes to the official source'."},
+    {"id": "P03", "time": "01:56-02:00", "title": "THE INVITATION", "desc": "ANTUNES brings both open palms together in front of his chest, warm and sincere expression, looking straight at camera as if extending an invitation to the viewer."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 50mm | Time 150-153 | Notes: CSV icon pop-in",
+    "Card P02: Lens 50mm | Time 153-156 | Notes: link icon and arrow pop-in, arrow animates once toward frame edge",
+    "Card P03: Lens 55mm | Time 156-160 | Notes: character gesture close-up, calm hold"
+  ],
+  "footer": "RENDER SPECS: CSV and link icons in thin black line-art, no color fill, consistent stroke weight with all prior icon panels. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: transition into Bloco 13 begins a shift toward showing the actual site interface elements (still stylized, not literal screenshots)."
+}
+
+================================================================================
+BLOCO 13 — [02:00–02:10] — DEMONSTRAÇÃO: BUSCA
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+Uma barra de busca estilizada (traço fino, como um campo de texto simples)
+aparece flutuando. Um cursor de texto digita um nome qualquer de forma
+estilizada (sem mostrar nome real de pessoa) e, em seguida, uma pequena ficha
+de resultado se abre ao lado, com barras/gráficos simplificados representando
+um perfil. Antunes fica pequeno num canto, narrando em voz off enquanto a
+demonstração acontece em destaque.
+
+FALA (quem fala):
+ANTUNES (voz em off, câmera focada na demonstração da busca):
+"Dá pra buscar qualquer autoridade, empresa ou visitante pelo nome, e ver em
+segundos toda a agenda e o histórico da pessoa."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 13: DEMONSTRAÇÃO — BUSCA",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: DEMO-FOCUSED, EFFICIENT | PACING: BRISK, UI-LIKE",
+    "audio": "ÁUDIO (ANTUNES, VOZ EM OFF) 13: \\"Dá pra buscar qualquer autoridade, empresa ou visitante pelo nome, e ver em segundos toda a agenda e o histórico da pessoa.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "02:00-02:03", "title": "SEARCH BAR APPEARS", "desc": "A stylized thin-bordered search input field (rounded rectangle, matching site's search box style) floats center-frame, large. ANTUNES appears small in the lower-left corner, seated on the edge of the frame, watching with interest."},
+    {"id": "P02", "time": "02:03-02:06", "title": "TYPING ANIMATION", "desc": "A blinking text cursor types a generic placeholder query (styled dots/characters, no real name shown) into the search field; a small magnifying-glass icon pulses once."},
+    {"id": "P03", "time": "02:06-02:10", "title": "RESULT CARD OPENS", "desc": "A result card slides open below the search bar, showing simplified abstract bar-chart shapes and a small profile-card silhouette icon, in the site's thin-border card style. ANTUNES gives a small thumbs-up from the corner."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 40mm | Time 200-203 | Notes: search bar scale-up entrance, character small in corner",
+    "Card P02: Lens 40mm | Time 203-206 | Notes: typing/cursor blink animation",
+    "Card P03: Lens 40mm | Time 206-210 | Notes: card slide-down reveal, character reaction in corner"
+  ],
+  "footer": "RENDER SPECS: search field and result card use the exact thin light-gray border style (#E3E7EC) and white fill from site/style.css, NOT a literal screenshot — stylized abstraction only, no real names or real data displayed. CHARACTER REFERENCE: Assets/antunes-rindo-640.png (small scale, corner placement this block). CONTINUITY NOTE: result card remains faintly visible, morphing into a network graph for Bloco 14."
+}
+
+================================================================================
+BLOCO 14 — [02:10–02:20] — DEMONSTRAÇÃO: MAPA DE REDE
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+A ficha de resultado se transforma numa visualização de rede: pequenos
+círculos conectados por linhas finas coloridas (navy, verde, dourado),
+lembrando um grafo de relacionamento, se organizando suavemente na tela.
+Antunes volta ao centro, olhando para a rede se formando com admiração.
+
+FALA (quem fala):
+ANTUNES (voz em off, com a rede em destaque):
+"Tem mapa de rede também: quem se conecta com quem, por tema, por órgão, por
+período. A influência vira desenho na tela."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 14: DEMONSTRAÇÃO — MAPA DE REDE",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: IMPRESSIVE, ALMOST MAGICAL DATA-VIZ MOMENT | PACING: FLOWING",
+    "audio": "ÁUDIO (ANTUNES, VOZ EM OFF) 14: \\"Tem mapa de rede também: quem se conecta com quem, por tema, por órgão, por período. A influência vira desenho na tela.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "02:10-02:13", "title": "CARD MORPHS INTO NODES", "desc": "The previous result card dissolves into small scattered circular nodes (dots) in navy, green, and gold, floating loosely across the white void, not yet connected."},
+    {"id": "P02", "time": "02:13-02:16", "title": "LINES CONNECT", "desc": "Thin colored lines animate rapidly between the nodes, self-organizing into a clean network-graph shape (like a constellation), similar in spirit to a force-directed graph."},
+    {"id": "P03", "time": "02:16-02:20", "title": "ANTUNES ADMIRES THE NETWORK", "desc": "ANTUNES returns to a medium center-frame position, looking up and slightly off-camera at the network graph (composited large beside/above him), an impressed, warm smile on his face."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 40mm | Time 210-213 | Notes: dissolve-to-particles transition",
+    "Card P02: Lens 40mm | Time 213-216 | Notes: force-directed graph self-organize animation, fast",
+    "Card P03: Lens 50mm | Time 216-220 | Notes: character re-enters frame, eye-line to graph, admiring hold"
+  ],
+  "footer": "RENDER SPECS: network graph nodes and lines strictly in navy/green/gold palette, thin line weight matching the trail style used throughout the video — no photographic or realistic rendering, pure vector-style graph. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: network graph shrinks and settles into the background as Bloco 15 begins."
+}
+
+================================================================================
+BLOCO 15 — [02:20–02:30] — ATUALIZAÇÃO AUTOMÁTICA
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+Um pequeno ícone de engrenagem/calendário gira suavemente ao lado do Antunes,
+com uma seta circular (loop) ao redor, simbolizando o processo automático
+mensal. Pequenos ícones das cinco fontes de dados (do Bloco 04) piscam
+brevemente sendo "puxados" para dentro da engrenagem.
+
+FALA (quem fala):
+ANTUNES (em câmera, com um gesto tranquilo de "isso roda sozinho"):
+"O pipeline é público e roda sozinho todo mês, buscando os dados mais
+recentes direto nas fontes oficiais do governo federal."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 15: ATUALIZAÇÃO MENSAL AUTOMÁTICA",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: CALM, RELIABLE, REASSURING | PACING: STEADY, MECHANICAL RHYTHM",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 15: \\"O pipeline é público e roda sozinho todo mês, buscando os dados mais recentes direto nas fontes oficiais do governo federal.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "02:20-02:23", "title": "THE GEAR APPEARS", "desc": "A thin-line gear/cog icon combined with a small calendar page appears floating beside ANTUNES, with a circular looping arrow around it, slowly rotating."},
+    {"id": "P02", "time": "02:23-02:26", "title": "SOURCES FEED IN", "desc": "The five small seal icons from Bloco 04 flash briefly in miniature and animate being pulled inward toward the rotating gear, like data flowing into a process."},
+    {"id": "P03", "time": "02:26-02:30", "title": "CALM CONFIDENCE", "desc": "ANTUNES makes a relaxed, open-handed gesture toward the gear, as if to say 'it just works', calm reassuring smile, slight nod."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 50mm | Time 220-223 | Notes: gear icon pop-in with continuous slow rotation loop",
+    "Card P02: Lens 50mm | Time 223-226 | Notes: five mini-icons animate inward toward gear",
+    "Card P03: Lens 55mm | Time 226-230 | Notes: character gesture, calm hold, gear keeps rotating softly in background"
+  ],
+  "footer": "RENDER SPECS: gear/calendar icon in thin black line-art, rotation animation smooth and slow (not urgent), consistent with the calm reassuring tone. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: gear icon fades out at the start of Bloco 16."
+}
+
+================================================================================
+BLOCO 16 — [02:30–02:40] — PARA QUEM SERVE
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+Quatro pequenas silhuetas de traço fino aparecem em arco ao redor do Antunes,
+cada uma com um ícone simples associado: uma caneta/bloco de notas
+(jornalista), uma lupa sobre um gráfico (pesquisador), um selo/escudo simples
+(órgão de controle) e uma pessoa comum genérica (cidadão). Antunes abre os
+braços, incluindo todas no gesto.
+
+FALA (quem fala):
+ANTUNES (em câmera, com os braços abertos, tom inclusivo):
+"Serve pro jornalista, pro pesquisador, pro órgão de controle e pra qualquer
+cidadão que quiser saber quem está na antessala do poder."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 16: PARA QUEM SERVE A ANTESSALA",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: INCLUSIVE, WARM, COMMUNITY-FOCUSED | PACING: STEADY BUILD",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 16: \\"Serve pro jornalista, pro pesquisador, pro órgão de controle e pra qualquer cidadão que quiser saber quem está na antessala do poder.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "02:30-02:33", "title": "FIRST TWO SILHOUETTES", "desc": "Two simplified thin-line silhouette figures appear in a loose arc to ANTUNES' left, one holding a small notepad/pen icon (journalist), one with a magnifying glass over a small bar-chart icon (researcher)."},
+    {"id": "P02", "time": "02:33-02:36", "title": "TWO MORE JOIN", "desc": "Two more silhouettes appear to his right: one with a small simple shield/seal icon (oversight body), one plain generic standing figure (citizen), completing the arc around him."},
+    {"id": "P03", "time": "02:36-02:40", "title": "ARMS WIDE OPEN", "desc": "ANTUNES opens both arms wide in an inclusive, welcoming gesture, big warm smile, slowly turning his head to acknowledge the full arc of silhouettes around him."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 40mm | Time 230-233 | Notes: two silhouettes pop-in left side",
+    "Card P02: Lens 40mm | Time 233-236 | Notes: two silhouettes pop-in right side, arc completes",
+    "Card P03: Lens 45mm | Time 236-240 | Notes: character arms-open gesture, slow head turn, wide shot"
+  ],
+  "footer": "RENDER SPECS: all four silhouettes are thin black line-art, faceless, generic, non-identifiable — purely iconographic, no real people depicted. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: silhouettes fade out gently as camera pushes in on ANTUNES for Bloco 17's call to action."
+}
+
+================================================================================
+BLOCO 17 — [02:40–02:50] — CHAMADA PARA AÇÃO 🔶 (wordmark reaparece)
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+As silhuetas se dissipam. Antunes fica sozinho de novo, com o wordmark
+"ANTESSALA" reaparecendo suavemente atrás dele, junto com a URL do site em
+tipografia mono discreta. Ele aponta diretamente para a câmera, num convite
+direto.
+
+FALA (quem fala):
+ANTUNES (em câmera, apontando para a câmera, tom de convite):
+"Entra no site, escolhe uma autoridade ou uma empresa, e vê com os seus
+olhos. Monitorando agenda, rastreando influências."
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + site/img/wordmark.png +
+Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 17: CHAMADA PARA AÇÃO",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: DIRECT, ENERGETIC, INVITING | PACING: BUILDING TO CLOSE",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 17: \\"Entra no site, escolhe uma autoridade ou uma empresa, e vê com os seus olhos. Monitorando agenda, rastreando influências.\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "02:40-02:43", "title": "SILHOUETTES FADE", "desc": "The four silhouettes from Bloco 16 fade out softly, dissolving into small particles. ANTUNES stands alone again, center-frame, medium shot."},
+    {"id": "P02", "time": "02:43-02:46", "title": "WORDMARK RETURNS", "desc": "The 'ANTESSALA' wordmark (matching site/img/wordmark.png) fades in behind ANTUNES, slightly larger than in Bloco 03, with a small monospace caption line beneath it suggesting a website URL placeholder (styled text, not a real clickable element)."},
+    {"id": "P03", "time": "02:46-02:50", "title": "DIRECT POINT TO CAMERA", "desc": "ANTUNES steps slightly forward (push-in), points directly at the camera lens with a confident, friendly grin, eyebrows raised in invitation."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 45mm | Time 240-243 | Notes: particle fade-out on silhouettes",
+    "Card P02: Lens 45mm | Time 243-246 | Notes: wordmark fade-in, static camera",
+    "Card P03: Lens 50mm | Time 246-250 | Notes: slight dolly-in, direct-to-camera point gesture"
+  ],
+  "footer": "RENDER SPECS: wordmark must exactly match site/img/wordmark.png (navy 'ANTES' + green 'SALA', bold condensed sans). CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: pointing gesture and wordmark both remain on screen into the very start of Bloco 18's closing frame."
+}
+
+================================================================================
+BLOCO 18 — [02:50–03:00] — ENCERRAMENTO 🔶 (logo completa final)
+================================================================================
+
+DESCRIÇÃO DA CENA (PT-BR):
+Antunes acena de forma calorosa. A logo completa da Antessala (prédio +
+wordmark + slogan "Monitorando agenda, rastreando influências. Quem circula.
+A gente mostra.") se monta por completo no centro da tela, com Antunes ao
+lado, menor, ainda sorrindo e acenando, até o quadro congelar como uma
+imagem final de encerramento.
+
+FALA (quem fala):
+ANTUNES (em câmera, acenando, tom final e caloroso):
+"Eu sou o Antunes, e isso aqui é a Antessala: quem circula, a gente mostra.
+Até a próxima!"
+
+REFERÊNCIAS A ANEXAR: Assets/antunes-rindo-640.png + site/img/logo.png +
+Assets/fundo_site.jpeg
+
+PROMPT (storyboard poster):
+{
+  "format": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, seamless stark white background, Pocoyo-style flat void, editorial civic-tech layout.",
+  "header": {
+    "title": "BLOCO 18: ENCERRAMENTO — LOGO FINAL",
+    "meta": "TOTAL RUNTIME: 00:10 | PANELS: 3 | TONE: WARM, CONCLUSIVE, MEMORABLE | PACING: SLOWING TO A FREEZE-FRAME",
+    "audio": "ÁUDIO (ANTUNES, EM CÂMERA) 18: \\"Eu sou o Antunes, e isso aqui é a Antessala: quem circula, a gente mostra. Até a próxima!\\""
+  },
+  "grid_layout": "Single row, 3 panels, thin black frame borders.",
+  "panels": [
+    {"id": "P01", "time": "02:50-02:53", "title": "THE WAVE", "desc": "ANTUNES steps back slightly to make room in frame, raises one hand in a warm, friendly wave directly at camera, big genuine smile."},
+    {"id": "P02", "time": "02:53-02:57", "title": "FULL LOGO ASSEMBLES", "desc": "The complete Antessala logo (building illustration + 'ANTESSALA' wordmark + tagline 'MONITORANDO AGENDA, RASTREANDO INFLUÊNCIAS. QUEM CIRCULA. A GENTE MOSTRA.', matching site/img/logo.png exactly) assembles piece by piece in the center of the frame, ANTUNES now positioned smaller, to one side, still waving."},
+    {"id": "P03", "time": "02:57-03:00", "title": "FREEZE-FRAME CLOSE", "desc": "Final held frame: full logo centered and complete, ANTUNES beside it smiling and waving, entire image freezes as the closing card of the video."}
+  ],
+  "technical_data_cards": [
+    "Card P01: Lens 50mm | Time 250-253 | Notes: character step-back, wave gesture begins",
+    "Card P02: Lens 40mm | Time 253-257 | Notes: logo assembly animation, piece-by-piece reveal (building, then wordmark, then tagline)",
+    "Card P03: Lens 40mm | Time 257-260 | Notes: final static hold, freeze-frame for closing card, no further motion"
+  ],
+  "footer": "RENDER SPECS: final logo assembly must exactly reproduce site/img/logo.png — same building illustration, same wordmark color split (navy #081436 / green #466A28), same tagline typography and two-tone (green/gold) treatment. CHARACTER REFERENCE: Assets/antunes-rindo-640.png. CONTINUITY NOTE: this is the final frame of the video — no further blocks follow."
+}
+
+================================================================================
+ROTEIRO CONSOLIDADO — SÓ A FALA (para gravação de voz / teleprompter)
+================================================================================
+
+01 (00:00-00:10): Oi! Eu sou o Antunes. Vim te apresentar a Antessala: um
+site que junta agenda pública, contratos e sanções pra mostrar quem circula
+pelo poder.
+
+02 (00:10-00:20): Todo mês, milhares de reuniões entre autoridades e o
+setor privado ficam espalhadas em sites diferentes. Ninguém cruzava esses
+dados. Agora, alguém cruzou.
+
+03 (00:20-00:30): Desde janeiro de 2023, cruzamos a agenda de autoridades
+federais com contratos, sanções e o cadastro de servidores. Tudo em fonte
+oficial, tudo verificável.
+
+04 (00:30-00:40): Usamos cinco bases públicas: e-Agendas da CGU, Portal da
+Transparência, Diário Oficial e o Painel de Compras do governo federal.
+
+05 (00:40-00:50): São 821 mil compromissos, 227 órgãos federais, quase 9
+mil autoridades e 48 mil pessoas do setor privado. Tudo em um só lugar.
+
+06 (00:50-01:00): Organizamos tudo em trilhas de auditoria: perguntas
+específicas que qualquer pessoa pode conferir, com prova na fonte primária.
+Nada aqui é acusação.
+
+07 (01:00-01:10): A primeira trilha é a porta giratória: quem saiu do
+governo e, pouco depois, voltou representando uma empresa no mesmo órgão
+onde trabalhava.
+
+08 (01:10-01:20): A segunda mostra contratos por dispensa ou
+inexigibilidade, assinados logo depois de uma reunião entre a empresa e o
+órgão contratante.
+
+09 (01:20-01:30): A terceira sinaliza empresas sancionadas que se reuniram
+com o próprio órgão que aplicou a punição, enquanto a sanção ainda valia.
+
+10 (01:30-01:40): A quarta mostra quem se declarou "sem vínculo" numa
+reunião, mas representava uma organização sentada ao lado, na mesma sala.
+
+11 (01:40-01:50): Testamos outras duas trilhas e descontinuamos as duas: os
+números não se sustentaram. Preferimos publicar menos e mostrar a prova de
+cada decisão.
+
+12 (01:50-02:00): Todo caso vem com CSV pra baixar e link pra fonte oficial.
+Indício não é prova: cada linha é um convite pra você conferir.
+
+13 (02:00-02:10): Dá pra buscar qualquer autoridade, empresa ou visitante
+pelo nome, e ver em segundos toda a agenda e o histórico da pessoa.
+
+14 (02:10-02:20): Tem mapa de rede também: quem se conecta com quem, por
+tema, por órgão, por período. A influência vira desenho na tela.
+
+15 (02:20-02:30): O pipeline é público e roda sozinho todo mês, buscando os
+dados mais recentes direto nas fontes oficiais do governo federal.
+
+16 (02:30-02:40): Serve pro jornalista, pro pesquisador, pro órgão de
+controle e pra qualquer cidadão que quiser saber quem está na antessala do
+poder.
+
+17 (02:40-02:50): Entra no site, escolhe uma autoridade ou uma empresa, e
+vê com os seus olhos. Monitorando agenda, rastreando influências.
+
+18 (02:50-03:00): Eu sou o Antunes, e isso aqui é a Antessala: quem
+circula, a gente mostra. Até a próxima!
+
+--------------------------------------------------------------------------------
+Contagem aproximada: ~388 palavras em 180 segundos (~2,2 palavras/segundo) —
+ritmo de fala claro e pausado, com folga para respiração e para os cortes de
+câmera descritos em cada bloco.
+================================================================================
+FIM DO ROTEIRO
+================================================================================

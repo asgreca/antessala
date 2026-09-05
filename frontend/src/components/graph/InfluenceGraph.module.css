@@ -1,0 +1,188 @@
+.wrapper {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 0.8rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filterToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.4rem 0.6rem 0.65rem;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+.searchInput {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.78rem;
+  color: #0F172A;
+  width: 180px;
+}
+
+.clearBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.clearBtn:hover {
+  color: #0F172A;
+}
+
+.selectGroup {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.selectLabel {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.selectInput {
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.76rem;
+  color: #0F172A;
+  outline: none;
+  max-width: 170px;
+  cursor: pointer;
+}
+
+.selectInput:focus {
+  border-color: #00A859;
+}
+
+.resetBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #DC2626;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-left: auto;
+}
+
+.resetBtn:hover {
+  background: #FEE2E2;
+}
+
+
+.hint {
+  margin: 0;
+  padding: 0.5rem 0.55rem;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: #64748B;
+}
+
+.empty {
+  padding: 3rem 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #64748B;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.55rem 0.2rem;
+  font-size: 0.76rem;
+  color: #475569;
+}
+
+.toggle, .toggleActive {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid #CBD5E1;
+  border-radius: 999px;
+  background: #F8FAFC;
+  color: #64748B;
+  font: inherit;
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.toggleActive {
+  background: #00A859;
+  border-color: #00A859;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.toggle:hover { 
+  color: #0F172A;
+  background: #F1F5F9;
+}
+
+.sectorLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-left: 0.4rem;
+  font-size: 0.7rem;
+  color: #475569;
+}
+
+.sectorLegend span { display: inline-flex; align-items: center; gap: 0.3rem; }
+
+.sectorLegend i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.ministerBadgeLegend {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FDE68A;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-left: auto;
+}
+
+.ministerStar {
+  color: #D97706;
+  font-size: 0.95rem;
+  line-height: 1;
+}

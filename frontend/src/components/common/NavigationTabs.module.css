@@ -1,0 +1,115 @@
+.nav,
+.navBar {
+  background: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+  padding: 4px clamp(8px, 1.5vw, 24px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  row-gap: 4px;
+  column-gap: clamp(4px, 0.6vw, 10px);
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #64748B;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 10px clamp(8px, 0.8vw, 12px);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 4px 4px 0 0;
+}
+
+.tabBtn:hover {
+  color: #0F172A;
+  background: #F8FAFC;
+}
+
+.tabBtn:focus-visible {
+  outline: 2px solid #0284C7;
+  outline-offset: -2px;
+}
+
+.activeTab {
+  color: #00A859 !important;
+  border-bottom-color: #00A859 !important;
+  background: #F0FDF4 !important;
+  font-weight: 700 !important;
+}
+
+.activeTab svg {
+  color: #00A859;
+}
+
+.badge {
+  background: #DC2626;
+  color: #FFFFFF;
+  font-size: 0.70rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+}
+
+.authorTab {
+  opacity: 0.9;
+  font-size: 0.84rem;
+  border-left: 1px solid rgba(226, 232, 240, 0.9);
+  padding-left: 12px;
+}
+
+.authorTab:hover {
+  opacity: 1;
+  color: #0F172A;
+}
+
+@media (min-width: 1400px) {
+  .authorTab {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 1100px) {
+  .tabExtra {
+    display: inline;
+  }
+  .tabBtn {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navBar {
+    padding: 4px 6px;
+  }
+  .container {
+    gap: 4px;
+  }
+  .tabBtn {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    gap: 5px;
+  }
+  .authorTab {
+    border-left: 1px solid rgba(226, 232, 240, 0.8);
+    padding-left: 8px;
+  }
+}
+

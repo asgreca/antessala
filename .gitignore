@@ -1,0 +1,60 @@
+# Ambientes e Variáveis de Ambiente Críticas
+.env
+.env.*
+!.env.example
+*.env
+
+# Arquivos Grandes de Dados (Superiores a 100MB - GitHub Limit)
+*.duckdb
+*.duckdb.*
+*.zip
+*.parquet
+*.h2.db
+*.tar.gz
+data/
+saril.duckdb
+
+# Pastas de Quarentena e Arquivos Compilados Antigos
+quarentena_dados_sinteticos/
+target/
+*.class
+*.jar
+
+# Python & Ambientes Virtuais
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+backend_python/venv/
+backend_python/__pycache__/
+backend_python/saril/__pycache__/
+
+# Node.js & Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+.npm
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sistema Operacional e IDEs
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo

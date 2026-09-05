@@ -1,0 +1,953 @@
+================================================================================
+ROTEIRO E STORYBOARD CINEMATOGRÁFICO DE APRESENTAÇÃO - PROJETO ANTESSALA (SARIL)
+PERSONAGEM: ANTUNES (AUDITOR SÊNIOR ESTILO PIXAR 3D DE TERNO AZUL)
+DURAÇÃO TOTAL: 3 MINUTOS (180 SEGUNDOS) | DIVIDIDO EM 18 BLOCOS DE 10 SEGUNDOS
+ESTILO VISUAL: WHITE VOID INFINITO (ESTILO POCOYO HIGH-TECH 3D), DESIGN EDITORIAL MINIMALISTA,
+                PERSONAGEM ESTILO PIXAR 3D (TERNO AZUL MARINHO, GRAVATA VERDE, LUPA DE AUDITORIA,
+                DOCUMENTO "RELATÓRIO" E MALETA "ANTUNES - RIGOR").
+================================================================================
+
+[NOTA DE REFERÊNCIA VISUAL DO PERSONAGEM E DA LOGO]:
+Para a geração de imagens/painéis deste storyboard via IA, é obrigatório anexar:
+1. Imagem de referência oficial do Antunes (Personagem 3D estilo Pixar, auditor sênior de terno azul marinho, gravata verde, cabelo grisalho penteado, expressão firme/rigorosa, portando lupa de auditoria, pergaminho "RELATÓRIO" e pasta de couro "ANTUNES - RIGOR").
+2. Imagem de referência da Logo Oficial do Projeto Antessala (SARIL / CGU).
+
+================================================================================
+BLOCO 01 (00:00 - 00:10) | INTRODUÇÃO E PERSONA DE ANTUNES
+================================================================================
+DESCRIÇÃO DA CENA:
+Fundo branco infinito e limpo. Antunes, o icônico auditor em 3D estilo Pixar com seu elegante terno azul marinho e gravata verde, entra em cena segurando sua clássica lupa de auditoria. Ao seu lado, repousa sua pasta de couro gravada "ANTUNES - RIGOR". À direita, surge a logo grande do Antessala em traços finos pretos e esmeralda.
+
+QUEM FALA: Antunes (Voz expressiva de auditor experiente, firme, serena e cativante)
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"Olá! Eu sou o Antunes. Seja bem-vindo ao Antessala, a plataforma de inteligência cívica que transforma dados abertos de agendas públicas em transparência real para o Brasil."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 1.1: INTRODUCTION TO ANTESSALA & AUDITOR ANTUNES",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: WELCOMING, RIGOROUS, HIGH-TECH PIXAR STYLE | PACING: DYNAMIC",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): Olá! Eu sou o Antunes. Seja bem-vindo ao Antessala, a plataforma de inteligência cívica que transforma dados abertos de agendas públicas em transparência real para o Brasil."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background (Pocoyo infinite white void style), crisp thin black borders and grid outlines. Minimalist editorial layout featuring 3D Pixar-style senior auditor character Antunes in a navy blue suit, green tie, holding a magnifying glass and report scroll.",
+  "image_references_required": ["antunes_pixar_official_suit.png", "antessala_logo_highres.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 01",
+      "time_code": "00:00-00:02.5",
+      "shot_title": "WHITE VOID REVELATION",
+      "visual_description": "Wide shot, endless pure white background. Minimalist black grid lines form gracefully. 3D Pixar character Antunes in navy blue suit steps into central focus holding his magnifying glass.",
+      "camera": "Lens 35mm, subtle forward slow push-in"
+    },
+    {
+      "panel_id": "PANEL 02",
+      "time_code": "00:02.5-00:05",
+      "shot_title": "THE AUDITOR & LOGO",
+      "visual_description": "Medium shot of Antunes holding an unrolled report scroll reading 'RELATÓRIO'. Official Antessala logo materializes floating to the right with glowing emerald edges.",
+      "camera": "Lens 50mm, steady centered composition"
+    },
+    {
+      "panel_id": "PANEL 03",
+      "time_code": "00:05-00:07.5",
+      "shot_title": "PROJECT PURPOSE",
+      "visual_description": "Antunes points his magnifying glass toward a floating holographic icon of the CGU Public Data portal glowing in emerald green.",
+      "camera": "Lens 50mm, gentle panning right"
+    },
+    {
+      "panel_id": "PANEL 04",
+      "time_code": "00:07.5-00:10",
+      "shot_title": "KEY TRANSITION TO DATA",
+      "visual_description": "Close-up of Antunes looking at camera with a sharp, determined Pixar-style expression, gesturing towards a stream of incoming data particles.",
+      "camera": "Lens 85mm, shallow depth of field, crisp focus on face"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF 50mm | LIGHTING: High-key studio diffuse white key, soft Pixar character rim light | PRODUCTION NOTES: Perfect rendering of navy suit and green tie texture."
+}
+
+================================================================================
+BLOCO 02 (00:10 - 00:20) | O DESAFIO DOS DADOS ABERTOS DO E-AGENDAS
+================================================================================
+DESCRIÇÃO DA CENA:
+O fundo branco permanece. Antunes caminha com sua maleta "ANTUNES - RIGOR" enquanto centenas de planilhas e arquivos CSV do e-Agendas da CGU flutuam em 3D como folhas digitais organizadas, representando mais de 800 mil registros de reuniões de autoridades.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"Todos os dias, ministros e diretores realizam milhares de reuniões registradas no e-Agendas do Governo Federal. Mas entender quem realmente influencia as decisões era um desafio colossal."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 1.2: THE CHALLENGE OF OPEN DATA & E-AGENDAS",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: ANALYTICAL, EXPANSIVE | PACING: MEDIUM",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): Todos os dias, ministros e diretores realizam milhares de reuniões registradas no e-Agendas do Governo Federal. Mas entender quem realmente influencia as decisões era um desafio colossal."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp thin black borders. 3D Pixar character Antunes inspecting floating data cards with his magnifying glass.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 05",
+      "time_code": "00:10-00:12.5",
+      "shot_title": "DATA STORM INSPECTION",
+      "visual_description": "Wide shot, white void. A constellation of 800k data nodes floating around Antunes. He sets down his leather briefcase labeled 'ANTUNES - RIGOR'.",
+      "camera": "Lens 24mm wide angle, slow orbital move"
+    },
+    {
+      "panel_id": "PANEL 06",
+      "time_code": "00:12.5-00:15",
+      "shot_title": "E-AGENDAS AUDIT SCAN",
+      "visual_description": "Medium shot of Antunes raising his magnifying glass to inspect a floating e-Agendas card with glowing stamp 'CGU DATA FEED'.",
+      "camera": "Lens 50mm, tracking movement"
+    },
+    {
+      "panel_id": "PANEL 07",
+      "time_code": "00:15-00:17.5",
+      "shot_title": "AUTHORITY AUDIENCES",
+      "visual_description": "Graphic infographics showing silhouettes of ministers and public officials connected to calendar timelines on the white background.",
+      "camera": "Lens 35mm, flat editorial graphic alignment"
+    },
+    {
+      "panel_id": "PANEL 08",
+      "time_code": "00:17.5-00:20",
+      "shot_title": "THE COMPLEXITY QUESTION",
+      "visual_description": "Close-up of Antunes raising an inquisitive eyebrow, holding his report scroll as amber question marks float around unlinked meeting records.",
+      "camera": "Lens 85mm, tight focus"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF 50mm | LIGHTING: Stark white background lighting with soft directional fill | PRODUCTION NOTES: Pixar character animation fidelity."
+}
+
+================================================================================
+BLOCO 03 (00:20 - 00:30) | O CONCEITO DA "ANTESSALA DO PODER"
+================================================================================
+DESCRIÇÃO DA CENA:
+Uma representação gráfica minimalista de uma porta estilizada em traços pretos finos aparece no fundo branco. A porta se abre em luz esmeralda, revelando o conceito de "Antessala": o momento em que o interesse privado se encontra com a gestão pública sob os olhos vigilantes de Antunes.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"O Antessala nasce exatamente para jogar luz nesse bastidor: o momento em que agentes privados, empresas e entidades cruzam a porta dos gabinetes para pautar o Estado."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 1.3: THE CONCEPT OF THE ANTECHAMBER OF POWER",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: REVELATORY, INSTITUTIONAL | PACING: SOLEMN",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): O Antessala nasce exatamente para jogar luz nesse bastidor: o momento em que agentes privados, empresas e entidades cruzam a porta dos gabinetes para pautar o Estado."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp thin black architectural lines, glowing emerald doorway accents with 3D Pixar character Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png", "antessala_logo_highres.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 09",
+      "time_code": "00:20-00:22.5",
+      "shot_title": "THE SYMBOLIC DOORWAY",
+      "visual_description": "Wide shot, white void. A 3D minimalist doorway outline in black vector style. Antunes in his navy blue suit stands beside it holding his leather briefcase.",
+      "camera": "Lens 35mm, slow push-in"
+    },
+    {
+      "panel_id": "PANEL 10",
+      "time_code": "00:22.5-00:25",
+      "shot_title": "LIGHT OF TRANSPARENCY",
+      "visual_description": "Medium shot. The door opens, casting a beam of emerald light (#00D084) across the white floor. Antunes steps forward with determination.",
+      "camera": "Lens 50mm, low angle dramatic position"
+    },
+    {
+      "panel_id": "PANEL 11",
+      "time_code": "00:25-00:27.5",
+      "shot_title": "PRIVATE & PUBLIC INTERSECTION",
+      "visual_description": "Infographic showing two glowing lines (Blue for Private Entity, Emerald for Minister) intersecting at the doorway inspected by Antunes's magnifying glass.",
+      "camera": "Lens 35mm, graphic layout"
+    },
+    {
+      "panel_id": "PANEL 12",
+      "time_code": "00:27.5-00:30",
+      "shot_title": "ANTUNES OVERVIEW",
+      "visual_description": "Medium close-up of Antunes gesturing gracefully to the illuminated pathway, inviting the viewer inside.",
+      "camera": "Lens 85mm, crisp focus"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF 50mm | LIGHTING: High-contrast emerald spotlight on white background | PRODUCTION NOTES: Strong symbolic metaphor of the project name."
+}
+
+================================================================================
+BLOCO 04 (00:30 - 00:40) | O PROBLEMA DA OPACIDADE E DECRETO 10.889/2021
+================================================================================
+DESCRIÇÃO DA CENA:
+Surgem alertas gráficos em tom âmbar e carmesim indicando reuniões com pautas genéricas como "assuntos institucionais". Antunes analisa o pergaminho de relatório com sua lupa, identificando opacidade com base no Decreto 10.889/2021.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"Muitas reuniões são cadastradas com descrições vagazinhas como 'assuntos diversos'. O Antessala identifica essa opacidade informacional e aponta onde falta clareza para a sociedade."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 1.4: OPACITY DETECTION & DECREE 10.889/2021",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: CRITICAL, FORENSIC | PACING: INCISIVE",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): Muitas reuniões são cadastradas com descrições vagazinhas como 'assuntos diversos'. O Antessala identifica essa opacidade informacional e aponta onde falta clareza para a sociedade."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp thin black frame borders. Glowing amber (#F59E0B) and crimson (#F43F5E) hazard cards floating near Pixar character Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 13",
+      "time_code": "00:30-00:32.5",
+      "shot_title": "THE VAGUE TOPIC ALERT",
+      "visual_description": "Wide shot, Antunes looking sternly at a floating red alert card reading: 'PAUTA OPACA DETECTADA: ASSUNTOS INSTITUCIONAIS'.",
+      "camera": "Lens 35mm, dynamic tilt"
+    },
+    {
+      "panel_id": "PANEL 14",
+      "time_code": "00:32.5-00:35",
+      "shot_title": "MAGNIFYING GLASS SCANNER",
+      "visual_description": "Medium shot, Antunes holds his magnifying glass over the document card, exposing missing details in the agenda description.",
+      "camera": "Lens 50mm, steady lateral push"
+    },
+    {
+      "panel_id": "PANEL 15",
+      "time_code": "00:35-00:37.5",
+      "shot_title": "DECREE 10.889 CITATION",
+      "visual_description": "Clean black vector typography appears: 'DECRETO Nº 10.889/2021 - REQUISITOS DE TRANSPARÊNCIA DA AGENDA'.",
+      "camera": "Lens 35mm, crisp editorial graphics"
+    },
+    {
+      "panel_id": "PANEL 16",
+      "time_code": "00:37.5-00:40",
+      "shot_title": "ANTUNES DIAGNOSIS",
+      "visual_description": "Close-up of Antunes presenting a metric score badge with a serious audit expression: 'ÍNDICE DE OPACIDADE: ALTO'.",
+      "camera": "Lens 85mm, sharp contrast"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Amber highlight glow against pure white canvas | PRODUCTION NOTES: Emphasize forensic scrutiny."
+}
+
+================================================================================
+BLOCO 05 (00:40 - 00:50) | ARQUITETURA TÉCNICA E PIPELINE DUCKDB
+================================================================================
+DESCRIÇÃO DA CENA:
+O cenário revela os bastidores de dados. Um diagrama de arquitetura super moderno e limpo aparece, enquanto Antunes aponta para o motor DuckDB Python e a desduplicação de empresas pelo CNPJ raiz.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"Por trás da interface, construímos uma arquitetura de alta performance em Python e DuckDB, capaz de processar centenas de milhares de linhas e unificar empresas pelo CNPJ raiz em segundos."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 2.1: HIGH-PERFORMANCE ARCHITECTURE & DUCKDB PIPELINE",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: TECHNICAL, ROBUST | PACING: ENERGETIC",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): Por trás da interface, construímos uma arquitetura de alta performance em Python e DuckDB, capaz de processar centenas de milhares de linhas e unificar empresas pelo CNPJ raiz em segundos."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp thin black borders. Glowing cyan data streams (#06B6D4) and DuckDB engine graphics with Pixar character Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 17",
+      "time_code": "00:40-00:42.5",
+      "shot_title": "DUCKDB CORE ENGINE",
+      "visual_description": "Wide shot. Antunes standing before a floating 3D cube model labeled 'DUCKDB IN-MEMORY ENGINE', processing data rows at extreme speed.",
+      "camera": "Lens 28mm wide push"
+    },
+    {
+      "panel_id": "PANEL 18",
+      "time_code": "00:42.5-00:45",
+      "shot_title": "CNPJ CANONICALIZATION",
+      "visual_description": "Medium shot. Two company names ('FACEBOOK' and 'META') merge into a single canonical entity card with CNPJ 13.347.016/0001-17 as Antunes nods.",
+      "camera": "Lens 50mm, rack focus between cards"
+    },
+    {
+      "panel_id": "PANEL 19",
+      "time_code": "00:45-00:47.5",
+      "shot_title": "INCREMENTAL SYNC PIPELINE",
+      "visual_description": "Diagram showing automated pipeline fetching new monthly CSV files zero-downtime with atomic database swapping.",
+      "camera": "Lens 35mm graphic view"
+    },
+    {
+      "panel_id": "PANEL 20",
+      "time_code": "00:47.5-00:50",
+      "shot_title": "PERFORMANCE METRIC",
+      "visual_description": "Close-up of Antunes displaying a speed counter: '194,487 REGISTROS / 54.3 SEGUNDOS'.",
+      "camera": "Lens 85mm macro"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF 50mm | LIGHTING: Cyan rim lighting on black data structures over white void | PRODUCTION NOTES: Showcase raw technical horsepower."
+}
+
+================================================================================
+BLOCO 06 (00:50 - 01:00) | O ÍNDICE DE ACESSO E INFLUÊNCIA (IAI)
+================================================================================
+DESCRIÇÃO DA CENA:
+Surgem fórmulas matemáticas elegantes em estilo KaTeX e cards de KPI flutuantes. Antunes apresenta o IAI (Índice de Acesso e Influência), a primeira métrica autoral do projeto que mede a densidade de acesso aos gabinetes.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"Desenvolvemos o IAI: o Índice de Acesso e Influência. Uma métrica matemática própria que pondera frequência de reuniões, nível hierárquico da autoridade e amplitude nos ministérios."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 2.2: THE ACCESS & INFLUENCE INDEX (IAI)",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: SCIENTIFIC, AUTHORITATIVE | PACING: MEASURED",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): Desenvolvemos o IAI: o Índice de Acesso e Influência. Uma métrica matemática própria que pondera frequência de reuniões, nível hierárquico da autoridade e amplitude nos ministérios."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp thin black grid borders, mathematical formulas in thin black vector font, emerald KPI badges with Pixar character Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 21",
+      "time_code": "00:50-00:52.5",
+      "shot_title": "THE IAI METRIC CARD",
+      "visual_description": "Wide shot, a large floating KPI card showing 'IAI: 84.5 / 100 - NÍVEL CRÍTICO DE ACESSO'. Antunes steps beside it with his magnifying glass.",
+      "camera": "Lens 35mm, slow track right"
+    },
+    {
+      "panel_id": "PANEL 22",
+      "time_code": "00:52.5-00:55",
+      "shot_title": "MATHEMATICAL FORMULA",
+      "visual_description": "Medium shot. Mathematical equations for IAI score calculation float in sharp black vector typography across the white background.",
+      "camera": "Lens 50mm focus on math text"
+    },
+    {
+      "panel_id": "PANEL 23",
+      "time_code": "00:55-00:57.5",
+      "shot_title": "HIERARCHY WEIGHTING",
+      "visual_description": "Graphic diagram showing higher weight awarded to meetings with Ministers vs Secretários vs Assessores.",
+      "camera": "Lens 35mm graphic frame"
+    },
+    {
+      "panel_id": "PANEL 24",
+      "time_code": "00:57.5-01:00",
+      "shot_title": "ANTUNES EXPLAINING METRIC",
+      "visual_description": "Close-up of Antunes pointing at the percentile rank indicator: 'TOP 1% MAIS CONECTADOS DO PAÍS'.",
+      "camera": "Lens 85mm tight frame"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Pure studio white with emerald highlights | PRODUCTION NOTES: Clear mathematical credibility."
+}
+
+================================================================================
+BLOCO 07 (01:00 - 01:10) | O COEFICIENTE DE ENTROPIA TÉRMICA DE TRANSPARÊNCIA (ETT)
+================================================================================
+DESCRIÇÃO DA CENA:
+O cenário ganha detalhes sutis em tom violeta e ciano. Antunes apresenta o ETT (Coeficiente de Entropia Térmica de Transparência), indicador autoral para avaliar a dispersão ou concentração do acesso público.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"E fomos além com o ETT: o Coeficiente de Entropia Térmica de Transparência. Ele mede se os encontros de um órgão estão abertos à sociedade ou monopolizados por poucos grupos de interesse."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 2.3: THERMAL ENTROPY TRANSPARENCY COEFFICIENT (ETT)",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: INNOVATIVE, RIGOROUS | PACING: ACCELERATED",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): E fomos além com o ETT: o Coeficiente de Entropia Térmica de Transparência. Ele mede se os encontros de um órgão estão abertos à sociedade ou monopolizados por poucos grupos de interesse."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp thin black borders, violet (#8B5CF6) and cyan data dispersion charts featuring Pixar character Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 25",
+      "time_code": "01:00-01:02.5",
+      "shot_title": "ENTROPY GRAPH VISUALIZATION",
+      "visual_description": "Wide shot, Antunes next to a dynamic dispersion scatter plot showing high entropy vs low entropy ministry profiles.",
+      "camera": "Lens 28mm wide push"
+    },
+    {
+      "panel_id": "PANEL 26",
+      "time_code": "01:02.5-01:05",
+      "shot_title": "MONOPOLY RISK DETECTION",
+      "visual_description": "Medium shot. Highlight on a ministry node where 80% of meetings belong to just 2 corporate entities as Antunes inspects with magnifying glass.",
+      "camera": "Lens 50mm focus on cluster"
+    },
+    {
+      "panel_id": "PANEL 27",
+      "time_code": "01:05-01:07.5",
+      "shot_title": "ETT SCORE CARDS",
+      "visual_description": "Graphic cards showing ETT score scale from 0.0 (Total Monopoly) to 1.0 (High Diversity).",
+      "camera": "Lens 35mm flat design"
+    },
+    {
+      "panel_id": "PANEL 28",
+      "time_code": "01:07.5-01:10",
+      "shot_title": "ANTUNES CONCLUSION ON ETT",
+      "visual_description": "Close-up of Antunes smiling subtly, hand resting on his leather briefcase 'ANTUNES - RIGOR': 'DIAGNOSTICO AUTOMÁTICO DE DIVERSIFICAÇÃO'.",
+      "camera": "Lens 85mm portrait"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Violet ambient glow against crisp white void | PRODUCTION NOTES: High intellectual rigor."
+}
+
+================================================================================
+BLOCO 08 (01:10 - 01:20) | CRUZAMENTO AUTOMÁTICO COM O DIÁRIO OFICIAL (DOU)
+================================================================================
+DESCRIÇÃO DA CENA:
+Páginas do Diário Oficial da União (DOU) flutuam no ar. Linhas de conexão em esmeralda ligam a data de uma reunião no e-Agendas à publicação de uma portaria ou nomeação no DOU, enquanto Antunes compara os documentos.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"O Antessala não olha as reuniões isoladas. Nosso motor cruza datas de audiências com publicações do Diário Oficial da União, revelando correlações temporais entre encontros e atos normativos."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 2.4: CORRELATION WITH OFFICIAL GAZETTE (DOU ATOS)",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: INVESTIGATIVE, TIMELY | PACING: STEADY",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): O Antessala não olha as reuniões isoladas. Nosso motor cruza datas de audiências com publicações do Diário Oficial da União, revelando correlações temporais entre encontros e atos normativos."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp thin black vector lines, official gazette document renders with Pixar character Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 29",
+      "time_code": "01:10-01:12.5",
+      "shot_title": "DOU GAZETTE FLIGHT",
+      "visual_description": "Wide shot, clean white void. Official Gazette pages (DOU) hover in mid-air. Antunes holds his unrolled report scroll next to them.",
+      "camera": "Lens 35mm sweep"
+    },
+    {
+      "panel_id": "PANEL 30",
+      "time_code": "01:12.5-01:15",
+      "shot_title": "TEMPORAL TIMELINE CORRELATION",
+      "visual_description": "Medium shot. A timeline connects a meeting on '12/MAR' directly to a DOU Ordinance published on '15/MAR' (+3 days delta).",
+      "camera": "Lens 50mm slider glide"
+    },
+    {
+      "panel_id": "PANEL 31",
+      "time_code": "01:15-01:17.5",
+      "shot_title": "MATCH STRENGTH SCORE",
+      "visual_description": "Graphic card showing correlation strength: 'CORRELAÇÃO ALTA - MESMO ÓRGÃO E MESMO TEMA'.",
+      "camera": "Lens 35mm detail"
+    },
+    {
+      "panel_id": "PANEL 32",
+      "time_code": "01:17.5-01:20",
+      "shot_title": "ANTUNES JOURNALISTIC VALUE",
+      "visual_description": "Close-up of Antunes looking through his magnifying glass directly over the correlated DOU decree.",
+      "camera": "Lens 85mm tight shot"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Bright daylight clean background | PRODUCTION NOTES: Showcase deep investigative capability."
+}
+
+================================================================================
+BLOCO 09 (01:20 - 01:30) | INTEGRAÇÃO DE SANÇÕES (CEIS / CNEP) & VETO FATORES
+================================================================================
+DESCRIÇÃO DA CENA:
+Cards de empresas recebem um selo de alerta vermelho atômico. Antunes demonstra o cruzamento com as bases de sanções do CEIS e CNEP da CGU, indicando reuniões de autoridades com empresas punidas.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"Cruzamos também as bases de sanções da CGU: CEIS e CNEP. Se uma empresa inidônea ou punida é recebida em audiência, o sistema gera um alerta imediato de integridade."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 3.1: SANCTION INTEGRATION (CEIS / CNEP) & VETO FACTORS",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: ALERT, FORENSIC, RIGOROUS | PACING: URGENT",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): Cruzamos também as bases de sanções da CGU: CEIS e CNEP. Se uma empresa inidônea ou punida é recebida em audiência, o sistema gera um alerta imediato de integridade."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp thin black borders, crimson red (#F43F5E) hazard badges featuring Pixar character Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 33",
+      "time_code": "01:20-01:22.5",
+      "shot_title": "SANCTION DATABASE INTEGRATION",
+      "visual_description": "Wide shot. Floating red database shields labeled 'CEIS' and 'CNEP' link up to company meeting profiles around Antunes.",
+      "camera": "Lens 28mm wide view"
+    },
+    {
+      "panel_id": "PANEL 34",
+      "time_code": "01:22.5-01:25",
+      "shot_title": "RED FLAG ALERT POPUP",
+      "visual_description": "Medium shot. A company meeting card pulses in red: 'ALERTA: EMPRESA SANCIONADA EM AUDIÊNCIA COM ASSESSOR DA PRESIDÊNCIA'.",
+      "camera": "Lens 50mm dynamic punch-in"
+    },
+    {
+      "panel_id": "PANEL 35",
+      "time_code": "01:25-01:27.5",
+      "shot_title": "INTEGRITY CHECK PASSED",
+      "visual_description": "Infographic showing automatic filtering and risk scoring for compliance officers and auditors.",
+      "camera": "Lens 35mm graphic view"
+    },
+    {
+      "panel_id": "PANEL 36",
+      "time_code": "01:27.5-01:30",
+      "shot_title": "ANTUNES WATCHDOG POSE",
+      "visual_description": "Close-up of Antunes standing tall with a stern expression, briefcase 'ANTUNES - RIGOR' beside his shiny black shoes.",
+      "camera": "Lens 85mm portrait"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Crimson red accent strobe over pure white void | PRODUCTION NOTES: Emphasize anti-corruption watchdog role."
+}
+
+================================================================================
+BLOCO 10 (01:30 - 01:40) | GRAFO DINÂMICO DE INFLUÊNCIA E REDES DE CONTATO
+================================================================================
+DESCRIÇÃO DA CENA:
+O fundo branco é preenchido por um grafo interativo em rede 3D (Cytoscape style). Nós representando ministros e autoridades possuem fotos oficiais em alta definição, conectados a lobistas e empresas por arestas luminosas sob supervisão de Antunes.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"Na aba Grafo de Influência, a rede ganha vida! Você vê fotos de ministros e autoridades conectadas a representantes e organizações, revelando pontes e intermediários do poder."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 3.2: DYNAMIC INFLUENCE GRAPH & NETWORK EXPLORER",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: SPECTACULAR, HIGH-TECH | PACING: VISUALLY RICH",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): Na aba Grafo de Influência, a rede ganha vida! Você vê fotos de ministros e autoridades conectadas a representantes e organizações, revelando pontes e intermediários do poder."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, network graph nodes with high-res official portraits of Ministers, glowing emerald (#00D084) edges featuring 3D Pixar auditor Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png", "minister_haddad_portrait.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 37",
+      "time_code": "01:30-01:32.5",
+      "shot_title": "NETWORK GRAPH EXPANSION",
+      "visual_description": "Wide shot. A massive 3D network graph explodes onto the white screen. Antunes walks inside the graph structure holding his magnifying glass.",
+      "camera": "Lens 24mm wide angle"
+    },
+    {
+      "panel_id": "PANEL 38",
+      "time_code": "01:32.5-01:35",
+      "shot_title": "MINISTER PORTRAIT NODE",
+      "visual_description": "Medium close-up on a central node showing the official photo of Minister Fernando Haddad with emerald border and meeting count tag.",
+      "camera": "Lens 65mm macro"
+    },
+    {
+      "panel_id": "PANEL 39",
+      "time_code": "01:35-01:37.5",
+      "shot_title": "INTERMEDIARY BRIDGES",
+      "visual_description": "Close-up of edges connecting a key lobbyist node to multiple ministry nodes simultaneously.",
+      "camera": "Lens 50mm focus on edge connections"
+    },
+    {
+      "panel_id": "PANEL 40",
+      "time_code": "01:37.5-01:40",
+      "shot_title": "ANTUNES INTERACTION",
+      "visual_description": "Antunes taps a node with his magnifying glass handle, causing it to highlight all connected actors in cyan.",
+      "camera": "Lens 85mm interactive shot"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Bioluminescent graph glow on white studio background | PRODUCTION NOTES: Highlight minister portraits in nodes."
+}
+
+================================================================================
+BLOCO 11 (01:40 - 01:50) | DOSSIÊ UNIFICADO DO ATOR E LINHA DO TEMPO
+================================================================================
+DESCRIÇÃO DA CENA:
+Ao clicar em qualquer pessoa ou empresa, um modal super moderno "Dossiê Unificado" desliza suavemente na tela. Mostra foto, indicadores de risco, perfil completo, histórico de audiências e botões de filtro por período e órgão.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"Quer se aprofundar? O Dossiê Unificado abre a ficha completa de qualquer ator: histórico detalhado, órgãos visitados, filtros customizáveis por período e exportação direta."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 3.3: UNIFIED ACTOR DOSSIER & HISTORICAL TIMELINE",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: EDITORIAL, DETAILED | PACING: FLUID",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): Quer se aprofundar? O Dossiê Unificado abre a ficha completa de qualquer ator: histórico detalhado, órgãos visitados, filtros customizáveis por período e exportação direta."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp black modal card overlay with glassmorphism touches, featuring 3D Pixar character Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 41",
+      "time_code": "01:40-01:42.5",
+      "shot_title": "DOSSIER MODAL SLIDE-IN",
+      "visual_description": "Wide shot. The sleek Unified Dossier modal slides in from right over white background as Antunes points to it with his report scroll.",
+      "camera": "Lens 35mm smooth panning"
+    },
+    {
+      "panel_id": "PANEL 42",
+      "time_code": "01:42.5-01:45",
+      "shot_title": "KPI HEADER & BENCHMARKS",
+      "visual_description": "Medium shot. Highlight on dossier header displaying IAI Score 78.4, percentile badge 'Top 5%', total meetings and organs.",
+      "camera": "Lens 50mm clean focus"
+    },
+    {
+      "panel_id": "PANEL 43",
+      "time_code": "01:45-01:47.5",
+      "shot_title": "CUSTOM PERIOD FILTER",
+      "visual_description": "Graphic view of date range picker ('01/01/2023 a 31/07/2026') recalculating meeting metrics in real time.",
+      "camera": "Lens 35mm UI view"
+    },
+    {
+      "panel_id": "PANEL 44",
+      "time_code": "01:47.5-01:50",
+      "shot_title": "ANTUNES EXPORT DEMO",
+      "visual_description": "Close-up of Antunes pressing the 'Imprimir / PDF' button with flawless print formatting indicator.",
+      "camera": "Lens 85mm portrait"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Soft editorial key light | PRODUCTION NOTES: Showcase UI usability."
+}
+
+================================================================================
+BLOCO 12 (01:50 - 02:00) | RANKING DE LOBISTAS E ENTIDADES DOMINANTES
+================================================================================
+DESCRIÇÃO DA CENA:
+Uma tabela de ranking ultra-sofisticada em visual editorial minimalista surge na tela. Nomes de grandes corporações e representantes aparecem ordenados pelo total de audiências e IAI, com logos corporativas automáticas (Meta, Google, iFood, etc.).
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"No Ranking de Atores, acompanhe em tempo real quem são as empresas, entidades e representantes mais ativos em Brasília, com dados limpos de 2023 até a última reunião gravada."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 4.1: LOBBYIST & ENTITY RANKING LEADERBOARD",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: EDITORIAL, DATA-DRIVEN | PACING: DYNAMIC",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): No Ranking de Atores, acompanhe em tempo real quem são as empresas, entidades e representantes mais ativos em Brasília, com dados limpos de 2023 até a última reunião gravada."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp thin black table grid, company logos alongside high-contrast rankings with 3D Pixar auditor Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 45",
+      "time_code": "01:50-01:52.5",
+      "shot_title": "THE RANKING BOARD",
+      "visual_description": "Wide shot. A pristine ranking table with black borders floats on white background. Antunes stands beside rank #1 in his navy suit.",
+      "camera": "Lens 28mm wide view"
+    },
+    {
+      "panel_id": "PANEL 46",
+      "time_code": "01:52.5-01:55",
+      "shot_title": "CANONICAL COMPANY LOGOS",
+      "visual_description": "Medium shot. Focus on company row: Meta (Facebook) logo, 922 reuniões, IAI 94.2. Clean branding icons.",
+      "camera": "Lens 50mm macro tracking"
+    },
+    {
+      "panel_id": "PANEL 47",
+      "time_code": "01:55-01:57.5",
+      "shot_title": "DEFAULT DATE RANGE 2023-2026",
+      "visual_description": "Highlight on date filter showing default start '01/01/2023' to max date '31/07/2026' loaded dynamically.",
+      "camera": "Lens 35mm graphic frame"
+    },
+    {
+      "panel_id": "PANEL 48",
+      "time_code": "01:57.5-02:00",
+      "shot_title": "ANTUNES SWIPE ACTION",
+      "visual_description": "Close-up of Antunes reviewing top 10 representatives with his magnifying glass.",
+      "camera": "Lens 85mm tight focus"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Crisp daylight white background | PRODUCTION NOTES: Emphasize data completeness."
+}
+
+================================================================================
+BLOCO 13 (02:00 - 02:10) | INTELIGÊNCIA CÍVICA E RESUMOS FACTUAIS ISENTOS
+================================================================================
+DESCRIÇÃO DA CENA:
+O assistente de Inteligência Cívica gera um resumo forense em tela. Antunes reforça a postura de absoluta neutralidade jornalística e factualidade: zero juízo de valor, zero viés político, apenas fatos extraídos dos registros públicos.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"Nossa Inteligência Cívica sintética produz relatórios forenses 100% neutros e factuais. Sem juízo de valor, sem viés: apenas dados rigorosos formatados para jornalistas e auditores."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 4.2: CIVIC AI INTEGRITY & NEUTRAL FACTUAL SUMMARIES",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: IMPARTIAL, OBJECTIVE, RIGOROUS | PACING: SERENE",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): Nossa Inteligência Cívica sintética produz relatórios forenses 100% neutros e factuais. Sem juízo de valor, sem viés: apenas dados rigorosos formatados para jornalistas e auditores."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp markdown document preview with bold headings and emerald verification checkmarks, featuring Pixar character Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 49",
+      "time_code": "02:00-02:02.5",
+      "shot_title": "CIVIC AI SUMMARY SHEET",
+      "visual_description": "Wide shot. A beautifully rendered markdown report floats on white void: 'SÍNTESE EXECUTIVA FACTUAL DE AUDIÊNCIAS'. Antunes presents it.",
+      "camera": "Lens 35mm push"
+    },
+    {
+      "panel_id": "PANEL 50",
+      "time_code": "02:02.5-02:05",
+      "shot_title": "NEUTRALITY VERIFICATION STAMP",
+      "visual_description": "Medium shot. A green seal reading 'AUDITORIA ISENTA - 100% FACTUAL' strikes the top of the summary text.",
+      "camera": "Lens 50mm angle shot"
+    },
+    {
+      "panel_id": "PANEL 51",
+      "time_code": "02:05-02:07.5",
+      "shot_title": "MARKDOWN RENDERED TYPOGRAPHY",
+      "visual_description": "Macro shot over clean markdown typography rendering bold headings and bullet points without raw asterisks.",
+      "camera": "Lens 65mm macro"
+    },
+    {
+      "panel_id": "PANEL 52",
+      "time_code": "02:07.5-02:10",
+      "shot_title": "ANTUNES NOD OF APPROVAL",
+      "visual_description": "Close-up of Antunes nodding with confidence, pointing to his leather briefcase engraved 'ANTUNES - RIGOR'.",
+      "camera": "Lens 85mm tight shot"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Neutral balanced daylight | PRODUCTION NOTES: Reinforce briefcase logo 'ANTUNES - RIGOR'."
+}
+
+================================================================================
+BLOCO 14 (02:10 - 02:20) | MONITORAMENTO DA AGENDA PRESIDENCIAL E MINISTÉRIOS
+================================================================================
+DESCRIÇÃO DA CENA:
+O mapa institucional do Governo Federal aparece no fundo branco. Ícones destacados apresentam a inclusão completa da agenda do Presidente da República (Luiz Inácio Lula da Silva) e de todos os Ministérios de Estado sem omissões.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"E o compromisso com a integridade é total: cobrimos 100% dos órgãos federais, incluindo a agenda do Presidente da República Luiz Inácio Lula da Silva e todo o primeiro escalão."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 4.3: PRESIDENTIAL & MINISTERIAL AGENDA MONITORING",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: COMPREHENSIVE, NATIONAL | PACING: AUTHORITATIVE",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): E o compromisso com a integridade é total: cobrimos 100% dos órgãos federais, incluindo a agenda do Presidente da República Luiz Inácio Lula da Silva e todo o primeiro escalão."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, presidential seal icon graphics, emerald green ministry node network with Pixar character Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 53",
+      "time_code": "02:10-02:12.5",
+      "shot_title": "PRESIDENTIAL PALACE OUTLINE",
+      "visual_description": "Wide shot. Minimalist vector illustration of Palácio do Planalto on white background. Antunes stands in foreground in his navy suit.",
+      "camera": "Lens 28mm wide shot"
+    },
+    {
+      "panel_id": "PANEL 54",
+      "time_code": "02:12.5-02:15",
+      "shot_title": "PRESIDENT LULA AGENDA NODE",
+      "visual_description": "Medium shot. Highlight node labeled 'PRESIDÊNCIA DA REPÚBLICA - LUIZ INÁCIO LULA DA SILVA' showing complete schedule audit log.",
+      "camera": "Lens 50mm tracking"
+    },
+    {
+      "panel_id": "PANEL 55",
+      "time_code": "02:15-02:17.5",
+      "shot_title": "ALL MINISTRIES COVERAGE",
+      "visual_description": "Infographic showing icons for Fazenda, Justiça, Saúde, Minas e Energia with 100% data completeness badge.",
+      "camera": "Lens 35mm graphic view"
+    },
+    {
+      "panel_id": "PANEL 56",
+      "time_code": "02:17.5-02:20",
+      "shot_title": "ANTUNES AUDIT COMPLETE",
+      "visual_description": "Close-up of Antunes holding his report scroll with green checkmark: 'NENHUMA AGENDA OMITIDA'.",
+      "camera": "Lens 85mm portrait"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Bright institutional key lighting | PRODUCTION NOTES: Explicit mention of President Lula's agenda inclusion."
+}
+
+================================================================================
+BLOCO 15 (02:20 - 02:30) | CENTRAL DE ALERTAS E SINCRONIZAÇÃO AUTOMATIZADA
+================================================================================
+DESCRIÇÃO DA CENA:
+Visualização do painel Central de Alertas. Antunes mostra a funcionalidade de sincronização diária automatizada via CLI (`python -m saril.pipeline sync-cgu`), mantendo o banco sempre atualizado com zero paralisação.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"O Antessala possui um pipeline de dados automatizado que sincroniza novos arquivos do portal CGU continuamente, registrando logs de auditoria e alertas de novidade sem cair."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 5.1: AUTOMATED CGU SYNC PIPELINE & ALERT CENTER",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: AUTOMATED, RELIABLE | PACING: STEADY",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): O Antessala possui um pipeline de dados automatizado que sincroniza novos arquivos do portal CGU continuamente, registrando logs de auditoria e alertas de novidade sem cair."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp terminal window overlays with green CLI text and 3D Pixar character Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 57",
+      "time_code": "02:20-02:22.5",
+      "shot_title": "AUTOMATED SYNC CLI",
+      "visual_description": "Wide shot. A sleek black terminal card floats on white background: 'python -m saril.pipeline sync-cgu'. Green success ticks appear.",
+      "camera": "Lens 35mm push"
+    },
+    {
+      "panel_id": "PANEL 58",
+      "time_code": "02:22.5-02:25",
+      "shot_title": "ALERT CENTER HUB",
+      "visual_description": "Medium shot. Antunes points with his magnifying glass handle to the Alert Center showing real-time notifications for newly discovered meeting anomalies.",
+      "camera": "Lens 50mm slider"
+    },
+    {
+      "panel_id": "PANEL 59",
+      "time_code": "02:25-02:27.5",
+      "shot_title": "ZERO-DOWNTIME SWAP",
+      "visual_description": "Diagram illustrating atomic file replacement `saril_serving.duckdb` without disrupting active user sessions.",
+      "camera": "Lens 35mm graphic view"
+    },
+    {
+      "panel_id": "PANEL 60",
+      "time_code": "02:27.5-02:30",
+      "shot_title": "ANTUNES SYSTEM STATUS",
+      "visual_description": "Close-up of Antunes standing proudly in front of a green system status badge: 'SYSTEM STATUS: 100% OPERATIONAL'.",
+      "camera": "Lens 85mm close-up"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Green glow from status lights against white void | PRODUCTION NOTES: Showcase automated data pipeline."
+}
+
+================================================================================
+BLOCO 16 (02:30 - 02:40) | TRANSPARÊNCIA DE CÓDIGO, LICENÇA MIT E API OPENAPI
+================================================================================
+DESCRIÇÃO DA CENA:
+O código-fonte da aplicação surge de forma elegante em tela dividida. Antunes destaca a documentação Swagger/OpenAPI interativa, licença livre MIT e a facilidade para qualquer desenvolvedor ou auditor fazer manutenção.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"Código limpo, documentação impecável e licença MIT open-source. Qualquer órgão público, universidade ou cidadão pode auditar, replicar ou estender a nossa solução livremente."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 5.2: OPEN CODE TRANSPARENCY, MIT LICENSE & OPENAPI",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: OPEN, COLLABORATIVE, RIGOROUS | PACING: UPLIFTING",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): Código limpo, documentação impecável e licença MIT open-source. Qualquer órgão público, universidade ou cidadão pode auditar, replicar ou estender a nossa solução livremente."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, crisp code editor snippets in JetBrains Mono font, MIT License badge with Pixar auditor Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 61",
+      "time_code": "02:30-02:32.5",
+      "shot_title": "OPEN SOURCE CODE MATRIX",
+      "visual_description": "Wide shot. Clean white screen with elegant black code windows in FastAPI and React TypeScript. Antunes walks between them holding his report scroll.",
+      "camera": "Lens 28mm wide view"
+    },
+    {
+      "panel_id": "PANEL 62",
+      "time_code": "02:32.5-02:35",
+      "shot_title": "SWAGGER OPENAPI DOCS",
+      "visual_description": "Medium shot. Interactive Swagger API documentation UI displaying endpoints like GET /api/v1/actors/ranking.",
+      "camera": "Lens 50mm focus on API"
+    },
+    {
+      "panel_id": "PANEL 63",
+      "time_code": "02:35-02:37.5",
+      "shot_title": "MIT LICENSE & DOCKER",
+      "visual_description": "Graphics for MIT Open Source License emblem and Docker container icon for instant 1-command deployment.",
+      "camera": "Lens 35mm graphic frame"
+    },
+    {
+      "panel_id": "PANEL 64",
+      "time_code": "02:37.5-02:40",
+      "shot_title": "ANTUNES DEVELOPER HANDSHAKE",
+      "visual_description": "Close-up of Antunes gesturing an open-hand welcome gesture towards developers.",
+      "camera": "Lens 85mm portrait"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Pure white studio daylight | PRODUCTION NOTES: Emphasize open-source replicability."
+}
+
+================================================================================
+BLOCO 17 (02:40 - 02:50) | CONCURSO CGU EDITAL Nº 46/2026
+================================================================================
+DESCRIÇÃO DA CENA:
+A logomarca oficial do 2º Concurso de Reúso de Dados Abertos da CGU (Edital nº 46/2026) surge em destaque ao lado de Antunes, reafirmando o atendimento rigoroso a todos os critérios do edital.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"Projeto desenvolvido sob medida para o 2º Concurso de Reúso de Dados Abertos da CGU (Edital nº 46/2026), entregando utilidade pública máxima, inovação e rigor técnico."
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 5.3: CGU EDITAL Nº 46/2026 CONTEST COMPLIANCE",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: FORMAL, EXCELLENT, TRIUMPHANT | PACING: SOLEMN",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): Projeto desenvolvido sob medida para o 2º Concurso de Reúso de Dados Abertos da CGU (Edital nº 46/2026), entregando utilidade pública máxima, inovação e rigor técnico."
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, official CGU Edital 46 seal, gold and emerald compliance criteria badges with Pixar auditor Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png", "antessala_logo_highres.png", "cgu_edital46_seal.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 65",
+      "time_code": "02:40-02:42.5",
+      "shot_title": "CGU EDITAL 46 EMBLEM",
+      "visual_description": "Wide shot. Official seal of CGU Contest Edital 46/2026 materializes floating next to Antessala logo in center stage. Antunes stands beside them.",
+      "camera": "Lens 35mm push"
+    },
+    {
+      "panel_id": "PANEL 66",
+      "time_code": "02:42.5-02:45",
+      "shot_title": "EVALUATION CRITERIA CHECKLIST",
+      "visual_description": "Medium shot. Five glowing green checkmarks for: Relevância, Inovação, Usabilidade, Replicabilidade e Impacto Social.",
+      "camera": "Lens 50mm checklist tracking"
+    },
+    {
+      "panel_id": "PANEL 67",
+      "time_code": "02:45-02:47.5",
+      "shot_title": "PUBLIC REUSE CASE CASE STUDY",
+      "visual_description": "Infographic showing the project registered as an official reuse case on the Brazilian Open Data Portal (dados.gov.br).",
+      "camera": "Lens 35mm graphic view"
+    },
+    {
+      "panel_id": "PANEL 68",
+      "time_code": "02:47.5-02:50",
+      "shot_title": "ANTUNES STANDING AT ATTENTION",
+      "visual_description": "Close-up of Antunes standing proudly in his navy blue suit, hand on chest in respectful salute to public interest.",
+      "camera": "Lens 85mm hero portrait"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Warm institutional gold and emerald highlights | PRODUCTION NOTES: Maximum institutional dignity."
+}
+
+================================================================================
+BLOCO 18 (02:50 - 03:00) | ENCERRAMENTO, CALL TO ACTION E GITHUB
+================================================================================
+DESCRIÇÃO DA CENA:
+O encerramento une Antunes em seu terno azul, a menção ao autor Aislan Greca, o link do repositório GitHub (`github.com/asgreca/antessala`) e a frase marcante da maleta e do projeto. Tela final limpa e impactante.
+
+QUEM FALA: Antunes
+FALA EM PORTUGUÊS (ÁUDIO EM OFF / ON-SCREEN):
+"Acesse nosso repositório no GitHub em github.com/asgreca/antessala, explore a plataforma ao vivo e junte-se a nós por um Brasil mais transparente. Porque a democracia exige dados com rigor!"
+
+PROMPT DE STORYBOARD (JSON / TEXT):
+{
+  "header": {
+    "title": "SEQUENCE 5.4: CLOSING GRAND FINALE & GITHUB REPOSITORY CALL TO ACTION",
+    "metadata": "TOTAL RUNTIME: 00:10 | PANELS: 4 | TONE: INSPIRATIONAL, ACTION-ORIENTED, IMPACTFUL | PACING: RESOLUTE",
+    "audio_script_ptbr": "ÁUDIO (ANTUNES): Acesse nosso repositório no GitHub em github.com/asgreca/antessala, explore a plataforma ao vivo e junte-se a nós por um Brasil mais transparente. Porque a democracia exige dados com rigor!"
+  },
+  "style_guidelines": "Cinematic infographic storyboard poster, 16:9 horizontal orientation, clean stark white background, bold black typography, emerald green call to action button, final hero composition featuring 3D Pixar character Antunes.",
+  "image_references_required": ["antunes_pixar_official_suit.png", "antessala_logo_highres.png"],
+  "panels": [
+    {
+      "panel_id": "PANEL 69",
+      "time_code": "02:50-02:52.5",
+      "shot_title": "GITHUB REPOSITORY REVEAL",
+      "visual_description": "Wide shot. Large bold typography on white void: 'github.com/asgreca/antessala'. Antunes points directly to the URL with his magnifying glass.",
+      "camera": "Lens 35mm forward move"
+    },
+    {
+      "panel_id": "PANEL 70",
+      "time_code": "02:52.5-02:55",
+      "shot_title": "AUTHOR CREDITS & SOCIALS",
+      "visual_description": "Medium shot. Credit card showing 'Aislan Greca (RP, Jornalista, Cientista de Dados)' with LinkedIn, X and Instagram icons.",
+      "camera": "Lens 50mm side tracking"
+    },
+    {
+      "panel_id": "PANEL 71",
+      "time_code": "02:55-02:57.5",
+      "shot_title": "THE BRIEFCASE LOGO - ANTUNES RIGOR",
+      "visual_description": "Extreme close-up on Antunes's leather briefcase engraving: 'ANTUNES - RIGOR' with clean studio lighting.",
+      "camera": "Lens 90mm macro focus"
+    },
+    {
+      "panel_id": "PANEL 72",
+      "time_code": "02:57.5-03:00",
+      "shot_title": "FINAL ANTESSALA LOGO OUTRO",
+      "visual_description": "Wide hero shot. Antunes in his navy blue suit waves goodbye as the Antessala logo locks into center screen on crisp white background.",
+      "camera": "Lens 35mm smooth track out to fade out"
+    }
+  ],
+  "technical_footer": "CAMERA: ARRI Alexa LF | LIGHTING: Brilliant white studio lighting fading out | PRODUCTION NOTES: Final memorable call to action."
+}
+
+================================================================================
+FIM DO ROTEIRO E STORYBOARD REVISADO - PROJETO ANTESSALA (3 MINUTOS)
+================================================================================

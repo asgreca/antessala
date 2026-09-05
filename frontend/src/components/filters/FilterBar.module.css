@@ -1,0 +1,116 @@
+/* Barra de filtros integrada: cada escolha reduz as opções das demais, porque
+   as facetas vêm do servidor já calculadas sob os filtros ativos. */
+.bar {
+  background: var(--bg-card, #1C2541);
+  border: 1px solid var(--border-color, #2E3A59);
+  border-radius: var(--radius-md, 10px);
+  padding: 0.85rem 0.9rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.6fr) minmax(160px, 1fr) minmax(150px, 1.2fr) minmax(220px, 1fr);
+  gap: 0.7rem;
+  align-items: end;
+}
+
+.field { display: flex; flex-direction: column; gap: 0.28rem; min-width: 0; }
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted, #94A3B8);
+}
+
+.rangeHint {
+  margin-left: 0.3rem;
+  font-style: normal;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.66rem;
+  opacity: 0.75;
+}
+
+.field select,
+.field input {
+  width: 100%;
+  padding: 0.42rem 0.5rem;
+  border: 1px solid var(--border-color, #2E3A59);
+  border-radius: var(--radius-sm, 6px);
+  background: var(--bg-input, #0F172A);
+  color: var(--text-primary, #F8FAFC);
+  font-family: inherit;
+  font-size: 0.8rem;
+}
+
+.field select:focus,
+.field input:focus {
+  outline: 2px solid var(--primary, #2563EB);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.dateInputs { display: flex; align-items: center; gap: 0.35rem; }
+.dateInputs input { font-family: var(--font-mono, monospace); font-size: 0.76rem; }
+.dateSep { font-size: 0.7rem; color: var(--text-muted, #94A3B8); flex: 0 0 auto; }
+
+/* Data pela metade não é erro: o usuário ainda está digitando. Sinaliza sem
+   alarmar, e o filtro só é enviado quando a data está completa. */
+.dateIncomplete { border-color: var(--severity-medium, #F59E0B); }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border-color, #2E3A59);
+}
+
+.total {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-primary, #F8FAFC);
+  margin-right: 0.2rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  max-width: 320px;
+  padding: 0.18rem 0.45rem;
+  border: 1px solid var(--primary-border, rgba(37, 99, 235, 0.3));
+  border-radius: var(--radius-full, 999px);
+  background: var(--primary-light, rgba(37, 99, 235, 0.15));
+  color: var(--text-primary, #F8FAFC);
+  font: inherit;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chip:hover { background: var(--primary, #2563EB); }
+
+.clearAll {
+  border: 0;
+  background: none;
+  color: var(--text-muted, #94A3B8);
+  font: inherit;
+  font-size: 0.72rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.clearAll:hover { color: var(--text-primary, #F8FAFC); }
+
+@media (max-width: 900px) {
+  .row { grid-template-columns: 1fr; }
+}

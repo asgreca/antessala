@@ -1,0 +1,228 @@
+.header {
+  background: #FFFFFF;
+  color: #0F172A;
+  padding: 12px 28px;
+  border-bottom: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky-nav);
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.logoGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.searchTrigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  color: #64748B;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.searchTrigger:hover {
+  background: #FFFFFF;
+  border-color: #0284C7;
+  color: #0F172A;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+  transform: translateY(-1px);
+}
+
+.searchTrigger:focus-visible {
+  outline: 2px solid #0284C7;
+  outline-offset: 2px;
+}
+
+.searchPlaceholder {
+  flex: 1;
+  text-align: left;
+  font-weight: 500;
+}
+
+.searchKbd {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--radius-xs);
+  padding: 2px 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: #0284C7;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.rightGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.antunesBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-full);
+  padding: 4px 12px 4px 6px;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.antunesBadge:hover {
+  background: #F1F5F9;
+  border-color: #00A859;
+  transform: translateY(-1px);
+}
+
+.helpBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.1);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.helpBtn:hover {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10B981;
+  transform: translateY(-1px);
+}
+
+.antunesMini {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #00A859;
+  background: #FFFFFF;
+}
+
+.antunesLabel {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+}
+
+.liveDot {
+  width: 7px;
+  height: 7px;
+  background-color: #00A859;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(0, 168, 89, 0.25);
+}
+
+.dataBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  color: #334155;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+}
+
+@media (max-width: 960px) {
+  .searchTrigger {
+    max-width: 220px;
+  }
+  .dataBadge {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 14px;
+  }
+  .container {
+    gap: 10px;
+  }
+  .searchTrigger {
+    max-width: 170px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+  .searchKbd {
+    display: none;
+  }
+  .statusBadge span:not(.liveDot) {
+    display: none;
+  }
+  .statusBadge {
+    padding: 6px 8px;
+    gap: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 8px 10px;
+  }
+  .helpBtn span {
+    display: none;
+  }
+  .helpBtn {
+    padding: 6px 8px;
+  }
+  .antunesLabel {
+    display: none;
+  }
+  .antunesBadge {
+    padding: 3px;
+    border-radius: 50%;
+  }
+  .searchTrigger {
+    display: none;
+  }
+}

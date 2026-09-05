@@ -1,0 +1,170 @@
+.markdownContainer {
+  display: flex;
+  flex-direction: column;
+  color: #1E293B;
+  line-height: 1.65;
+  font-size: 0.93rem;
+}
+
+.markdownContainer h1 {
+  font-size: 1.32rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 20px 0 10px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #00A859;
+  letter-spacing: -0.02em;
+}
+
+.markdownContainer h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 18px 0 8px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.markdownContainer h3 {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 14px 0 6px 0;
+}
+
+.markdownContainer h4 {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: #334155;
+  margin: 10px 0 4px 0;
+}
+
+.markdownContainer p {
+  margin: 6px 0;
+  color: #334155;
+}
+
+.markdownContainer hr {
+  border: 0;
+  border-top: 1px dashed #CBD5E1;
+  margin: 16px 0;
+}
+
+.markdownContainer blockquote {
+  margin: 10px 0;
+  padding: 10px 16px;
+  background: #F8FAFC;
+  border-left: 4px solid #00A859;
+  border-radius: 0 6px 6px 0;
+  color: #475569;
+  font-size: 0.88rem;
+  font-style: italic;
+}
+
+.markdownContainer ul,
+.markdownContainer ol {
+  margin: 6px 0 10px 0;
+  padding-left: 24px;
+}
+
+.markdownContainer li {
+  margin-bottom: 4px;
+  color: #334155;
+}
+
+.markdownContainer code {
+  background: #F1F5F9;
+  color: #0F172A;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85em;
+  border: 1px solid #E2E8F0;
+}
+
+.markdownContainer pre {
+  background: #0F172A;
+  color: #F8FAFC;
+  padding: 12px 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.84rem;
+  margin: 12px 0;
+}
+
+.markdownContainer table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  text-align: left;
+  margin: 14px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.markdownContainer thead {
+  background: #F8FAFC;
+  border-bottom: 2px solid #CBD5E1;
+}
+
+.markdownContainer th {
+  padding: 10px 14px;
+  font-weight: 700;
+  color: #0F172A;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  border: 1px solid #E2E8F0;
+}
+
+.markdownContainer td {
+  padding: 9px 14px;
+  border: 1px solid #E2E8F0;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.markdownContainer tbody tr:nth-child(even) {
+  background: #FBFDFB;
+}
+
+.markdownContainer tbody tr:hover {
+  background: #F0FDF4;
+}
+
+.markdownContainer strong {
+  color: #0F172A;
+  font-weight: 700;
+}
+
+.mermaidDiagram {
+  margin: 16px 0;
+  padding: 16px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.mermaidDiagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
+@media print {
+  .mermaidDiagram {
+    border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+    break-inside: avoid;
+    box-shadow: none;
+    margin: 12px 0;
+    padding: 10px;
+  }
+}
+

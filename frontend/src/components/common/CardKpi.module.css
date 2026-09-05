@@ -1,0 +1,125 @@
+.card {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary);
+  opacity: 0.8;
+  transition: height var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-color-light);
+  box-shadow: var(--shadow-md), 0 0 20px rgba(56, 189, 248, 0.15);
+}
+
+.card:hover::before {
+  height: 3px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.iconContainer {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+}
+
+.valueContainer {
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+.value {
+  font-size: 2.1rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-white);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Variantes de Severidade & KPIs Especiais */
+.critical::before {
+  background: var(--severity-critical);
+  box-shadow: 0 0 10px var(--severity-critical-glow);
+}
+.critical .value {
+  color: var(--severity-critical-light);
+}
+
+.high::before {
+  background: var(--severity-high);
+  box-shadow: 0 0 10px var(--severity-high-glow);
+}
+.high .value {
+  color: var(--severity-high-light);
+}
+
+.medium::before {
+  background: var(--severity-medium);
+  box-shadow: 0 0 10px var(--severity-medium-glow);
+}
+.medium .value {
+  color: var(--severity-medium-light);
+}
+
+.low::before {
+  background: var(--severity-low);
+  box-shadow: 0 0 10px var(--severity-low-glow);
+}
+.low .value {
+  color: var(--severity-low-light);
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 14px 16px;
+  }
+  .value {
+    font-size: 1.65rem;
+  }
+}

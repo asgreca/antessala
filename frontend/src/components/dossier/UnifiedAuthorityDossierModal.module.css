@@ -1,0 +1,680 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: calc(var(--z-modal-content, 1000) + 10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.18s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.985); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modalCard {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  width: 95vw;
+  max-width: 1280px;
+  max-height: 94vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.18), 0 0 1px rgba(15, 23, 42, 0.2);
+  overflow: hidden;
+}
+
+.modalHeader {
+  background: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+  padding: 20px 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.authorityInfoBox {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatarBox {
+  width: 52px;
+  height: 52px;
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1.5px solid #BFDBFE;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.authorityTitle h2 {
+  font-size: 1.28rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 5px 0;
+  letter-spacing: -0.02em;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.82rem;
+  color: #64748B;
+  flex-wrap: wrap;
+}
+
+.roleBadge {
+  background: #F1F5F9;
+  color: #334155;
+  border: 1px solid #E2E8F0;
+  padding: 2px 9px;
+  border-radius: 6px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.bodyBadge {
+  background: #F0FDF4;
+  color: #008A4B;
+  border: 1px solid #DCFCE7;
+  padding: 2px 9px;
+  border-radius: 6px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #94A3B8;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.closeBtn:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+}
+
+.tabsHeader {
+  display: flex;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+  padding: 0 24px;
+  gap: 6px;
+  overflow-x: auto;
+}
+
+.tabBtn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 13px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #64748B;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-bottom: 2.5px solid transparent;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.tabBtn:hover {
+  color: #00A859;
+}
+
+.tabActive {
+  color: #00A859;
+  border-bottom-color: #00A859;
+  font-weight: 700;
+}
+
+.modalBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px;
+  background: #F8FAFC;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.kpiSummaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.kpiMiniCard {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.kpiMiniLabel {
+  font-size: 0.76rem;
+  color: #64748B;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.kpiMiniVal {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+}
+
+.sectionBox {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 22px 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 14px;
+}
+
+.llmReportBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #00A859;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 168, 89, 0.25);
+  transition: all 0.2s ease;
+}
+
+.llmReportBtn:hover:not(:disabled) {
+  background: #008F4C;
+  transform: translateY(-1px);
+}
+
+.llmReportBtn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.spinIcon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.llmReportBox {
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-top: 14px;
+}
+
+.printHeaderBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #E2E8F0;
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.printMascotImg {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+}
+
+.reportActionsBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #E2E8F0;
+}
+
+.reportEngineBadge {
+  font-size: 0.76rem;
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #BFDBFE;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.reportHashBadge {
+  font-size: 0.72rem;
+  background: #F8FAFC;
+  color: #64748B;
+  border: 1px solid #E2E8F0;
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.printReportBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #1E293B;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.printReportBtn:hover {
+  background: #0F172A;
+}
+
+.falaBrBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+}
+
+.falaBrBtn:hover {
+  background: linear-gradient(135deg, #047857 0%, #065F46 100%);
+  transform: translateY(-1px);
+}
+
+.exportBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #FFFFFF;
+  color: #0F172A;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.exportBtn:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+}
+
+.evidenceFilterBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #F1F5F9;
+  color: #334155;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.evidenceFilterBtn:hover {
+  background: #E2E8F0;
+}
+
+.reportContentWrapper {
+  margin-top: 10px;
+}
+
+.entitiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.entityCard {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.entityCard:hover {
+  border-color: #00A859;
+  background: #F0FDF4;
+}
+
+.entityHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.76rem;
+  color: #64748B;
+}
+
+.entityName {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.lobbyistsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.lobbyistCard {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.lobbyistCard:hover {
+  border-color: #3B82F6;
+  background: #EFF6FF;
+  transform: translateY(-1px);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  text-align: left;
+}
+
+.table th {
+  background: #F8FAFC;
+  padding: 10px 14px;
+  border-bottom: 2px solid #E2E8F0;
+  font-weight: 700;
+  color: #0F172A;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #E2E8F0;
+  vertical-align: middle;
+  color: #334155;
+}
+
+.table tbody tr:hover {
+  background: #F8FAFC;
+}
+
+.badgeOpaque {
+  background: #FEF2F2;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.badgeClear {
+  background: #F0FDF4;
+  color: #16A34A;
+  border: 1px solid #BBF7D0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.pointerBtn {
+  background: transparent;
+  border: none;
+  color: #0284C7;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.pointerBtn:hover {
+  color: #0369A1;
+}
+
+.thHint {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: normal;
+  color: #64748B;
+  margin-top: 2px;
+}
+
+.relationStrong { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
+.relationMedium { background: #FFFBEB; color: #D97706; border: 1px solid #FDE68A; }
+.relationNone   { background: #F1F5F9; color: #64748B; border: 1px solid #E2E8F0; }
+.relationIndeterminate { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
+
+.relationStrong,
+.relationMedium,
+.relationNone,
+.relationIndeterminate {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.18rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.indeterminateHint {
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: #92400E;
+  background: #FFFBEB;
+  padding: 4px 7px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 4px;
+  border-left: 2.5px solid #F59E0B;
+}
+
+.subtleCell {
+  font-size: 0.75rem;
+  color: #64748B;
+  margin-top: 2px;
+}
+
+.paginationRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  font-size: 0.82rem;
+  color: #64748B;
+}
+
+.pageBtn {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pageBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-authority-report, #printable-authority-report * {
+    visibility: visible;
+  }
+  #printable-authority-report {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  .reportActionsBar {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .modalOverlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .modalCard {
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    border: none;
+  }
+  .modalHeader {
+    padding: 12px 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .authorityInfoBox {
+    gap: 10px;
+  }
+  .avatarBox {
+    width: 44px;
+    height: 44px;
+  }
+  .authorityTitle h2 {
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+  .metaRow {
+    gap: 6px;
+    font-size: 0.76rem;
+  }
+  .tabsHeader {
+    padding: 0 10px;
+    gap: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tabBtn {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    gap: 5px;
+  }
+  .modalBody {
+    padding: 14px 12px;
+    gap: 14px;
+  }
+  .kpiSummaryGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .sectionBox {
+    padding: 14px 12px;
+  }
+  .reportActionsBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .tableContainer,
+  .tableWrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+}

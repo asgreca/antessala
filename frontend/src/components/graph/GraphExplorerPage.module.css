@@ -1,0 +1,189 @@
+.container {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: calc(100vh - 120px);
+}
+
+.headerBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 16px 22px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.headerInfo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.iconBadge {
+  width: 42px;
+  height: 42px;
+  background: #E8F5E9;
+  border: 1px solid #A7F3D0;
+  color: #00A859;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 168, 89, 0.15);
+}
+
+.headerInfo h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.2px;
+}
+
+.subtext {
+  font-size: 0.8rem;
+  color: #64748B;
+}
+
+.filterBar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  flex-wrap: wrap;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.filterSelect,
+.filterInput {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  color: #0F172A;
+  outline: none;
+  max-width: 260px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.countBadge {
+  background: #EFF6FF;
+  color: #0284C7;
+  border: 1px solid #BFDBFE;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.filterSelect:focus,
+.filterInput:focus {
+  border-color: #00A859;
+}
+
+.llmReportBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #00A859;
+  color: #FFFFFF;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-left: auto;
+}
+
+.llmReportBtn:hover {
+  background: #008F4C;
+}
+
+.llmReportBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.reloadBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  color: #475569;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.reloadBtn:hover {
+  color: #0F172A;
+  border-color: #00A859;
+  background: #F0FDF4;
+}
+
+.viewerWrapper {
+  position: relative;
+  flex: 1;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.llmReportModal {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 420px;
+  max-height: calc(100% - 32px);
+  background: #FFFFFF;
+  border: 1.5px solid #00A859;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.llmReportHeader {
+  background: #F0FDF4;
+  border-bottom: 1px solid #BBF7D0;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.llmReportBody {
+  padding: 16px;
+  overflow-y: auto;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: #1E293B;
+  white-space: pre-wrap;
+}
