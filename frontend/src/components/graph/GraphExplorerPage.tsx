@@ -211,10 +211,21 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
           <button
             type="button"
             className={styles.presidentialBadgeBtn}
-            onClick={() => {
-              handleMinistryChange('Presidência da República');
-              const foundLula = actorsList.find((a) => a.name.includes('LULA'));
-              if (foundLula) handleAddActor(foundLula.id);
+            onClick={async () => {
+              const lulaId = 'c3f4c2c8c370bc04';
+              setSelectedMinistry('Presidência da República');
+              setSelectedActors([lulaId]);
+              setFiltersLoading(true);
+              try {
+                const data = await graphService.getFilterOptions('Presidência da República', lulaId);
+                if (data.actors && data.actors.length > 0) {
+                  setActorsList(data.actors);
+                }
+              } catch (e) {
+                console.error('Erro ao carregar atores da Presidência:', e);
+              } finally {
+                setFiltersLoading(false);
+              }
             }}
             title="Carregar diretamente a rede da Presidência da República e do Presidente Lula"
           >
