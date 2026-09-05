@@ -3323,26 +3323,11 @@ Seja direto, técnico e institucional. Use markdown formal.
         report_text = default_topology_report
         provider_name = "Robô Antunes — Análise Pericial Cívica"
 
-    # Salva no cache por hash
-    _DOSSIER_REPORT_CACHE[name] = {
-        "hash": current_data_hash,
-        "report": report_text,
-        "provider": provider_name,
-        "generatedAt": datetime.now().isoformat(),
-    }
-
     return {
-        "personName": name,
+        "actorName": actor_name,
         "report": report_text,
         "generatedAt": datetime.now().isoformat(),
-        "provider": provider_name,
-        "dataHash": current_data_hash,
-        "isCached": False,
-        "evidenceCounts": {
-            "meetings": len(meetings),
-            "correlations": len(corrs),
-            "companyDouActs": len(company_acts_all)
-        }
+        "provider": provider_name
     }
 
 
