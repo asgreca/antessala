@@ -168,8 +168,8 @@ export const InfluenceGraph: React.FC<Props> = ({
       }
     });
 
-    // 2. Se há filtros ativos, preserva também os nós de raiz (isLobbyist / atores principais)
-    // e todos os nós intermediários que conectam os nós filtrados até a raiz.
+    // 2. Se há filtros ativos, mantemos estritamente os nós filtrados (matches),
+    // o nó principal da análise (root) e os intermediários que ligam o match ao root.
     const isFilterActive =
       hasSearch ||
       themeFilter !== 'TODOS' ||
@@ -181,38 +181,32 @@ export const InfluenceGraph: React.FC<Props> = ({
     if (!isFilterActive) {
       // Nenhum filtro ativo: exibe a rede completa
       keptNodeIds = new Set(data.nodes.map((n) => n.data.id));
+    } else if (matchedNodeIds.size === 0) {
+      // Nenhum nó correspondeu aos filtros selecionados
+      return { filteredNodes: [], filteredEdges: [] };
     } else {
-      // Sempre mantém nós que deram match direto
+      // Mantém apenas os nós que casaram diretamente
       matchedNodeIds.forEach((id) => keptNodeIds.add(id));
 
-      // Mantém todos os nós raiz/principais da análise
+      // Mantém os nós principais (root)
       data.nodes.forEach((n) => {
         if (n.data.isLobbyist) {
           keptNodeIds.add(n.data.id);
         }
       });
 
-      // BFS/DFS de 2 saltos ao longo das arestas para incluir os caminhos e pontes de conexão
-      // entre o nó correspondente e o ator público/privado principal
-      let addedInStep = true;
-      let passes = 0;
-
-      while (addedInStep && passes < 3) {
-        addedInStep = false;
-        passes++;
-
-        data.edges.forEach((e) => {
-          const s = e.data.source;
-          const t = e.data.target;
-          if (keptNodeIds.has(s) && !keptNodeIds.has(t)) {
-            keptNodeIds.add(t);
-            addedInStep = true;
-          } else if (keptNodeIds.has(t) && !keptNodeIds.has(s)) {
-            keptNodeIds.add(s);
-            addedInStep = true;
-          }
-        });
-      }
+      // Inclui apenas arestas que conectam diretamente um nó correspondente a um nó principal ou intermediário direto
+      let directBridgeNodeIds = new Set<string>();
+      data.edges.forEach((e) => {
+        const s = e.data.source;
+        const t = e.data.target;
+        if (matchedNodeIds.has(s) && keptNodeIds.has(t)) {
+          directBridgeNodeIds.add(t);
+        } else if (matchedNodeIds.has(t) && keptNodeIds.has(s)) {
+          directBridgeNodeIds.add(s);
+        }
+      });
+      directBridgeNodeIds.forEach((id) => keptNodeIds.add(id));
     }
 
     const nodes = data.nodes.filter((n) => keptNodeIds.has(n.data.id));
