@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Building2, ShieldAlert, Crown, User, Loader2, ArrowRight, ExternalLink, FileText, Users } from 'lucide-react';
 import { CompanyLogo } from '../common/CompanyLogo';
 import { FilterBar, FilterState, EMPTY_FILTERS, Facets } from '../filters/FilterBar';
+import { StructuredFilterPanel } from '../common/StructuredFilterPanel';
 import { InteractionsTable, InteractionRow } from './InteractionsTable';
-import { getApiUrl } from '../../services/api';
+import { getApiUrl, fetchApi } from '../../services/api';
 import styles from './MinistryFichaPage.module.css';
 
 interface MinistryFichaPageProps {
@@ -208,6 +209,35 @@ export const MinistryFichaPage: React.FC<MinistryFichaPageProps> = ({ onInspectP
     fetchFicha(selectedMinistry);
   }, [selectedMinistry]);
 
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [companySearch, setCompanySearch] = useState('');
+  const [visitorSearch, setVisitorSearch] = useState('');
+  const [authoritySearch, setAuthoritySearch] = useState('');
+  const [filterOptions, setFilterOptions] = useState<any>(null);
+
+  useEffect(() => {
+    fetchApi<{
+      ministries: string[];
+      topCompanies: string[];
+      topAuthorities: string[];
+      topVisitors: string[];
+      dateRange: { minDate: string; maxDate: string };
+    }>('/ranking/filter-options')
+      .then(setFilterOptions)
+      .catch((err) => console.warn('Falha ao obter opções de filtro:', err));
+  }, []);
+
+  const handleResetFilters = () => {
+    setStartDate('');
+    setEndDate('');
+    setSelectedMinistry('ALL');
+    setCompanySearch('');
+    setVisitorSearch('');
+    setAuthoritySearch('');
+    setFilters(EMPTY_FILTERS);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.headerBanner}>
@@ -235,12 +265,44 @@ export const MinistryFichaPage: React.FC<MinistryFichaPageProps> = ({ onInspectP
         </div>
       </div>
 
-      <FilterBar
-        value={filters}
-        facets={facets}
+      <StructuredFilterPanel
+        startDate={startDate}
+        endDate={endDate}
+        selectedMinistry={selectedMinistry}
+        companySearch={companySearch}
+        visitorSearch={visitorSearch}
+        authoritySearch={authoritySearch}
+        onStartDateChange={(v) => {
+          setStartDate(v);
+          setFilters((prev) => ({ ...prev, dateFrom: v }));
+        }}
+        onEndDateChange={(v) => {
+          setEndDate(v);
+          setFilters((prev) => ({ ...prev, dateTo: v }));
+        }}
+        onMinistryChange={(v) => {
+          setSelectedMinistry(v);
+          setFilters((prev) => ({ ...prev, publicBody: v === 'ALL' ? '' : v }));
+        }}
+        onCompanyChange={(v) => {
+          setCompanySearch(v);
+          setFilters((prev) => ({ ...prev, search: v }));
+        }}
+        onVisitorChange={(v) => {
+          setVisitorSearch(v);
+          setFilters((prev) => ({ ...prev, search: v }));
+        }}
+        onAuthorityChange={(v) => {
+          setAuthoritySearch(v);
+          setFilters((prev) => ({ ...prev, search: v }));
+        }}
+        onResetFilters={handleResetFilters}
+        filterOptions={filterOptions}
+        totalElementsCount={rowsTotal}
+        resultsLabelSingular="relação encontrada"
+        resultsLabelPlural="relações encontradas"
         loading={rowsLoading}
-        totalLabel={`${rowsTotal.toLocaleString('pt-BR')} relações`}
-        onChange={setFilters}
+        idPrefix="ministry"
       />
 
       <div className={styles.card}>

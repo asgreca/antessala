@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Landmark, Search, Filter, AlertTriangle, ArrowRight, ChevronLeft, ChevronRight, Building2, Sparkles, X, User } from 'lucide-react';
 import { AuthorityListItem, AuthoritiesListResponse } from '../../types/authority.types';
 import { authorityService } from '../../services/authorityService';
+import { fetchApi } from '../../services/api';
 import { CompanyLogo } from '../common/CompanyLogo';
 import { AuthorityAvatar } from '../common/AuthorityAvatar';
+import { StructuredFilterPanel } from '../common/StructuredFilterPanel';
 import styles from './AuthoritiesPage.module.css';
 
 interface AuthoritiesPageProps {
@@ -22,6 +24,23 @@ export const AuthoritiesPage: React.FC<AuthoritiesPageProps> = ({ onInspectAutho
   const [organ, setOrgan] = useState('ALL');
   const [sortBy, setSortBy] = useState('meetings');
   const [page, setPage] = useState(1);
+
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [visitorSearch, setVisitorSearch] = useState('');
+  const [filterOptions, setFilterOptions] = useState<any>(null);
+
+  useEffect(() => {
+    fetchApi<{
+      ministries: string[];
+      topCompanies: string[];
+      topAuthorities: string[];
+      topVisitors: string[];
+      dateRange: { minDate: string; maxDate: string };
+    }>('/ranking/filter-options')
+      .then(setFilterOptions)
+      .catch((err) => console.warn('Falha ao obter opções de filtro:', err));
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -42,6 +61,16 @@ export const AuthoritiesPage: React.FC<AuthoritiesPageProps> = ({ onInspectAutho
       })
       .finally(() => setLoading(false));
   }, [search, company, organ, sortBy, page]);
+
+  const handleResetFilters = () => {
+    setStartDate('');
+    setEndDate('');
+    setOrgan('ALL');
+    setCompany('');
+    setVisitorSearch('');
+    setSearch('');
+    setPage(1);
+  };
 
   return (
     <div className={styles.container}>
@@ -81,86 +110,43 @@ export const AuthoritiesPage: React.FC<AuthoritiesPageProps> = ({ onInspectAutho
         </div>
       </div>
 
-      {/* Barra de Filtros */}
-      <div className={styles.filterCard}>
-        {/* Busca por Autoridade ou Cargo */}
-        <div className={styles.inputGroup}>
-          <User size={16} className={styles.inputIcon} />
-          <input
-            type="text"
-            className={styles.searchInput}
-            placeholder="Buscar por autoridade ou cargo público..."
-            value={search}
-            onChange={(e) => { setSearch(e.target.value); setPage(1); }}
-          />
-          {search && (
-            <button
-              type="button"
-              className={styles.clearBtn}
-              onClick={() => { setSearch(''); setPage(1); }}
-              title="Limpar busca"
+      {/* PAINEL DE FILTROS ESTRUTURADOS DE ANÁLISE */}
+      <StructuredFilterPanel
+        startDate={startDate}
+        endDate={endDate}
+        selectedMinistry={organ}
+        companySearch={company}
+        visitorSearch={visitorSearch}
+        authoritySearch={search}
+        onStartDateChange={(v) => { setStartDate(v); setPage(1); }}
+        onEndDateChange={(v) => { setEndDate(v); setPage(1); }}
+        onMinistryChange={(v) => { setOrgan(v); setPage(1); }}
+        onCompanyChange={(v) => { setCompany(v); setPage(1); }}
+        onVisitorChange={(v) => { setVisitorSearch(v); setPage(1); }}
+        onAuthorityChange={(v) => { setSearch(v); setPage(1); }}
+        onResetFilters={handleResetFilters}
+        filterOptions={filterOptions}
+        totalElementsCount={data?.total}
+        resultsLabelSingular="autoridade encontrada"
+        resultsLabelPlural="autoridades encontradas"
+        loading={loading}
+        idPrefix="authorities"
+        secondaryControl={
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569' }}>Ordenar por:</span>
+            <select
+              className={styles.filterSelect}
+              value={sortBy}
+              onChange={(e) => { setSortBy(e.target.value); setPage(1); }}
             >
-              <X size={14} />
-            </button>
-          )}
-        </div>
-
-        {/* Busca por Empresa ou Entidade Representada */}
-        <div className={styles.inputGroup}>
-          <Building2 size={16} className={styles.inputIcon} />
-          <input
-            type="text"
-            className={styles.searchInput}
-            placeholder="Buscar por empresa / entidade atendida (ex: Petrobras, Vale)..."
-            value={company}
-            onChange={(e) => { setCompany(e.target.value); setPage(1); }}
-          />
-          {company && (
-            <button
-              type="button"
-              className={styles.clearBtn}
-              onClick={() => { setCompany(''); setPage(1); }}
-              title="Limpar filtro de empresa"
-            >
-              <X size={14} />
-            </button>
-          )}
-        </div>
-
-        <select
-          className={styles.filterSelect}
-          value={sortBy}
-          onChange={(e) => { setSortBy(e.target.value); setPage(1); }}
-        >
-          <option value="meetings">Mais Reuniões Concedidas</option>
-          <option value="opacity">Maior Índice de Pautas Opacas</option>
-          <option value="entities">Mais Empresas / Entidades Atendidas</option>
-          <option value="lobbyists">Mais Interlocutores Recebidos</option>
-        </select>
-
-        {/* Quick Chips de Empresas em Destaque */}
-        <div className={styles.chipsRow}>
-          <span className={styles.chipLabel}>Filtrar por empresa:</span>
-          {POPULAR_COMPANIES.map((comp) => {
-            const isActive = company.toLowerCase() === comp.toLowerCase();
-            return (
-              <button
-                key={comp}
-                type="button"
-                className={`${styles.chip} ${isActive ? styles.chipActive : ''}`}
-                onClick={() => {
-                  setCompany(isActive ? '' : comp);
-                  setPage(1);
-                }}
-              >
-                <CompanyLogo name={comp} size={14} />
-                <span>{comp}</span>
-                {isActive && <X size={12} style={{ marginLeft: 2 }} />}
-              </button>
-            );
-          })}
-        </div>
-      </div>
+              <option value="meetings">Mais Reuniões Concedidas</option>
+              <option value="opacity">Maior Índice de Pautas Opacas</option>
+              <option value="entities">Mais Empresas / Entidades Atendidas</option>
+              <option value="lobbyists">Mais Interlocutores Recebidos</option>
+            </select>
+          </div>
+        }
+      />
 
       {/* Tabela de Autoridades */}
       <div className={styles.tableWrapper}>

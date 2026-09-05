@@ -5,11 +5,12 @@ import { AlertListItem, AlertSeverity } from '../../types/alert.types';
 import { BadgeSeverity } from '../common/BadgeSeverity';
 import { CompanyLogo } from '../common/CompanyLogo';
 import { detectEntityCategory, getCategoryLabel } from '../../utils/companyLogo';
-import { getApiUrl } from '../../services/api';
+import { getApiUrl, fetchApi } from '../../services/api';
 import { 
   ShieldAlert, Filter, ChevronLeft, ChevronRight, 
   ArrowRight, Search, Eye, Sparkles, Building2, User 
 } from 'lucide-react';
+import { StructuredFilterPanel } from '../common/StructuredFilterPanel';
 import styles from './AlertsPage.module.css';
 
 interface AlertsPageProps {
@@ -47,12 +48,44 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ onInspectPerson }) => {
   // total das correlações sorteadas que foram retiradas de circulação.
   const [totals, setTotals] = useState({ participations: 0, correlatedValue: 0, bodies: 0 });
 
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [selectedMinistry, setSelectedMinistry] = useState('ALL');
+  const [companySearch, setCompanySearch] = useState('');
+  const [visitorSearch, setVisitorSearch] = useState('');
+  const [authoritySearch, setAuthoritySearch] = useState('');
+  const [filterOptions, setFilterOptions] = useState<any>(null);
+
+  useEffect(() => {
+    fetchApi<{
+      ministries: string[];
+      topCompanies: string[];
+      topAuthorities: string[];
+      topVisitors: string[];
+      dateRange: { minDate: string; maxDate: string };
+    }>('/ranking/filter-options')
+      .then(setFilterOptions)
+      .catch((err) => console.warn('Falha ao obter opções de filtro:', err));
+  }, []);
+
   const loadData = async () => {
     setLoading(true);
     try {
       const [kpiRes, alertsRes] = await Promise.all([
         alertsService.getKpis(),
-        alertsService.getAlerts(currentPage, 10, selectedSeverity === 'TODOS' ? undefined : selectedSeverity)
+        alertsService.getAlerts(
+          currentPage,
+          10,
+          selectedSeverity === 'TODOS' ? undefined : selectedSeverity,
+          {
+            startDate: startDate || undefined,
+            endDate: endDate || undefined,
+            publicBody: selectedMinistry !== 'ALL' ? selectedMinistry : undefined,
+            entityName: companySearch.trim() || undefined,
+            lobbyistName: visitorSearch.trim() || undefined,
+            authorityName: authoritySearch.trim() || undefined,
+          }
+        )
       ]);
       setKpis({
         critical: kpiRes.criticalAlertsCount,
@@ -81,7 +114,18 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ onInspectPerson }) => {
 
   useEffect(() => {
     loadData();
-  }, [currentPage, selectedSeverity]);
+  }, [currentPage, selectedSeverity, startDate, endDate, selectedMinistry, companySearch, visitorSearch, authoritySearch]);
+
+  const handleResetFilters = () => {
+    setStartDate('');
+    setEndDate('');
+    setSelectedMinistry('ALL');
+    setCompanySearch('');
+    setVisitorSearch('');
+    setAuthoritySearch('');
+    setSelectedSeverity('TODOS');
+    setCurrentPage(0);
+  };
 
   return (
     <div className={styles.container}>
@@ -158,6 +202,47 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ onInspectPerson }) => {
           <span className={styles.kpiLabel}>Articuladores Multissetoriais</span>
         </div>
       </div>
+
+      {/* PAINEL DE FILTROS ESTRUTURADOS DE ANÁLISE */}
+      <StructuredFilterPanel
+        startDate={startDate}
+        endDate={endDate}
+        selectedMinistry={selectedMinistry}
+        companySearch={companySearch}
+        visitorSearch={visitorSearch}
+        authoritySearch={authoritySearch}
+        onStartDateChange={(v) => { setStartDate(v); setCurrentPage(0); }}
+        onEndDateChange={(v) => { setEndDate(v); setCurrentPage(0); }}
+        onMinistryChange={(v) => { setSelectedMinistry(v); setCurrentPage(0); }}
+        onCompanyChange={(v) => { setCompanySearch(v); setCurrentPage(0); }}
+        onVisitorChange={(v) => { setVisitorSearch(v); setCurrentPage(0); }}
+        onAuthorityChange={(v) => { setAuthoritySearch(v); setCurrentPage(0); }}
+        onResetFilters={handleResetFilters}
+        filterOptions={filterOptions}
+        totalElementsCount={totalElements}
+        resultsLabelSingular="alerta de risco encontrado"
+        resultsLabelPlural="alertas de risco encontrados"
+        loading={loading}
+        idPrefix="alerts"
+        secondaryControl={
+          <div className={styles.filterGroup} style={{ margin: 0 }}>
+            <Filter size={16} />
+            <span>Severidade:</span>
+            {(['TODOS', 'CRITICAL', 'HIGH', 'MEDIUM', 'LOW'] as const).map((sev) => (
+              <button
+                key={sev}
+                className={`${styles.filterBtn} ${selectedSeverity === sev ? styles.filterBtnActive : ''}`}
+                onClick={() => {
+                  setSelectedSeverity(sev);
+                  setCurrentPage(0);
+                }}
+              >
+                {sev === 'CRITICAL' ? 'CRÍTICO' : sev === 'HIGH' ? 'ALTO' : sev === 'MEDIUM' ? 'MÉDIO' : sev === 'LOW' ? 'BAIXO' : 'TODOS'}
+              </button>
+            ))}
+          </div>
+        }
+      />
 
       {/* Tabela de Alertas de Auditoria */}
       <div id="alerts-table" className={styles.tableCard}>

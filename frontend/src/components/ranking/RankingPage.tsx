@@ -9,6 +9,7 @@ import {
   ChevronLeft, ChevronRight, Filter, Search, User
 } from 'lucide-react';
 import { CompanyLogo } from '../common/CompanyLogo';
+import { StructuredFilterPanel } from '../common/StructuredFilterPanel';
 import styles from './RankingPage.module.css';
 
 interface RankingPageProps {
@@ -171,184 +172,27 @@ export const RankingPage: React.FC<RankingPageProps> = ({ onInspectPerson }) => 
       </div>
 
       {/* PAINEL DE FILTROS MULTIDIMENSIONAL (Data, Ministério, Empresas, Pessoas Visitantes, Visitados) */}
-      <div className={styles.filterPanel}>
-        <div className={styles.filterPanelHeader}>
-          <div className={styles.filterPanelTitle}>
-            <Filter size={18} color="#00A859" />
-            <span>Filtros Estruturados de Análise</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span className={styles.filterBadgeCount}>
-              {loading ? 'Calculando...' : `${totalElements} ${totalElements === 1 ? 'representante encontrado' : 'representantes encontrados'}`}
-            </span>
-            {hasActiveFilters && (
-              <button
-                type="button"
-                className={styles.clearBtn}
-                onClick={handleResetFilters}
-                title="Redefinir todos os filtros para o padrão"
-              >
-                <RotateCcw size={14} />
-                <span>Limpar Filtros</span>
-              </button>
-            )}
-          </div>
-        </div>
-
-        <div className={styles.filterGrid}>
-          {/* 1. FILTRO POR DATA (PERÍODO) */}
-          <div className={styles.filterField}>
-            <label className={styles.filterLabel}>
-              <Calendar size={14} color="#0284C7" />
-              <span>1. Período / Data</span>
-            </label>
-            <div className={styles.dateRangeRow}>
-              <input
-                type="date"
-                className={styles.dateInput}
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                placeholder="Início"
-                title="Data Inicial da Audiência"
-              />
-              <span className={styles.dateSep}>até</span>
-              <input
-                type="date"
-                className={styles.dateInput}
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                placeholder="Fim"
-                title="Data Final da Audiência"
-              />
-            </div>
-          </div>
-
-          {/* 2. FILTRO POR MINISTÉRIO */}
-          <div className={styles.filterField}>
-            <label className={styles.filterLabel}>
-              <Landmark size={14} color="#00A859" />
-              <span>2. Ministério / Órgão</span>
-            </label>
-            <select
-              className={styles.filterInput}
-              value={selectedMinistry}
-              onChange={(e) => setSelectedMinistry(e.target.value)}
-            >
-              <option value="ALL">Todos os Ministérios ({filterOptions?.ministries?.length || 0})</option>
-              {filterOptions?.ministries?.map((min) => (
-                <option key={min} value={min}>
-                  {min}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* 3. FILTRO POR ENTIDADES & ORGANIZAÇÕES EXTERNAS */}
-          <div className={styles.filterField}>
-            <label className={styles.filterLabel} title="Empresas, Associações Setoriais, Federações, ONGs, Institutos e Sindicatos">
-              <Building2 size={14} color="#3B82F6" />
-              <span>3. Entidades &amp; Organizações Externas</span>
-            </label>
-            <input
-              type="text"
-              list="top-companies-list"
-              className={styles.filterInput}
-              placeholder="Buscar por Petrobras, CNI, Febraban, MST, Vale, FGV..."
-              value={companySearch}
-              onChange={(e) => setCompanySearch(e.target.value)}
-              title="Empresas, Associações Setoriais, Federações, ONGs, Institutos, Sindicatos e Movimentos Sociais"
-            />
-            <datalist id="top-companies-list">
-              {filterOptions?.topCompanies?.map((comp) => (
-                <option key={comp} value={comp} />
-              ))}
-            </datalist>
-          </div>
-
-          {/* 4. FILTRO POR PESSOAS VISITANTES */}
-          <div className={styles.filterField}>
-            <label className={styles.filterLabel}>
-              <User size={14} color="#F59E0B" />
-              <span>4. Pessoas Visitantes</span>
-            </label>
-            <input
-              type="text"
-              list="top-visitors-list"
-              className={styles.filterInput}
-              placeholder="Nome do representante/visitante..."
-              value={visitorSearch}
-              onChange={(e) => setVisitorSearch(e.target.value)}
-            />
-            <datalist id="top-visitors-list">
-              {filterOptions?.topVisitors?.map((vis) => (
-                <option key={vis} value={vis} />
-              ))}
-            </datalist>
-          </div>
-
-          {/* 5. FILTRO POR VISITADOS (AUTORIDADES) */}
-          <div className={styles.filterField}>
-            <label className={styles.filterLabel}>
-              <UserCheck size={14} color="#10B981" />
-              <span>5. Visitados (Autoridade)</span>
-            </label>
-            <input
-              type="text"
-              list="top-authorities-list"
-              className={styles.filterInput}
-              placeholder="Nome da autoridade pública..."
-              value={authoritySearch}
-              onChange={(e) => setAuthoritySearch(e.target.value)}
-            />
-            <datalist id="top-authorities-list">
-              {filterOptions?.topAuthorities?.map((auth) => (
-                <option key={auth} value={auth} />
-              ))}
-            </datalist>
-          </div>
-        </div>
-
-        {/* Linha Inferior com Atalhos de Ano e Filtro de Risco ETT */}
-        <div className={styles.filterRowBottom}>
-          <div className={styles.datePresets}>
-            <span className={styles.presetLabel}>Atalhos de Período:</span>
-            <button
-              type="button"
-              className={`${styles.presetBtn} ${!startDate && !endDate ? styles.presetActive : ''}`}
-              onClick={() => handlePresetYear('ALL')}
-            >
-              Todo o Histórico
-            </button>
-            <button
-              type="button"
-              className={`${styles.presetBtn} ${startDate === '2026-01-01' ? styles.presetActive : ''}`}
-              onClick={() => handlePresetYear('2026')}
-            >
-              2026
-            </button>
-            <button
-              type="button"
-              className={`${styles.presetBtn} ${startDate === '2025-01-01' ? styles.presetActive : ''}`}
-              onClick={() => handlePresetYear('2025')}
-            >
-              2025
-            </button>
-            <button
-              type="button"
-              className={`${styles.presetBtn} ${startDate === '2024-01-01' ? styles.presetActive : ''}`}
-              onClick={() => handlePresetYear('2024')}
-            >
-              2024
-            </button>
-            <button
-              type="button"
-              className={`${styles.presetBtn} ${startDate === '2023-01-01' ? styles.presetActive : ''}`}
-              onClick={() => handlePresetYear('2023')}
-            >
-              2023
-            </button>
-          </div>
-
+      <StructuredFilterPanel
+        startDate={startDate}
+        endDate={endDate}
+        selectedMinistry={selectedMinistry}
+        companySearch={companySearch}
+        visitorSearch={visitorSearch}
+        authoritySearch={authoritySearch}
+        onStartDateChange={setStartDate}
+        onEndDateChange={setEndDate}
+        onMinistryChange={setSelectedMinistry}
+        onCompanyChange={setCompanySearch}
+        onVisitorChange={setVisitorSearch}
+        onAuthorityChange={setAuthoritySearch}
+        onResetFilters={handleResetFilters}
+        filterOptions={filterOptions}
+        totalElementsCount={totalElements}
+        resultsLabelSingular="representante encontrado"
+        resultsLabelPlural="representantes encontrados"
+        loading={loading}
+        idPrefix="ranking"
+        secondaryControl={
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <SlidersHorizontal size={15} color="#64748B" />
             <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569' }}>Risco ETT:</span>
@@ -362,8 +206,8 @@ export const RankingPage: React.FC<RankingPageProps> = ({ onInspectPerson }) => 
               <option value={1.8}>Articuladores Multissetoriais (ETT ≥ 1.8)</option>
             </select>
           </div>
-        </div>
-      </div>
+        }
+      />
 
       {/* TABELA DE RESULTADOS DO RANKING */}
       <div className={styles.card}>
