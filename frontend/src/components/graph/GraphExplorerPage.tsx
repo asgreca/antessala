@@ -28,6 +28,14 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
   const [selectedMinistry, setSelectedMinistry] = useState<string>('TODOS');
   const [actorsList, setActorsList] = useState<{ id: string; name: string; meetingsCount?: number }[]>([]);
   const [selectedActors, setSelectedActors] = useState<string[]>(personId ? [personId] : []);
+  // Estados de texto digitado nos campos de filtro
+  const [ministryInputText, setMinistryInputText] = useState<string>('');
+  const [actorInputText, setActorInputText] = useState<string>('');
+
+  // Sincroniza texto do ministério quando selectedMinistry muda por fora (ex: botão de atalho)
+  useEffect(() => {
+    setMinistryInputText(selectedMinistry === 'TODOS' ? '' : selectedMinistry);
+  }, [selectedMinistry]);
   const [actorVisitedBodies, setActorVisitedBodies] = useState<string[]>([]);
   const [dateFilter, setDateFilter] = useState<string>('');
   const [filtersLoading, setFiltersLoading] = useState<boolean>(false);
@@ -231,10 +239,22 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
             list="graph-ministries-list"
             className={styles.filterSelect}
             placeholder="Digite para buscar ministério/órgão..."
-            value={selectedMinistry === 'TODOS' ? '' : selectedMinistry}
+            value={ministryInputText}
             onChange={(e) => {
               const val = e.target.value;
-              handleMinistryChange(val || 'TODOS');
+              setMinistryInputText(val);
+              const exactMatch = ministries.find((m) => m.toLowerCase() === val.toLowerCase()) || (val.toUpperCase() === 'TODOS' ? 'TODOS' : null);
+              if (exactMatch || val === '') {
+                handleMinistryChange(exactMatch || 'TODOS');
+              }
+            }}
+            onBlur={() => {
+              if (!ministryInputText) {
+                handleMinistryChange('TODOS');
+              } else {
+                const matched = ministries.find((m) => m.toLowerCase() === ministryInputText.toLowerCase());
+                if (matched) handleMinistryChange(matched);
+              }
             }}
             disabled={filtersLoading}
             style={{ minWidth: '240px' }}
@@ -265,15 +285,16 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
                 list="graph-actors-list"
                 className={styles.filterSelect}
                 placeholder="Digite o nome da pessoa para focar/adicionar..."
-                value=""
+                value={actorInputText}
                 onChange={(e) => {
                   const val = e.target.value;
+                  setActorInputText(val);
                   const found = actorsList.find(
                     (a) => a.name.toLowerCase() === val.toLowerCase() || a.id === val
                   );
                   if (found) {
                     handleAddActor(found.id);
-                    e.target.value = '';
+                    setActorInputText('');
                   }
                 }}
                 disabled={actorsList.length === 0}
