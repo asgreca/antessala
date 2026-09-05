@@ -168,49 +168,101 @@ export const InfluenceGraph: React.FC<Props> = ({
       }
     });
 
-    // 2. Se há filtros ativos, mantemos estritamente os nós filtrados (matches),
-    // o nó principal da análise (root) e os intermediários que ligam o match ao root.
+    // 2. Se há filtros ativos, preservamos APENAS os nós que deram match + o nó principal (root/agente público)
+    // + os nós intermediários que estão NO CAMINHO DE CONEXÃO entre eles. Nós desconectados são removidos.
     const isFilterActive =
       hasSearch ||
       themeFilter !== 'TODOS' ||
       organFilter !== 'TODOS' ||
       nodeTypeFilter !== 'TODOS';
 
-    let keptNodeIds = new Set<string>();
-
     if (!isFilterActive) {
-      // Nenhum filtro ativo: exibe a rede completa
-      keptNodeIds = new Set(data.nodes.map((n) => n.data.id));
-    } else if (matchedNodeIds.size === 0) {
-      // Nenhum nó correspondeu aos filtros selecionados
-      return { filteredNodes: [], filteredEdges: [] };
-    } else {
-      // Mantém apenas os nós que casaram diretamente
-      matchedNodeIds.forEach((id) => keptNodeIds.add(id));
-
-      // Mantém os nós principais (root)
-      data.nodes.forEach((n) => {
-        if (n.data.isLobbyist) {
-          keptNodeIds.add(n.data.id);
-        }
-      });
-
-      // Inclui apenas arestas que conectam diretamente um nó correspondente a um nó principal ou intermediário direto
-      let directBridgeNodeIds = new Set<string>();
-      data.edges.forEach((e) => {
-        const s = e.data.source;
-        const t = e.data.target;
-        if (matchedNodeIds.has(s) && keptNodeIds.has(t)) {
-          directBridgeNodeIds.add(t);
-        } else if (matchedNodeIds.has(t) && keptNodeIds.has(s)) {
-          directBridgeNodeIds.add(s);
-        }
-      });
-      directBridgeNodeIds.forEach((id) => keptNodeIds.add(id));
+      return { filteredNodes: data.nodes, filteredEdges: data.edges };
     }
 
-    const nodes = data.nodes.filter((n) => keptNodeIds.has(n.data.id));
-    const edges = data.edges.filter((e) => keptNodeIds.has(e.data.source) && keptNodeIds.has(e.data.target));
+    if (matchedNodeIds.size === 0) {
+      return { filteredNodes: [], filteredEdges: [] };
+    }
+
+    // Coleção de IDs de nós principais (root / ator principal)
+    const rootNodeIds = new Set(
+      data.nodes.filter((n) => n.data.isLobbyist).map((n) => n.data.id)
+    );
+
+    // Constrói mapa de adjacência de conexões
+    const adjMap = new Map<string, Set<string>>();
+    data.edges.forEach((e) => {
+      const u = e.data.source;
+      const v = e.data.target;
+      if (!adjMap.has(u)) adjMap.set(u, new Set());
+      if (!adjMap.has(v)) adjMap.set(v, new Set());
+      adjMap.get(u)!.add(v);
+      adjMap.get(v)!.add(u);
+    });
+
+    // Encontra todos os nós que possuem caminho até qualquer um dos nós principais (root)
+    const connectedPathNodeIds = new Set<string>();
+
+    matchedNodeIds.forEach((matchedId) => {
+      // Se o próprio nó filtrado for root, mantém
+      if (rootNodeIds.has(matchedId)) {
+        connectedPathNodeIds.add(matchedId);
+        return;
+      }
+
+      // BFS para encontrar caminho até o nó principal (root)
+      const queue: string[][] = [[matchedId]];
+      const visited = new Set<string>([matchedId]);
+      let pathFound = false;
+
+      while (queue.length > 0) {
+        const path = queue.shift()!;
+        const curr = path[path.length - 1];
+
+        if (rootNodeIds.has(curr)) {
+          // Caminho válido até o agente público encontrado! Mantém todos os nós deste caminho
+          path.forEach((id) => connectedPathNodeIds.add(id));
+          pathFound = true;
+          break;
+        }
+
+        const neighbors = adjMap.get(curr) || new Set();
+        for (const nxt of neighbors) {
+          if (!visited.has(nxt)) {
+            visited.add(nxt);
+            queue.push([...path, nxt]);
+          }
+        }
+      }
+
+      // Se o nó filtrado não tem caminho até o root, mas é uma empresa/autoridade correspondente, mantém o nó
+      if (!pathFound) {
+        connectedPathNodeIds.add(matchedId);
+      }
+    });
+
+    // Mantém sempre os nós principais (root)
+    rootNodeIds.forEach((rId) => connectedPathNodeIds.add(rId));
+
+    // Filtra estritamente os nós e arestas pertencentes a caminhos ativos
+    let nodes = data.nodes.filter((n) => connectedPathNodeIds.has(n.data.id));
+
+    // Remove nós puramente isolados (sem nenhuma aresta conectada nesta amostragem filtrada) exceto se for o nó pesquisado
+    const activeEdgeNodeIds = new Set<string>();
+    const edges = data.edges.filter((e) => {
+      const matchS = connectedPathNodeIds.has(e.data.source);
+      const matchT = connectedPathNodeIds.has(e.data.target);
+      if (matchS && matchT) {
+        activeEdgeNodeIds.add(e.data.source);
+        activeEdgeNodeIds.add(e.data.target);
+        return true;
+      }
+      return false;
+    });
+
+    nodes = nodes.filter(
+      (n) => activeEdgeNodeIds.has(n.data.id) || matchedNodeIds.has(n.data.id) || n.data.isLobbyist
+    );
 
     return { filteredNodes: nodes, filteredEdges: edges };
   }, [data, nodeTypeFilter, themeFilter, organFilter, searchQuery]);
