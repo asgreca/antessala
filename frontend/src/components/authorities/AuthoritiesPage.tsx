@@ -52,11 +52,6 @@ export const AuthoritiesPage: React.FC<AuthoritiesPageProps> = ({ onInspectAutho
             <div className={styles.uxTag}>
               <Landmark size={14} /> Monitoramento do 1º Escalão &amp; Gabinetes
             </div>
-            <img 
-              src="/logo_antessala.png" 
-              alt="Antessala" 
-              style={{ height: '30px', width: 'auto', opacity: 0.95 }} 
-            />
           </div>
           <h1>Autoridades Públicas &amp; Gabinetes Federais</h1>
           <p>

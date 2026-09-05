@@ -92,11 +92,6 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ onInspectPerson }) => {
             <div className={styles.heroBadge}>
               <ShieldAlert size={14} /> Auditoria Contínua &bull; CGU
             </div>
-            <img 
-              src="/logo_antessala.png" 
-              alt="Antessala — Monitorando Agenda. Rastreando Influências." 
-              style={{ height: '34px', width: 'auto' }} 
-            />
           </div>
           <h1 className={styles.heroTitle}>
             Central de Alertas e Anomalias de Auditoria

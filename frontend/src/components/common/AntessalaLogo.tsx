@@ -32,7 +32,7 @@ export const AntessalaLogo: React.FC<AntessalaLogoProps> = ({
   }
 
   // Versão padrão institucional com a marca completa oficial para Header e salas
-  const imgHeight = size === 'sm' ? 42 : 54;
+  const imgHeight = size === 'sm' ? 52 : 68;
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
@@ -44,6 +44,7 @@ export const AntessalaLogo: React.FC<AntessalaLogoProps> = ({
           width: 'auto',
           objectFit: 'contain',
           display: 'block',
+          filter: 'drop-shadow(0 2px 4px rgba(15, 23, 42, 0.06))',
         }}
       />
       {showSubtitle && size !== 'sm' && (

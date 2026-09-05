@@ -216,11 +216,6 @@ export const MinistryFichaPage: React.FC<MinistryFichaPageProps> = ({ onInspectP
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#ECFDF5', color: '#047857', border: '1px solid #A7F3D0', fontSize: '0.74rem', fontWeight: 800, padding: '4px 12px', borderRadius: '9999px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               <Building2 size={13} /> Fiscalização de Audiências &bull; CGU
             </div>
-            <img 
-              src="/logo_antessala.png" 
-              alt="Antessala — Monitorando Agenda. Rastreando Influências." 
-              style={{ height: '34px', width: 'auto' }} 
-            />
           </div>
           <h2>Quem visitou quem no Executivo federal</h2>
           <p>

@@ -136,11 +136,6 @@ export const RankingPage: React.FC<RankingPageProps> = ({ onInspectPerson }) => 
             <div className={styles.uxTag}>
               <Users size={14} /> Mapeamento de Influência Multisetorial
             </div>
-            <img 
-              src="/logo_antessala.png" 
-              alt="Antessala — Monitorando Agenda. Rastreando Influências." 
-              style={{ height: '34px', width: 'auto' }} 
-            />
           </div>
           <h2>Ranking de Representantes &amp; Entropia Temática de Trânsito (ETT)</h2>
           <p>
