@@ -1481,6 +1481,30 @@ def graph_subgraph(person_key: str, depth: int = 2, public_body: Optional[str] =
             sec_code = classified.get("sector") or ""
             body = m.get("public_body") or ""
 
+            # Nó da Autoridade Pública
+            aid = None
+            if m.get("authority_name"):
+                aid = "auth-" + person_id(m["authority_name"])
+                tier, rank = authority_tier(m.get("authority_role"))
+                is_minister = is_minister_or_president(m.get("authority_role")) or tier == "MINISTERIAL"
+                add_node(aid, m["authority_name"], "AUTHORITY",
+                         role=m.get("authority_role") or "",
+                         tier=tier, tierLabel=TIER_LABELS.get(tier, tier),
+                         tierRank=rank,
+                         isMinister=is_minister,
+                         sector=sec_code,
+                         sectorLabel=sec_label,
+                         organRoot=body)
+                if aid not in node_sectors:
+                    node_sectors[aid] = set()
+                    node_organs[aid] = set()
+                if sec_label:
+                    node_sectors[aid].add(sec_label)
+                if body:
+                    node_organs[aid].add(body)
+
+            # Nó da Empresa/Entidade Representada
+            eid = None
             if m.get("entity_name"):
                 eid = "org-" + person_id(m["entity_name"])
                 add_node(eid, m["entity_name"], "ORGANIZATION",
@@ -1495,45 +1519,29 @@ def graph_subgraph(person_key: str, depth: int = 2, public_body: Optional[str] =
                     node_sectors[eid].add(sec_label)
                 if body:
                     node_organs[eid].add(body)
-                    bid = "body-" + person_id(body)
-                    add_edge(eid, bid, "em audiência no órgão", m["n"])
 
+                # A Empresa conecta ao Agente Público se houver autoridade registrada
+                if aid:
+                    add_edge(eid, aid, "audiência com", m["n"])
+            else:
+                # Se não houver empresa registrada, a pessoa conecta direto à autoridade
+                if aid:
+                    add_edge(root, aid, "reuniu-se com", m["n"])
+
+            # Nó do Órgão Público
             if body:
                 bid = "body-" + person_id(body)
                 add_node(bid, body, "PUBLIC_BODY",
                          sector=sec_code,
                          sectorLabel=sec_label)
-                add_edge(root, bid, "reuniu-se em", m["n"])
                 if bid not in node_sectors:
                     node_sectors[bid] = set()
                     node_organs[bid] = set()
                 if sec_label:
                     node_sectors[bid].add(sec_label)
                 node_organs[bid].add(body)
-
-            if m.get("authority_name"):
-                aid = "auth-" + person_id(m["authority_name"])
-                tier, rank = authority_tier(m.get("authority_role"))
-                is_minister = is_minister_or_president(m.get("authority_role")) or tier == "MINISTERIAL"
-                # O cargo distingue acesso decisório de acesso técnico: um
-                # ministro e um analista não representam o mesmo alcance.
-                add_node(aid, m["authority_name"], "AUTHORITY",
-                         role=m.get("authority_role") or "",
-                         tier=tier, tierLabel=TIER_LABELS.get(tier, tier),
-                         tierRank=rank,
-                         isMinister=is_minister,
-                         sector=sec_code,
-                         sectorLabel=sec_label,
-                         organRoot=body)
-                add_edge(root, aid, "reuniu-se com", m["n"])
-                if aid not in node_sectors:
-                    node_sectors[aid] = set()
-                    node_organs[aid] = set()
-                if sec_label:
-                    node_sectors[aid].add(sec_label)
-                if body:
-                    node_organs[aid].add(body)
-                    add_edge(aid, "body-" + person_id(body), "lotado em", 1)
+                if aid:
+                    add_edge(aid, bid, "lotado em", 1)
 
         # Enriquecer os nós com as listas completas de setores e órgãos
         for nid, sec_set in node_sectors.items():
@@ -1549,22 +1557,21 @@ def graph_subgraph(person_key: str, depth: int = 2, public_body: Optional[str] =
             for c in correlations:
                 reading = act_summaries.get(c["dou_id"]) or {}
                 did = "dou-" + str(c["dou_id"])
+                organ_name = c.get("organ_root")
                 add_node(did, (c["act_type"] or "Ato do DOU")[:60], "DOU_ACT",
                          monetaryValue=c["value"] or 0.0, url=c["link_url"],
                          severity=SEVERITY_PT_TO_EN.get(c.get("severity"), "LOW"),
                          deltaDays=c.get("delta_days"),
-                         organRoot=c.get("organ_root") or "",
-                         # Resumo do que o ato concedeu, para o auditor não
-                         # precisar abrir o DOU só para saber do que se trata.
+                         organRoot=organ_name or "",
                          granted=reading.get("concedido", ""),
                          beneficiary=reading.get("beneficiario", ""))
-                if c["entity_name"]:
+                if c.get("entity_name"):
                     add_edge("org-" + person_id(c["entity_name"]), did, "contratada em", 1)
                 else:
                     add_edge(root, did, "correlacionado a", 1)
-                if c["organ_root"]:
-                    oid = "body-" + person_id(c["organ_root"])
-                    add_node(oid, c["organ_root"], "PUBLIC_BODY")
+                if organ_name:
+                    oid = "body-" + person_id(organ_name)
+                    add_node(oid, organ_name, "PUBLIC_BODY", organRoot=organ_name, organs=[organ_name])
                     add_edge(oid, did, "publicou", 1)
 
         return {"nodes": list(nodes.values()), "edges": list(edges.values())}
