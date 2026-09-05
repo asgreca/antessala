@@ -18,14 +18,16 @@
 
 .pythonBadge {
   display: inline-block;
-  background: linear-gradient(90deg, #3776AB 0%, #FFD43B 100%);
-  color: #000000;
+  background: #EFF6FF;
+  color: #0284C7;
+  border: 1px solid #BFDBFE;
   font-size: 0.7rem;
-  font-weight: 800;
+  font-weight: 700;
   padding: 3px 10px;
   border-radius: var(--radius-full);
   margin-bottom: 8px;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .bannerInfo h2 {

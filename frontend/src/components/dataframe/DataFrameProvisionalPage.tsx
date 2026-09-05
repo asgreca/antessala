@@ -37,10 +37,10 @@ export const DataFrameProvisionalPage: React.FC = () => {
       <div className={styles.headerBanner}>
         <div className={styles.bannerInfo}>
           <div className={styles.pythonBadge}>Python / Pandas Analytics Engine</div>
-          <h2>Aba Provisória: DataFrame Tratado no Backend (Python)</h2>
+          <h2>Auditoria de Dados Brutos no Backend (DuckDB + Pandas)</h2>
           <p>
-            Toda a manipulação de DataFrames, pré-processamento de tabelas, estatísticas descritivas e chamadas a modelos de linguagem (LLM) 
-            estão centralizadas no backend em <strong>Python (FastAPI + Pandas + NumPy)</strong>.
+            Manipulação de DataFrames, estatísticas descritivas e agrupamentos periciais 
+            centralizados em <strong>Python (FastAPI + DuckDB + Pandas)</strong> sobre a base oficial do e-Agendas e DOU.
           </p>
         </div>
 
@@ -58,7 +58,7 @@ export const DataFrameProvisionalPage: React.FC = () => {
       <div className={styles.kpiGrid}>
         <CardKpi
           title="Linhas no DataFrame"
-          value={data?.shape.rows ?? '-'}
+          value={data?.shape.rows ? data.shape.rows.toLocaleString('pt-BR') : '-'}
           subtitle="Registros processados"
           variant="default"
           icon={<Table size={20} />}
@@ -72,16 +72,16 @@ export const DataFrameProvisionalPage: React.FC = () => {
         />
         <CardKpi
           title="Valor Total DOU"
-          value={stats ? `R$ ${(stats.total_monetary_value_dou / 1e6).toFixed(1)}M` : '-'}
+          value={stats ? `R$ ${(stats.total_monetary_value_dou / 1e9).toFixed(2)} Bi` : '-'}
           subtitle="Atos de Inexigibilidade/Aditivos"
-          variant="critical"
+          variant="low"
           icon={<TrendingUp size={20} />}
         />
         <CardKpi
           title="Órgão Mais Visitado"
           value={stats?.body_counts ? Object.keys(stats.body_counts)[0] : '-'}
-          subtitle="Ministério da Saúde (MS)"
-          variant="high"
+          subtitle="Registros no e-Agendas"
+          variant="default"
           icon={<Building2 size={20} />}
         />
       </div>
