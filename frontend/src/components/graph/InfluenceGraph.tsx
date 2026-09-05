@@ -237,9 +237,16 @@ export const InfluenceGraph: React.FC<Props> = ({
         const curr = path[path.length - 1];
 
         if (focusNodeIds.has(curr)) {
-          // Caminho até a autoridade pública encontrado! Mantém apenas os nós pertencentes a este caminho
+          // Caminho até a autoridade pública encontrado! Mantém todos os nós pertencentes a este caminho
           path.forEach((id) => validPathNodeIds.add(id));
           pathFound = true;
+
+          // Preserva também os nós vizinhos diretos (como o Órgão publicador e Atos do DOU) conectados aos nós deste caminho
+          path.forEach((nodeId) => {
+            const neighbors = adjMap.get(nodeId) || new Set();
+            neighbors.forEach((nbrId) => validPathNodeIds.add(nbrId));
+          });
+
           break;
         }
 
