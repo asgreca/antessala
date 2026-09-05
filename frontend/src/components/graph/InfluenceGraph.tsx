@@ -237,24 +237,22 @@ export const InfluenceGraph: React.FC<Props> = ({
         const curr = path[path.length - 1];
 
         if (focusNodeIds.has(curr)) {
-          // Caminho até a autoridade pública encontrado! Mantém todos os nós pertencentes a este caminho
+          // Mantém estritamente os nós que compõem o caminho estrutural até a autoridade
           path.forEach((id) => validPathNodeIds.add(id));
           pathFound = true;
 
-          // Preserva os nós do caminho de conexão + vizinhos diretos (Pessoas/Atores Privados representantes da Empresa, Atos do DOU e Órgãos)
+          // Se o nó do caminho for uma Empresa (ORGANIZATION), preserva apenas os Atatores Privados (PERSON) que representam essa empresa
           path.forEach((nodeId) => {
-            const neighbors = adjMap.get(nodeId) || new Set();
-            neighbors.forEach((nbrId) => {
-              const nbrNode = data.nodes.find((n) => n.data.id === nbrId);
-              if (nbrNode) {
-                // Se o nó do caminho é uma Empresa (ORGANIZATION) ou o vizinho é um Ator Privado (PERSON) conectado a ela, ou se é Órgão/Ato do DOU, mantém!
-                const currNode = data.nodes.find((n) => n.data.id === nodeId);
-                const isCompanyRep = currNode?.data.type === 'ORGANIZATION' && nbrNode.data.type === 'PERSON';
-                if (isCompanyRep || nbrNode.data.type === 'PUBLIC_BODY' || nbrNode.data.type === 'DOU_ACT' || matchedNodeIds.has(nbrId)) {
+            const currNode = data.nodes.find((n) => n.data.id === nodeId);
+            if (currNode?.data.type === 'ORGANIZATION') {
+              const neighbors = adjMap.get(nodeId) || new Set();
+              neighbors.forEach((nbrId) => {
+                const nbrNode = data.nodes.find((n) => n.data.id === nbrId);
+                if (nbrNode?.data.type === 'PERSON' && matchedNodeIds.has(nbrId)) {
                   validPathNodeIds.add(nbrId);
                 }
-              }
-            });
+              });
+            }
           });
 
           break;
