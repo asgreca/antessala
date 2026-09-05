@@ -41,6 +41,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
+  flex-shrink: 0;
 }
 
 .authorityInfoBox {
@@ -128,6 +129,7 @@
   padding: 0 24px;
   gap: 6px;
   overflow-x: auto;
+  flex-shrink: 0;
 }
 
 .tabBtn {
