@@ -1712,24 +1712,27 @@ def _authority_subgraph(conn, auth_name: str, depth: int = 2, public_body: Optio
             reading = act_summaries.get(c["dou_id"]) or {}
             did = "dou-" + str(c["dou_id"])
             eid = "org-" + person_id(c["entity_name"]) if c.get("entity_name") else None
-            # Copia os temas e órgãos da empresa vinculada se disponíveis
             ent_sectors = list(node_sectors.get(eid, [])) if eid else []
             ent_organs = list(node_organs.get(eid, [])) if eid else []
             
+            organ_name = c.get("organ_root")
+            if not organ_name and ent_organs:
+                organ_name = ent_organs[0]
+
             add_node(did, (c["act_type"] or "Ato do DOU")[:60], "DOU_ACT",
                      monetaryValue=c["value"] or 0.0, url=c["link_url"],
                      severity=SEVERITY_PT_TO_EN.get(c.get("severity"), "LOW"),
                      deltaDays=c.get("delta_days"),
-                     organRoot=c.get("organ_root") or "",
+                     organRoot=organ_name or "",
                      sectors=ent_sectors,
                      organs=ent_organs,
                      granted=reading.get("concedido", ""),
                      beneficiary=reading.get("beneficiario", ""))
             if eid:
                 add_edge(eid, did, "contratada em", 1)
-            if c["organ_root"]:
-                oid = "body-" + person_id(c["organ_root"])
-                add_node(oid, c["organ_root"], "PUBLIC_BODY", organRoot=c["organ_root"], organs=[c["organ_root"]], sectors=ent_sectors)
+            if organ_name:
+                oid = "body-" + person_id(organ_name)
+                add_node(oid, organ_name, "PUBLIC_BODY", organRoot=organ_name, organs=[organ_name], sectors=ent_sectors)
                 add_edge(oid, did, "publicou", 1)
 
     return {"nodes": list(nodes.values()), "edges": list(edges.values())}
