@@ -77,6 +77,13 @@ export const AuthoritiesPage: React.FC<AuthoritiesPageProps> = ({ onInspectAutho
       {/* Banner Principal Harmonizado */}
       <div className={styles.headerBanner}>
         <div className={styles.bannerInfo}>
+          <div style={{ marginBottom: '14px' }}>
+            <img
+              src="/antessala_logo_sem_slogan.png"
+              alt="Antessala — Plataforma de Inteligência Cívica"
+              style={{ height: '76px', width: 'auto', display: 'block', filter: 'drop-shadow(0 2px 8px rgba(255,255,255,0.1))' }}
+            />
+          </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px', flexWrap: 'wrap' }}>
             <div className={styles.uxTag}>
               <Landmark size={14} /> Monitoramento do 1º Escalão &amp; Gabinetes
@@ -94,18 +101,6 @@ export const AuthoritiesPage: React.FC<AuthoritiesPageProps> = ({ onInspectAutho
           <div className={styles.bannerStatCard}>
             <div className={styles.statNumber}>{data?.total ? data.total.toLocaleString('pt-BR') : '5.881'}</div>
             <div className={styles.statLabel}>Autoridades Cadastradas</div>
-          </div>
-
-          <div className={styles.mascotBadge}>
-            <img 
-              src="/antunes_mascot.png" 
-              alt="Robô Antunes" 
-              className={styles.mascotImg} 
-            />
-            <div className={styles.mascotMeta}>
-              <span className={styles.mascotTitle}>Robô Antunes</span>
-              <span className={styles.mascotSub}>Vigilância de Gabinetes</span>
-            </div>
           </div>
         </div>
       </div>

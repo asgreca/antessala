@@ -11,40 +11,39 @@ export const AntessalaLogo: React.FC<AntessalaLogoProps> = ({
   showSubtitle = true,
   useFullBrandWithSlogan = false,
 }) => {
-  // Se for a versão grande (para Hero ou destaques)
+  // Se for a versão grande (para Hero ou destaques de página)
   if (useFullBrandWithSlogan || size === 'lg') {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
         <img
-          src="/logo_antessala.png"
-          alt="Antessala — Monitorando Agenda. Rastreando Influências. Quem circula, a gente mostra."
+          src="/antessala_logo_sem_slogan.png"
+          alt="Antessala — Plataforma de Inteligência Cívica"
           style={{
-            maxHeight: size === 'lg' ? '220px' : '140px',
-            maxWidth: size === 'lg' ? '540px' : '380px',
-            width: '100%',
+            height: size === 'lg' ? '110px' : '85px',
+            width: 'auto',
             objectFit: 'contain',
             display: 'block',
-            margin: '0 auto',
+            filter: 'drop-shadow(0 4px 12px rgba(15, 23, 42, 0.08))',
           }}
         />
       </div>
     );
   }
 
-  // Versão padrão institucional com a marca completa oficial para Header e salas
-  const imgHeight = size === 'sm' ? 52 : 68;
+  // Versão padrão institucional limpa para Header e Banners
+  const imgHeight = size === 'sm' ? 52 : 72;
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
       <img
-        src="/logo_antessala.png"
-        alt="Antessala — Monitorando Agenda. Rastreando Influências. Quem circula, a gente mostra."
+        src="/antessala_logo_sem_slogan.png"
+        alt="Antessala — Plataforma de Inteligência Cívica"
         style={{
           height: `${imgHeight}px`,
           width: 'auto',
           objectFit: 'contain',
           display: 'block',
-          filter: 'drop-shadow(0 2px 4px rgba(15, 23, 42, 0.06))',
+          filter: 'drop-shadow(0 2px 6px rgba(15, 23, 42, 0.08))',
         }}
       />
       {showSubtitle && size !== 'sm' && (

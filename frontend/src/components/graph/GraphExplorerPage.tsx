@@ -168,14 +168,14 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
             <Share2 size={20} />
           </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '2px', flexWrap: 'wrap' }}>
-              <h2 style={{ margin: 0 }}>Visualizador Interativo de Grafos e Redes de Influência</h2>
+            <div style={{ marginBottom: '12px' }}>
               <img 
-                src="/logo_antessala.png" 
-                alt="Antessala — Monitorando Agenda. Rastreando Influências." 
-                style={{ height: '34px', width: 'auto' }} 
+                src="/antessala_logo_sem_slogan.png" 
+                alt="Antessala — Plataforma de Inteligência Cívica" 
+                style={{ height: '76px', width: 'auto', display: 'block', filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.06))' }} 
               />
             </div>
+            <h2 style={{ margin: '0 0 4px 0' }}>Visualizador Interativo de Grafos e Redes de Influência</h2>
             <span className={styles.subtext}>
               Exploração estruturada via Cytoscape.js &bull; Interações de autoridades públicas, representantes e atos do DOU.
             </span>

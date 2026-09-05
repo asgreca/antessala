@@ -133,6 +133,13 @@ export const RankingPage: React.FC<RankingPageProps> = ({ onInspectPerson }) => 
       {/* Banner Principal UX Especialista */}
       <div className={styles.headerBanner}>
         <div className={styles.bannerInfo}>
+          <div style={{ marginBottom: '14px' }}>
+            <img
+              src="/antessala_logo_sem_slogan.png"
+              alt="Antessala — Plataforma de Inteligência Cívica"
+              style={{ height: '76px', width: 'auto', display: 'block', filter: 'drop-shadow(0 2px 8px rgba(255,255,255,0.1))' }}
+            />
+          </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px', flexWrap: 'wrap' }}>
             <div className={styles.uxTag}>
               <Users size={14} /> Mapeamento de Influência Multisetorial
@@ -143,20 +150,6 @@ export const RankingPage: React.FC<RankingPageProps> = ({ onInspectPerson }) => 
             Mapeamento de representantes de interesses e intermediários que transitam por múltiplos <strong>Ministérios Supervisores</strong> (ex: Saúde, Fazenda, MME) 
             e suas respectivas <strong>Autarquias, Agências Regulatórias e Fundações</strong> (ex: ANVISA, CADE, IBAMA).
           </p>
-        </div>
-
-        <div className={styles.bannerRight}>
-          <div className={styles.mascotBadge}>
-            <img 
-              src="/antunes_mala.png" 
-              alt="Robô Antunes" 
-              className={styles.mascotImg} 
-            />
-            <div className={styles.mascotMeta}>
-              <span className={styles.mascotTitle}>Robô Antunes</span>
-              <span className={styles.mascotSub}>Supervisão Metodológica ETT</span>
-            </div>
-          </div>
         </div>
       </div>
 

@@ -125,29 +125,23 @@ export const TransparencyTreemapPage: React.FC = () => {
           {/* Banner Inicial Transparência */}
           <div className={styles.headerBanner}>
             <div className={styles.bannerInfo}>
+              <div style={{ marginBottom: '14px' }}>
+                <img
+                  src="/antessala_logo_sem_slogan.png"
+                  alt="Antessala — Plataforma de Inteligência Cívica"
+                  style={{ height: '76px', width: 'auto', display: 'block', filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.06))' }}
+                />
+              </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px', flexWrap: 'wrap' }}>
                 <div className={styles.badgeLabel}>
                   <Eye size={14} /> Auditoria Cidadã de Pautas Públicas (1.20M Audiências Externas)
                 </div>
-                <img 
-                  src="/logo_antessala.png" 
-                  alt="Antessala — Monitorando Agenda. Rastreando Influências." 
-                  style={{ height: '34px', width: 'auto' }} 
-                />
               </div>
               <h2>Índice de Transparência &amp; Treemap Temático por Ministério e Autarquia</h2>
               <p>
                 Análise automatizada da clareza dos objetos e pautas de reuniões com <strong>agentes externos</strong> (representantes, consultores e empresários). 
                 Reuniões estritamente internas foram desconsideradas. O índice mede se o registro é compreensível para o cidadão comum ou se utiliza pautas opacas ("visita de cortesia", "assuntos diversos").
               </p>
-            </div>
-
-            <div className={styles.mascotBadge}>
-              <img src="/antunes_mascot.png" alt="Robô Antunes" className={styles.mascotImg} />
-              <div>
-                <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#0F172A' }}>Robô Antunes</div>
-                <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#00A859', textTransform: 'uppercase' }}>Auditor Cidadão</div>
-              </div>
             </div>
           </div>
 

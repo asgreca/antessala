@@ -242,6 +242,13 @@ export const MinistryFichaPage: React.FC<MinistryFichaPageProps> = ({ onInspectP
     <div className={styles.container}>
       <div className={styles.headerBanner}>
         <div className={styles.bannerInfo}>
+          <div style={{ marginBottom: '14px' }}>
+            <img
+              src="/antessala_logo_sem_slogan.png"
+              alt="Antessala — Plataforma de Inteligência Cívica"
+              style={{ height: '76px', width: 'auto', display: 'block', filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.06))' }}
+            />
+          </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px', flexWrap: 'wrap' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#ECFDF5', color: '#047857', border: '1px solid #A7F3D0', fontSize: '0.74rem', fontWeight: 800, padding: '4px 12px', borderRadius: '9999px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               <Building2 size={13} /> Fiscalização de Audiências &bull; CGU
@@ -254,14 +261,6 @@ export const MinistryFichaPage: React.FC<MinistryFichaPageProps> = ({ onInspectP
             Os filtros s&atilde;o integrados: escolher um deles reduz as op&ccedil;&otilde;es
             dos demais ao que existe naquele recorte.
           </p>
-        </div>
-
-        <div className={styles.headerMascotBadge}>
-          <img src="/antunes_mascot.png" alt="Robô Antunes" className={styles.headerMascotImg} />
-          <div>
-            <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#0F172A' }}>Robô Antunes</div>
-            <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#00A859', textTransform: 'uppercase' }}>Auditoria Contínua</div>
-          </div>
         </div>
       </div>
 
