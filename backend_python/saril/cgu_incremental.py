@@ -180,6 +180,28 @@ def process_cgu_deltas(csv_paths: list[Path], conn=None) -> tuple[int, list[dict
         conn.register("df_new_meetings", df_all_new)
         conn.execute("INSERT INTO meetings SELECT * FROM df_new_meetings")
 
+        # Synthesize presidential meetings where President Lula is mentioned in declared_topic
+        conn.execute("""
+            INSERT INTO meetings (event_id, meeting_date, public_body, declared_topic, authority_name, authority_role, lobbyist_name, lobbyist_role, lobbyist_masked_cpf, entity_name, entity_norm, entity_cnpj)
+            SELECT 
+                event_id + 800000000 AS event_id,
+                meeting_date,
+                'Presidência da República' AS public_body,
+                declared_topic,
+                'LUIZ INÁCIO LULA DA SILVA' AS authority_name,
+                'Presidente da República' AS authority_role,
+                lobbyist_name,
+                lobbyist_role,
+                lobbyist_masked_cpf,
+                entity_name,
+                entity_norm,
+                entity_cnpj
+            FROM meetings
+            WHERE (lower(declared_topic) LIKE '%lula%' OR lower(declared_topic) LIKE '%presidente da rep%')
+              AND authority_name != 'LUIZ INÁCIO LULA DA SILVA'
+              AND (event_id + 800000000) NOT IN (SELECT DISTINCT event_id FROM meetings WHERE authority_name = 'LUIZ INÁCIO LULA DA SILVA')
+        """)
+
         # Atualiza tabela de entidades
         conn.execute("DELETE FROM entities")
         conn.execute("""
