@@ -35,7 +35,7 @@ from .topics import classify as classify_topic
 from .topic_intelligence import extract_topic_intelligence
 
 app = FastAPI(
-    title="SARIL — Sistema de Avaliação de Risco e Inteligência em Lobby",
+    title="Antessala — Plataforma de Inteligência Cívica e Auditoria de Relações Público-Privadas",
     description=(
         "Auditoria contínua do lobby federal por cruzamento e-Agendas x DOU. "
         "Todos os dados são reais: e-Agendas/CGU e Imprensa Nacional."

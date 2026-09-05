@@ -1,4 +1,4 @@
-# Antessala (SARIL) — Plataforma de Inteligência Cívica e Auditoria de Relações Público-Privadas
+# Antessala — Plataforma de Inteligência Cívica e Auditoria de Relações Público-Privadas
 
 [![Licença MIT](https://img.shields.io/badge/Licen%C3%A7a-MIT-emerald.svg)](LICENSE)
 [![CGU Edital 46/2026](https://img.shields.io/badge/CGU-2%C2%BA%20Concurso%20Re%C3%BAso%20Dados-blue.svg)](https://dados.gov.br)
@@ -167,7 +167,7 @@ entre o órgão da reunião e o órgão publicador, e multiplicado pela confian�
 vínculo.
 
 **Correlação temporal não é causalidade.** A interface e a API afirmam isso
-explicitamente em cada resposta. O produto do SARIL é uma hipótese priorizada
+explicitamente em cada resposta. O produto do Antessala é uma hipótese priorizada
 com link para o ato original, não um veredito.
 
 ## Métricas
@@ -221,7 +221,7 @@ auditor confira antes de concluir.
 
 ## Escopo: quem entra na base
 
-O SARIL audita a relação entre **pessoas externas ao governo** e **autoridades
+O Antessala audita a relação entre **pessoas externas ao governo** e **autoridades
 públicas**. A reunião de quem está do lado de dentro é articulação
 intergovernamental, não lobby privado.
 

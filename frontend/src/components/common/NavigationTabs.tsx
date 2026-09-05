@@ -116,7 +116,7 @@ export const NavigationTabs: React.FC<NavigationTabsProps> = ({
           aria-selected={activeTab === 'METHODOLOGY'}
           className={`${styles.tabBtn} ${activeTab === 'METHODOLOGY' ? styles.activeTab : ''}`}
           onClick={() => onTabChange('METHODOLOGY')}
-          title="Metodologia Científica, Formulação Matemática e Marco Legal do SARIL"
+          title="Metodologia Científica, Formulação Matemática e Marco Legal do Antessala"
         >
           <BookOpen size={16} aria-hidden="true" />
           <span>Metodologia<span className={styles.tabExtra}> &amp; Algoritmos</span></span>

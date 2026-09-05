@@ -37,7 +37,7 @@ export const AuthorProfilePage: React.FC<AuthorProfilePageProps> = ({ onNavigate
           <div className={styles.photoWrapper}>
             <img
               src={imgSrc}
-              alt="Aislan Greca — Relações Públicas, Jornalista e Cientista de Dados. Criador do Projeto Antessala (SARIL)"
+              alt="Aislan Greca — Relações Públicas, Jornalista e Cientista de Dados. Criador do Projeto Antessala"
               className={styles.authorImg}
               onError={handleImgError}
               loading="eager"
@@ -216,7 +216,7 @@ export const AuthorProfilePage: React.FC<AuthorProfilePageProps> = ({ onNavigate
           </div>
 
           <p className={styles.bodyText}>
-            A <strong>Antessala (SARIL)</strong> foi concebida sob essa premissa: transformar a auditoria de relações institucionais em um pipeline computacional autônomo, rigoroso e auditável, eliminando a barreira do volume através de inteligência de dados de alta performance.
+            A <strong>Antessala</strong> foi concebida sob essa premissa: transformar a auditoria de relações institucionais em um pipeline computacional autônomo, rigoroso e auditável, eliminando a barreira do volume através de inteligência de dados de alta performance.
           </p>
         </section>
 

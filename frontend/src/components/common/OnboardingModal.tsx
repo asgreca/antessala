@@ -19,7 +19,7 @@ const STEPS = [
     icon: <FileSearch size={44} color="#38BDF8" />,
     title: '2. Cruzamento Temporal com o Diário Oficial (DOU)',
     description:
-      'Utilizando modelagem matemática (Índice IAI, ETT e Proximity Lift), o motor SARIL correlaciona encontros privados com publicações do DOU em uma janela de 60 dias — identificando contratos de alto valor, dispensas e inexigibilidades de licitação.',
+      'Utilizando modelagem matemática (Índice IAI, ETT e Proximity Lift), o motor Antessala correlaciona encontros privados com publicações do DOU em uma janela de 60 dias — identificando contratos de alto valor, dispensas e inexigibilidades de licitação.',
     highlight: 'Janela Δt ≤ 60 dias • 71 correlações de alto risco mapeadas',
   },
   {

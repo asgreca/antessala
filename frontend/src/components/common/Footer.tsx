@@ -83,9 +83,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateTab }) => {
                   onClick={() => onNavigateTab && onNavigateTab('METHODOLOGY')}
                   className={styles.linkItem}
                   style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', font: 'inherit' }}
-                  title="Conheça a Metodologia Científica, Fórmulas e Algoritmos do SARIL"
+                  title="Conheça a Metodologia Científica, Fórmulas e Algoritmos do Antessala"
                 >
-                  Metodologia &amp; Algoritmos do SARIL &rarr;
+                  Metodologia &amp; Algoritmos do Antessala &rarr;
                 </button>
               </li>
             </ul>

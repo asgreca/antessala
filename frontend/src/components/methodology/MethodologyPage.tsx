@@ -177,7 +177,7 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
             </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '0.82rem', color: '#94A3B8' }}>Versão do Motor Analítico: <strong>SARIL 2.4</strong></span>
+            <span style={{ fontSize: '0.82rem', color: '#94A3B8' }}>Versão do Motor Analítico: <strong>Antessala 2.4</strong></span>
           </div>
         </div>
 
@@ -185,7 +185,7 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
           Metodologia, Formulação Matemática &amp; Marco Legal
         </h1>
         <p className={styles.heroSubtitle}>
-          O <strong>Antessala (SARIL)</strong> não utiliza caixas-pretas ou scores arbitrários. Cada métrica, alerta de auditoria 
+          O <strong>Antessala</strong> não utiliza caixas-pretas ou scores arbitrários. Cada métrica, alerta de auditoria 
           e correlação temporal presta contas de sua origem a partir de cruzamentos estritos entre dados oficiais do <strong>e-Agendas (CGU)</strong>, 
           do <strong>Diário Oficial da União (Imprensa Nacional)</strong> e cadastros de idoneidade (CEIS/CNEP).
         </p>
@@ -329,7 +329,7 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
                 <th>Órgão Custodiante</th>
                 <th>Base Legal</th>
                 <th>Formato &amp; Frequência</th>
-                <th>Utilização no SARIL</th>
+                <th>Utilização no Antessala</th>
               </tr>
             </thead>
             <tbody>
@@ -711,7 +711,7 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
 
         <div className={styles.calloutWarning}>
           <p>
-            <strong>Regra Proporcional de Rebaixamento (Downgrade):</strong> Quando o <code>Lift &lt; 1,0</code>, o algoritmo do SARIL 
+            <strong>Regra Proporcional de Rebaixamento (Downgrade):</strong> Quando o <code>Lift &lt; 1,0</code>, o algoritmo do Antessala 
             rebaixa em até dois degraus a severidade do alerta (ex.: de Alta para Baixa). Isso protege a auditoria contra falsos positivos 
             e concentra o escrutínio cívico onde há real excepcionalidade temporal.
           </p>
@@ -839,7 +839,7 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
 
         <div className={styles.calloutNotice}>
           <p>
-            <strong>Classificação de Opacidade no SARIL:</strong> Quando uma audiência é cadastrada com pautas genéricas como 
+            <strong>Classificação de Opacidade no Antessala:</strong> Quando uma audiência é cadastrada com pautas genéricas como 
             <em> &ldquo;Visita de cortesia&rdquo;</em>, <em> &ldquo;Reunião com representantes&rdquo;</em>, <em> &ldquo;Assuntos gerais&rdquo;</em> 
             ou simplesmente repete o nome do visitante, o sistema marca a audiência como <strong>PAUTA OPACA</strong> e cruza 
             com as atribuições oficiais do cargo da autoridade pública (ex.: Coordenador-Geral de Fiscalização ou Diretor de Concessões), 

@@ -157,7 +157,7 @@ export const UnifiedAuthorityDossierModal: React.FC<UnifiedAuthorityDossierModal
     const query = encodeURIComponent(
       `Manifestação referente ao monitoramento cívico da autoridade pública ${authName} (${authRole} no ${body}). ` +
       `Identificados ${dossier.authority.totalMeetings} compromissos públicos e ${dossier.authority.opacityRatePct}% de pautas opacas (Decreto nº 10.889/2021). ` +
-      `Evidências auditadas via Antessala (SARIL/CGU).`
+      `Evidências auditadas via Antessala.`
     );
     const organParam = encodeURIComponent(body);
     window.open(`https://falabr.cgu.gov.br/publico/Manifestacao/SelecionarTipoManifestacao.aspx?assunto=${query}&orgao=${organParam}`, '_blank');
