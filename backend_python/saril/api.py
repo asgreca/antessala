@@ -1666,8 +1666,15 @@ def _authority_subgraph(conn, auth_name: str, depth: int = 2, public_body: Optio
         lob = m.get("lobbyist_name")
         if lob and lob.strip():
             lid = person_id(lob)
-            add_node(lid, lob, "PERSON", isLobbyist=True)
+            add_node(lid, lob, "PERSON", isLobbyist=True, sector=sec_code, sectorLabel=sec_label, organRoot=body)
             add_edge(lid, root, "despachou com", count)
+            if lid not in node_sectors:
+                node_sectors[lid] = set()
+                node_organs[lid] = set()
+            if sec_label:
+                node_sectors[lid].add(sec_label)
+            if body:
+                node_organs[lid].add(body)
             if ent and ent not in ("Não especificada", "Não informado", "") and not is_role_description(ent):
                 eid = "org-" + person_id(ent)
                 add_edge(lid, eid, "representa", count)
