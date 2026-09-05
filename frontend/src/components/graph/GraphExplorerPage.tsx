@@ -199,7 +199,20 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            className={styles.presidentialBadgeBtn}
+            onClick={() => {
+              handleMinistryChange('Presidência da República');
+              const foundLula = actorsList.find((a) => a.name.includes('LULA'));
+              if (foundLula) handleAddActor(foundLula.id);
+            }}
+            title="Carregar diretamente a rede da Presidência da República e do Presidente Lula"
+          >
+            <span role="img" aria-label="Brasil">🇧🇷</span>
+            <span>Atalho Especial: Presidência da República</span>
+          </button>
           <button className={styles.reloadBtn} onClick={loadGraph} title="Recarregar Rede">
             <RefreshCw size={16} />
             <span>Recarregar</span>
