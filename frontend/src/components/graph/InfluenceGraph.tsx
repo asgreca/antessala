@@ -118,49 +118,105 @@ export const InfluenceGraph: React.FC<Props> = ({
 
   // Aplica filtros de temas, ministérios, pessoas e papéis
   const { filteredNodes, filteredEdges } = useMemo(() => {
-    let nodes = data.nodes;
+    // 1. Identifica os nós diretamente correspondentes ao critério de busca/filtro
+    let matchedNodeIds = new Set<string>();
 
-    // Filtro por tipo de nó
-    if (nodeTypeFilter === 'MINISTER') {
-      nodes = nodes.filter((n) => n.data.isLobbyist || isMinisterOrPresident(n.data));
-    } else if (nodeTypeFilter !== 'TODOS') {
-      nodes = nodes.filter((n) => n.data.isLobbyist || n.data.type === nodeTypeFilter);
-    }
+    const hasSearch = searchQuery.trim().length >= 2;
+    const q = searchQuery.toLowerCase();
 
-    // Filtro por tema: checa tema primário e lista de temas associados à empresa/autoridade
-    if (themeFilter !== 'TODOS') {
-      nodes = nodes.filter(
-        (n) =>
-          n.data.isLobbyist ||
-          n.data.sectorLabel === themeFilter ||
-          (Array.isArray(n.data.sectors) && n.data.sectors.includes(themeFilter))
-      );
-    }
+    data.nodes.forEach((n) => {
+      let isMatch = true;
 
-    // Filtro por órgão: checa órgão raiz, rótulo ou órgãos visitados pela empresa
-    if (organFilter !== 'TODOS') {
-      nodes = nodes.filter(
-        (n) =>
-          n.data.isLobbyist ||
-          n.data.organRoot === organFilter ||
-          n.data.label === organFilter ||
-          (Array.isArray(n.data.organs) && n.data.organs.includes(organFilter))
-      );
-    }
+      // Filtro por tipo de nó
+      if (nodeTypeFilter === 'MINISTER') {
+        if (!isMinisterOrPresident(n.data)) isMatch = false;
+      } else if (nodeTypeFilter !== 'TODOS') {
+        if (n.data.type !== nodeTypeFilter) isMatch = false;
+      }
 
-    // Filtro de busca por nome ou cargo
-    if (searchQuery.trim().length >= 2) {
-      const q = searchQuery.toLowerCase();
-      nodes = nodes.filter(
-        (n) =>
-          n.data.isLobbyist ||
+      // Filtro por tema
+      if (themeFilter !== 'TODOS') {
+        if (
+          n.data.sectorLabel !== themeFilter &&
+          (!Array.isArray(n.data.sectors) || !n.data.sectors.includes(themeFilter))
+        ) {
+          isMatch = false;
+        }
+      }
+
+      // Filtro por órgão
+      if (organFilter !== 'TODOS') {
+        if (
+          n.data.organRoot !== organFilter &&
+          n.data.label !== organFilter &&
+          (!Array.isArray(n.data.organs) || !n.data.organs.includes(organFilter))
+        ) {
+          isMatch = false;
+        }
+      }
+
+      // Filtro por texto de busca
+      if (hasSearch) {
+        const matchesText =
           n.data.label.toLowerCase().includes(q) ||
-          (n.data.role && n.data.role.toLowerCase().includes(q))
-      );
+          (n.data.role && n.data.role.toLowerCase().includes(q));
+        if (!matchesText) isMatch = false;
+      }
+
+      if (isMatch) {
+        matchedNodeIds.add(n.data.id);
+      }
+    });
+
+    // 2. Se há filtros ativos, preserva também os nós de raiz (isLobbyist / atores principais)
+    // e todos os nós intermediários que conectam os nós filtrados até a raiz.
+    const isFilterActive =
+      hasSearch ||
+      themeFilter !== 'TODOS' ||
+      organFilter !== 'TODOS' ||
+      nodeTypeFilter !== 'TODOS';
+
+    let keptNodeIds = new Set<string>();
+
+    if (!isFilterActive) {
+      // Nenhum filtro ativo: exibe a rede completa
+      keptNodeIds = new Set(data.nodes.map((n) => n.data.id));
+    } else {
+      // Sempre mantém nós que deram match direto
+      matchedNodeIds.forEach((id) => keptNodeIds.add(id));
+
+      // Mantém todos os nós raiz/principais da análise
+      data.nodes.forEach((n) => {
+        if (n.data.isLobbyist) {
+          keptNodeIds.add(n.data.id);
+        }
+      });
+
+      // BFS/DFS de 2 saltos ao longo das arestas para incluir os caminhos e pontes de conexão
+      // entre o nó correspondente e o ator público/privado principal
+      let addedInStep = true;
+      let passes = 0;
+
+      while (addedInStep && passes < 3) {
+        addedInStep = false;
+        passes++;
+
+        data.edges.forEach((e) => {
+          const s = e.data.source;
+          const t = e.data.target;
+          if (keptNodeIds.has(s) && !keptNodeIds.has(t)) {
+            keptNodeIds.add(t);
+            addedInStep = true;
+          } else if (keptNodeIds.has(t) && !keptNodeIds.has(s)) {
+            keptNodeIds.add(s);
+            addedInStep = true;
+          }
+        });
+      }
     }
 
-    const validIds = new Set(nodes.map((n) => n.data.id));
-    const edges = data.edges.filter((e) => validIds.has(e.data.source) && validIds.has(e.data.target));
+    const nodes = data.nodes.filter((n) => keptNodeIds.has(n.data.id));
+    const edges = data.edges.filter((e) => keptNodeIds.has(e.data.source) && keptNodeIds.has(e.data.target));
 
     return { filteredNodes: nodes, filteredEdges: edges };
   }, [data, nodeTypeFilter, themeFilter, organFilter, searchQuery]);
