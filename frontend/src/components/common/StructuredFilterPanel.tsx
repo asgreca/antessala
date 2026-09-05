@@ -174,7 +174,7 @@ export const StructuredFilterPanel: React.FC<StructuredFilterPanelProps> = ({
             title="Empresas, Associações Setoriais, Federações, ONGs, Institutos e Sindicatos"
           >
             <Building2 size={14} color="#3B82F6" />
-            <span>3. Entidades &amp; Organizações Externas</span>
+            <span>3. Entidades &amp; Organizações</span>
           </label>
           <input
             type="text"
