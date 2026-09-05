@@ -92,13 +92,15 @@ export const InfluenceGraph: React.FC<Props> = ({
     return data.nodes.filter((n) => isMinisterOrPresident(n.data)).length;
   }, [data]);
 
-  // Extrai temas e órgãos presentes nesta rede (inclusive das empresas e autoridades)
+  // Extrai temas e órgãos presentes nesta rede especificamente em nós de empresas/atos/representantes
   const availableThemes = useMemo(() => {
     const s = new Set<string>();
     data.nodes.forEach((n) => {
-      if (n.data.sectorLabel) s.add(n.data.sectorLabel);
-      if (Array.isArray(n.data.sectors)) {
-        n.data.sectors.forEach((sec: string) => sec && s.add(sec));
+      if (n.data.type !== 'AUTHORITY' && n.data.type !== 'PUBLIC_BODY') {
+        if (n.data.sectorLabel && n.data.sectorLabel !== 'Indefinido') s.add(n.data.sectorLabel);
+        if (Array.isArray(n.data.sectors)) {
+          n.data.sectors.forEach((sec: string) => sec && sec !== 'Indefinido' && s.add(sec));
+        }
       }
     });
     return Array.from(s).sort();
@@ -107,10 +109,11 @@ export const InfluenceGraph: React.FC<Props> = ({
   const availableOrgans = useMemo(() => {
     const o = new Set<string>();
     data.nodes.forEach((n) => {
-      if (n.data.type === 'PUBLIC_BODY') o.add(n.data.label);
-      if (n.data.organRoot) o.add(n.data.organRoot);
-      if (Array.isArray(n.data.organs)) {
-        n.data.organs.forEach((org: string) => org && o.add(org));
+      if (n.data.type !== 'AUTHORITY' && n.data.type !== 'PUBLIC_BODY') {
+        if (n.data.organRoot) o.add(n.data.organRoot);
+        if (Array.isArray(n.data.organs)) {
+          n.data.organs.forEach((org: string) => org && o.add(org));
+        }
       }
     });
     return Array.from(o).sort();
@@ -144,12 +147,11 @@ export const InfluenceGraph: React.FC<Props> = ({
         }
       }
 
-      // Filtro por órgão: checa organRoot, label, array de órgãos ou correspondência parcial de nome
+      // Filtro por órgão: checa organRoot ou array de órgãos vinculados ao nó (sem comparar com a label do nó)
       if (organFilter !== 'TODOS') {
         const oFilterLow = organFilter.toLowerCase();
         const matchesOrgan =
           (n.data.organRoot && n.data.organRoot.toLowerCase().includes(oFilterLow)) ||
-          n.data.label.toLowerCase().includes(oFilterLow) ||
           (Array.isArray(n.data.organs) && n.data.organs.some((o: string) => o && o.toLowerCase().includes(oFilterLow)));
         if (!matchesOrgan) isMatch = false;
       }
