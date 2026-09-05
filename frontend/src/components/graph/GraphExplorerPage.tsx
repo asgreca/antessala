@@ -213,40 +213,25 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
         <div className={styles.filterGroup}>
           <Building2 size={16} color="#00A859" />
           <span>Ministério / Órgão:</span>
-          <select
+          <input
+            type="text"
+            list="graph-ministries-list"
             className={styles.filterSelect}
-            value={selectedMinistry}
-            onChange={(e) => handleMinistryChange(e.target.value)}
+            placeholder="Digite para buscar ministério/órgão..."
+            value={selectedMinistry === 'TODOS' ? '' : selectedMinistry}
+            onChange={(e) => {
+              const val = e.target.value;
+              handleMinistryChange(val || 'TODOS');
+            }}
             disabled={filtersLoading}
-          >
+            style={{ minWidth: '240px' }}
+          />
+          <datalist id="graph-ministries-list">
             <option value="TODOS">Todos os Órgãos Federais</option>
-            {actorVisitedBodies.length > 0 && selectedMinistry === 'TODOS' ? (
-              <>
-                <optgroup label="Órgãos Frequentados pelo Ator Selecionado">
-                  {actorVisitedBodies.map((m, idx) => (
-                    <option key={`act-${idx}`} value={m}>
-                      ★ {m}
-                    </option>
-                  ))}
-                </optgroup>
-                <optgroup label="Demais Ministérios e Autarquias">
-                  {ministries
-                    .filter((m) => !actorVisitedBodies.includes(m))
-                    .map((m, idx) => (
-                      <option key={`all-${idx}`} value={m}>
-                        {m}
-                      </option>
-                    ))}
-                </optgroup>
-              </>
-            ) : (
-              ministries.map((m, idx) => (
-                <option key={idx} value={m}>
-                  {m}
-                </option>
-              ))
-            )}
-          </select>
+            {ministries.map((m, idx) => (
+              <option key={idx} value={m} />
+            ))}
+          </datalist>
         </div>
 
         {/* Filtro 2: Seleção Múltipla de Pessoas & Interlocutores para Grafo Comparativo */}
@@ -261,24 +246,38 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
               <span>Buscando pessoas...</span>
             </div>
           ) : (
-            <select
-              className={styles.filterSelect}
-              value=""
-              onChange={(e) => {
-                if (e.target.value) handleAddActor(e.target.value);
-              }}
-              disabled={actorsList.length === 0}
-            >
-              <option value="">+ Selecionar pessoa para comparar redes...</option>
-              {actorsList.map((act) => {
-                const isSelected = selectedActors.includes(act.id);
-                return (
-                  <option key={act.id} value={act.id} disabled={isSelected}>
-                    {isSelected ? '✓ ' : ''}{act.name} {act.meetingsCount ? `(${act.meetingsCount} ${act.meetingsCount === 1 ? 'reunião' : 'reuniões'})` : ''}
+            <>
+              <input
+                type="text"
+                list="graph-actors-list"
+                className={styles.filterSelect}
+                placeholder="Digite o nome da pessoa para focar/adicionar..."
+                value=""
+                onChange={(e) => {
+                  const val = e.target.value;
+                  const found = actorsList.find(
+                    (a) => a.name.toLowerCase() === val.toLowerCase() || a.id === val
+                  );
+                  if (found) {
+                    handleAddActor(found.id);
+                    e.target.value = '';
+                  }
+                }}
+                disabled={actorsList.length === 0}
+                style={{ minWidth: '280px' }}
+              />
+              <datalist id="graph-actors-list">
+                {actorsList.map((act) => (
+                  <option
+                    key={act.id}
+                    value={act.name}
+                    disabled={selectedActors.includes(act.id)}
+                  >
+                    {act.meetingsCount ? `${act.meetingsCount} reuniões` : ''}
                   </option>
-                );
-              })}
-            </select>
+                ))}
+              </datalist>
+            </>
           )}
 
           {/* Chips de Pessoas Selecionadas para o Grafo */}
