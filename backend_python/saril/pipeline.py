@@ -1077,6 +1077,15 @@ def sync_cgu(force: bool = False, limit: int | None = None, year: int = 2023) ->
         ended = datetime.now()
         duration_s = (ended - started).total_seconds()
         print(f"      ✔ {len(new_files)} arquivo(s) registrado(s) no catálogo de sincronização.")
+
+        # Marca do pacote gravada só APÓS o processamento concluir. Registrar
+        # no download faria uma queda no meio da ingestão parecer sucesso, e o
+        # mês seguinte pularia o arquivo por considerá-lo já processado.
+        marca = next((r.updated_at or r.url for r in remote_usados), None) \
+            if (remote_usados := getattr(downloader, "_ultimo_pacote", None)) else None
+        if marca:
+            downloader.record_bulk_package(marca)
+            print(f"      ✔ Pacote marcado como processado ({marca}).")
         print()
         print("═" * 65)
         print(f"  Sync concluído em {duration_s:.1f}s")

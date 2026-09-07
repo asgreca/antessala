@@ -71,6 +71,8 @@ class CguDownloader:
     CKAN_SEARCH_URL = "https://dados.gov.br/api/3/action/package_search?q=agenda-de-autoridades"
     CGU_DIRECT_BASE = "https://dadosabertos.cgu.gov.br/arquivos/e-agendas"
 
+    _ultimo_pacote: list = []
+
     def __init__(self, state_file: Path | None = None, extract_dir: Path | None = None):
         self.state_file = state_file or config.CGU_SYNC_STATE_FILE
         self.extract_dir = extract_dir or config.EXTRACT_DIR
@@ -109,13 +111,19 @@ class CguDownloader:
     def discover_remote_resources(self) -> list[CguResource]:
         """Recursos publicados na fonte remota.
 
-        Levanta SourceUnavailable quando a fonte não responde ou exige
-        credencial. Uma lista vazia passa a significar apenas uma coisa: a
-        fonte respondeu e não há arquivo novo.
+        Consulta primeiro o pacote completo de dados abertos da CGU, que é
+        público e não exige credencial. Só recorre ao catálogo CKAN (hoje sob
+        autenticação) se o pacote estiver indisponível.
+
+        Levanta SourceUnavailable quando nenhuma fonte responde. Uma lista
+        vazia passa a significar apenas uma coisa: a fonte respondeu e o
+        arquivo publicado é o mesmo que já foi processado.
         """
-        token = _eagendas_token()
-        if token:
-            return self._discover_via_eagendas_api(token)
+        try:
+            return self._discover_bulk_package()
+        except SourceUnavailable as exc:
+            logger.warning("Pacote de dados abertos indisponível (%s). "
+                           "Tentando o catálogo CKAN.", exc)
 
         resources: list[CguResource] = []
         req = urllib.request.Request(
@@ -158,6 +166,62 @@ class CguDownloader:
             ) from exc
 
         return resources
+
+    def _discover_bulk_package(self) -> list[CguResource]:
+        """Verifica o pacote completo por ETag/Last-Modified, sem baixá-lo.
+
+        194 MB por execução seria desperdício quando a CGU publica uma vez por
+        mês: o HEAD custa uma requisição e diz se mudou.
+        """
+        req = urllib.request.Request(
+            config.EAGENDAS_BULK_URL, method="HEAD",
+            headers={"User-Agent": config.CGU_DOWNLOAD_USER_AGENT},
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                etag = (resp.headers.get("ETag") or "").strip('"')
+                last_modified = resp.headers.get("Last-Modified") or ""
+                size = int(resp.headers.get("Content-Length") or 0)
+        except Exception as exc:
+            raise SourceUnavailable(
+                f"O pacote de dados abertos do e-Agendas não respondeu: {exc}"
+            ) from exc
+
+        marca = etag or last_modified
+        if not marca:
+            logger.warning("O pacote não expôs ETag nem Last-Modified; "
+                           "será baixado por precaução.")
+
+        state = self.load_state()
+        anterior = (state.get("bulk_package") or {}).get("marca")
+        if marca and anterior == marca:
+            logger.info("Pacote inalterado desde a última sincronização (%s).", marca)
+            self._ultimo_pacote = []
+            return []
+
+        logger.warning(
+            "Pacote novo detectado: %s bytes, publicado em %s (anterior: %s).",
+            f"{size:,}", last_modified or "data não informada", anterior or "nenhum",
+        )
+        recurso = CguResource(
+            name="dados_e-agendas.zip",
+            url=config.EAGENDAS_BULK_URL,
+            format="zip",
+            updated_at=marca or last_modified,
+            size_bytes=size,
+        )
+        # Guardado para o pipeline marcar como processado somente ao final.
+        self._ultimo_pacote = [recurso]
+        return [recurso]
+
+    def record_bulk_package(self, etag_or_date: str) -> None:
+        """Grava a marca do pacote processado, para o próximo HEAD comparar."""
+        state = self.load_state()
+        state["bulk_package"] = {
+            "marca": etag_or_date,
+            "processado_em": datetime.now().isoformat(timespec="seconds"),
+        }
+        self.save_state(state)
 
     def _discover_via_eagendas_api(self, token: str) -> list[CguResource]:
         """Consulta a API oficial do e-Agendas, que é pública mas exige token."""

@@ -86,3 +86,12 @@ NO_BID_ACT_TYPES = (
 # eagendas.cgu.gov.br > perfil > Meus tokens.
 EAGENDAS_API_URL = "https://eagendas.cgu.gov.br/api/v2"
 EAGENDAS_TOKEN_ENV = "EAGENDAS_TOKEN"
+
+# Pacote completo publicado pela CGU em dados abertos. É a fonte da atualização
+# mensal: download direto, sem token e sem reCAPTCHA — ao contrário do
+# formulário do portal, que é por autoridade e exige interação humana.
+# Divulgado em gov.br/cgu > acesso-a-informacao > dados-abertos > arquivos >
+# agenda-de-autoridades.
+EAGENDAS_BULK_URL = (
+    "https://dadosabertos-download.cgu.gov.br/dados_e-agendas/dados_e-agendas.zip"
+)
