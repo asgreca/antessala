@@ -79,3 +79,10 @@ NO_BID_ACT_TYPES = (
     "dispensa",
     "ratifica",
 )
+
+
+# ------------------------------------------------------------- e-Agendas
+# API oficial da CGU: pública, porém exige token gerado com login gov.br em
+# eagendas.cgu.gov.br > perfil > Meus tokens.
+EAGENDAS_API_URL = "https://eagendas.cgu.gov.br/api/v2"
+EAGENDAS_TOKEN_ENV = "EAGENDAS_TOKEN"

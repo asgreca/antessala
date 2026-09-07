@@ -975,7 +975,7 @@ def sync_cgu(force: bool = False, limit: int | None = None, year: int = 2023) ->
     Returns:
         Número de novas linhas inseridas.
     """
-    from .cgu_downloader import CguDownloader
+    from .cgu_downloader import CguDownloader, SourceUnavailable
     from .cgu_incremental import process_cgu_deltas
 
     started = datetime.now()
@@ -989,10 +989,20 @@ def sync_cgu(force: bool = False, limit: int | None = None, year: int = 2023) ->
     # Fase 1 — Descoberta e download de arquivos novos/atualizados
     print("[1/5] Verificando fontes do e-Agendas CGU...")
     downloader = CguDownloader()
-    new_files = downloader.fetch_new_files(force=force, year=year)
+    try:
+        new_files = downloader.fetch_new_files(force=force, year=year)
+    except SourceUnavailable as exc:
+        # Fonte inacessível NÃO é "base atualizada". Sem este ramo, a rotina
+        # mensal imprimia "✔ Nenhum arquivo novo" e saía com código 0 —
+        # relatando sucesso enquanto os dados envelheciam.
+        print("      ✘ FALHA: a fonte do e-Agendas não pôde ser consultada.")
+        print(f"        {exc}")
+        print("      Nada foi atualizado. Corrija a credencial e execute de novo.")
+        raise SystemExit(2)
 
     if not new_files:
-        print("      ✔ Nenhum arquivo novo encontrado. Base já atualizada.")
+        print("      ✔ Fonte consultada com sucesso; nenhum arquivo novo. "
+              "Base já atualizada.")
         print()
         return 0
 

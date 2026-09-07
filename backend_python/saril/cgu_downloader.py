@@ -30,6 +30,32 @@ from . import config
 logger = logging.getLogger("saril.cgu_downloader")
 
 
+def _eagendas_token() -> str | None:
+    """Token da API do e-Agendas, do ambiente ou do .env do projeto."""
+    token = os.environ.get(config.EAGENDAS_TOKEN_ENV)
+    if token and token.strip():
+        return token.strip()
+    env_file = config.BASE_DIR / ".env"
+    if env_file.exists():
+        for line in env_file.read_text(encoding="utf-8", errors="replace").splitlines():
+            if line.strip().startswith(config.EAGENDAS_TOKEN_ENV):
+                _, _, value = line.partition("=")
+                value = value.strip().strip('"').strip("'")
+                if value:
+                    return value
+    return None
+
+
+class SourceUnavailable(RuntimeError):
+    """A fonte de dados não pôde ser consultada.
+
+    Distinta de "consultei e não há nada novo". Confundir as duas foi o defeito
+    que fazia a sincronização mensal reportar sucesso sem baixar nada: o 401 do
+    catálogo era registrado em nível INFO, chamado de "fallback", e devolvia
+    lista vazia — indistinguível de base já atualizada.
+    """
+
+
 @dataclass
 class CguResource:
     name: str
@@ -81,7 +107,16 @@ class CguDownloader:
         return sha256.hexdigest()
 
     def discover_remote_resources(self) -> list[CguResource]:
-        """Consulta o catálogo de dados abertos para obter recursos mais recentes."""
+        """Recursos publicados na fonte remota.
+
+        Levanta SourceUnavailable quando a fonte não responde ou exige
+        credencial. Uma lista vazia passa a significar apenas uma coisa: a
+        fonte respondeu e não há arquivo novo.
+        """
+        token = _eagendas_token()
+        if token:
+            return self._discover_via_eagendas_api(token)
+
         resources: list[CguResource] = []
         req = urllib.request.Request(
             self.CKAN_SEARCH_URL,
@@ -107,10 +142,47 @@ class CguDownloader:
                                         size_bytes=r.get("size") or 0,
                                     )
                                 )
+        except urllib.error.HTTPError as exc:
+            if exc.code in (401, 403):
+                raise SourceUnavailable(
+                    f"O catálogo dados.gov.br exigiu credencial (HTTP {exc.code}). "
+                    "Defina EAGENDAS_TOKEN para usar a API oficial do e-Agendas "
+                    "(gere em eagendas.cgu.gov.br > perfil > Meus tokens)."
+                ) from exc
+            raise SourceUnavailable(
+                f"O catálogo dados.gov.br respondeu HTTP {exc.code}."
+            ) from exc
         except Exception as exc:
-            logger.info(f"Busca remota via CKAN não disponível ({exc}). Usando fallback de repositório direto e local.")
+            raise SourceUnavailable(
+                f"Não foi possível consultar o catálogo de dados abertos: {exc}"
+            ) from exc
 
         return resources
+
+    def _discover_via_eagendas_api(self, token: str) -> list[CguResource]:
+        """Consulta a API oficial do e-Agendas, que é pública mas exige token."""
+        url = f"{config.EAGENDAS_API_URL}/agentes-publicos-obrigados"
+        req = urllib.request.Request(url, headers={
+            "User-Agent": config.CGU_DOWNLOAD_USER_AGENT,
+            "Accept": "application/json",
+            "Authorization": f"Bearer {token}",
+        })
+        try:
+            with urllib.request.urlopen(req, timeout=45) as resp:
+                resp.read(1)
+        except urllib.error.HTTPError as exc:
+            raise SourceUnavailable(
+                f"A API do e-Agendas rejeitou o token (HTTP {exc.code}). "
+                "Verifique se EAGENDAS_TOKEN está correto e não expirou."
+            ) from exc
+        except Exception as exc:
+            raise SourceUnavailable(f"A API do e-Agendas não respondeu: {exc}") from exc
+
+        logger.warning(
+            "Token do e-Agendas aceito, mas o mapeamento dos endpoints da API v2 "
+            "para arquivos mensais ainda não foi implementado."
+        )
+        return []
 
     def download_file(self, url: str, dest_path: Path, max_retries: int = 3) -> bool:
         """Realiza download com stream, timeout e backoff exponencial."""

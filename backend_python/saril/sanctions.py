@@ -18,7 +18,7 @@ import re
 import urllib.request
 import zipfile
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 from . import config
@@ -108,9 +108,32 @@ def _api_key() -> str | None:
 
 
 def download_registry(registry: str, stamp: str | None = None,
-                      dest_dir: Path | None = None) -> Path:
-    """Baixa e extrai o CSV de um cadastro. Retorna o caminho do arquivo."""
-    stamp = stamp or date.today().strftime("%Y%m%d")
+                      dest_dir: Path | None = None, max_lookback: int = 10) -> Path:
+    """Baixa e extrai o CSV de um cadastro. Retorna o caminho do arquivo.
+
+    O Portal publica o pacote apenas em algumas datas — dias sem publicação
+    respondem 403. Sem recuar no calendário, uma rotina mensal que caísse num
+    desses dias falharia inteira, embora o dado do dia anterior estivesse lá.
+    """
+    if stamp:
+        return _download_stamped(registry, stamp, dest_dir)
+
+    erros = []
+    for offset in range(max_lookback):
+        candidate = (date.today() - timedelta(days=offset)).strftime("%Y%m%d")
+        try:
+            return _download_stamped(registry, candidate, dest_dir)
+        except urllib.error.HTTPError as exc:
+            if exc.code not in (403, 404):
+                raise
+            erros.append(candidate)
+    raise RuntimeError(
+        f"Nenhum pacote de {registry.upper()} disponível nos últimos "
+        f"{max_lookback} dias (tentadas: {', '.join(erros)})."
+    )
+
+
+def _download_stamped(registry: str, stamp: str, dest_dir: Path | None) -> Path:
     dest_dir = dest_dir or (config.DATA_DIR / "sanctions")
     dest_dir.mkdir(parents=True, exist_ok=True)
 

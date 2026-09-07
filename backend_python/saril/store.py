@@ -286,7 +286,28 @@ def session(read_only: bool = False):
         conn.close()
 
 
-def publish_snapshot() -> None:
+# Tabelas cuja perda caracteriza publicação de um banco vazio ou parcial.
+GUARDED_TABLES = ("meetings", "entities")
+
+
+def _row_counts(path) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    if not os.path.exists(path):
+        return counts
+    try:
+        with duckdb.connect(str(path), read_only=True) as conn:
+            for table in GUARDED_TABLES:
+                try:
+                    counts[table] = conn.execute(
+                        f"SELECT count(*) FROM {table}").fetchone()[0]
+                except duckdb.Error:
+                    counts[table] = 0
+    except duckdb.Error:
+        return {}
+    return counts
+
+
+def publish_snapshot(force: bool = False) -> None:
     """Publica uma cópia consistente do banco para a API ler.
 
     O DuckDB admite um único escritor por arquivo: sem isso, a API cairia com
@@ -295,6 +316,25 @@ def publish_snapshot() -> None:
     """
     if not config.DB_PATH.exists():
         return
+
+    # Trava contra publicação destrutiva. O publish copia o banco de trabalho
+    # sobre o servido; quando uma etapa isolada (ingest-sanctions, por exemplo)
+    # roda num servidor onde o banco de trabalho não existe, o DuckDB cria um
+    # vazio e o publish apaga a produção. Foi exatamente o que aconteceu em
+    # 07/09/2026: 1.014.015 reuniões substituídas por um banco de 4 MB.
+    if not force:
+        origem = _row_counts(config.DB_PATH)
+        destino = _row_counts(config.SERVING_DB_PATH)
+        for tabela in GUARDED_TABLES:
+            atual, novo = destino.get(tabela, 0), origem.get(tabela, 0)
+            if atual > 100 and novo < atual * 0.5:
+                raise RuntimeError(
+                    f"Publicação recusada: '{tabela}' cairia de {atual:,} para "
+                    f"{novo:,} linhas. O banco de trabalho parece vazio ou "
+                    f"parcial. Reconstrua-o antes de publicar, ou use "
+                    f"publish_snapshot(force=True) se a redução for intencional."
+                )
+
     tmp_fd, tmp_name = tempfile.mkstemp(
         dir=str(config.DATA_DIR), prefix=".saril_serving_", suffix=".duckdb"
     )
