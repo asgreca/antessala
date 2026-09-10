@@ -811,7 +811,7 @@ export const UnifiedActorDossierModal: React.FC<UnifiedActorDossierModalProps> =
                               type="button"
                               className={styles.printReportBtn}
                               onClick={handlePrintReport}
-                              title="Imprimir relatório pericial completo com brasão e mascote oficial"
+                              title="Imprimir relatório pericial completo com a marca do Antessala e o mascote"
                             >
                               <Printer size={14} />
                               <span>Imprimir Relatório</span>

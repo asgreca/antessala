@@ -319,7 +319,7 @@ export const AuthorProfilePage: React.FC<AuthorProfilePageProps> = ({ onNavigate
       <footer className={styles.dossierFooter}>
         <div className={styles.cguBadgeNotice}>
           <ShieldCheck size={16} />
-          <span>Projeto desenvolvido no escopo do 2º Concurso de Reúso de Dados Abertos da CGU (Edital nº 46/2026)</span>
+          <span>Iniciativa independente, inscrita no 2º Concurso de Reúso de Dados Abertos da CGU (Edital nº 46/2026)</span>
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <span>Código Aberto (MIT License)</span>

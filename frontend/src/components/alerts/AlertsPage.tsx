@@ -134,7 +134,7 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ onInspectPerson }) => {
         <div className={styles.heroLeft}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '8px', flexWrap: 'wrap' }}>
             <div className={styles.heroBadge}>
-              <ShieldAlert size={14} /> Auditoria Contínua &bull; CGU
+              <ShieldAlert size={14} /> Auditoria Contínua &bull; Controle social
             </div>
           </div>
           <h1 className={styles.heroTitle}>

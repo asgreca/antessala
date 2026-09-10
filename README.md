@@ -72,7 +72,7 @@ Requisitos 4.1.4 e 6.3 do edital: todas as fontes são públicas, em formato abe
 
 | Requisito | Situação |
 |---|---|
-| 4.1.1 Formulário de inscrição | A cargo do autor, no prazo do edital |
+| 4.1.1 Formulário de inscrição | Realizada |
 | 4.1.2 Caso de reúso cadastrado no dados.gov.br | A cargo do autor, referenciando os conjuntos acima |
 | 4.1.3 Transparência e controle social | Objetivo central: tornar auditável a relação entre reuniões e atos oficiais |
 | 4.1.4 Uso e identificação de dados abertos | Quatro conjuntos oficiais, identificados na tabela acima |

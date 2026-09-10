@@ -292,7 +292,7 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
             <h4><AlertTriangle size={18} color="#D97706" /> Caráter Probatório e Sem Juízo de Culpa</h4>
             <p>
               Os apontamentos do sistema constituem <strong>anomalias estatísticas e correlações temporais fáticas</strong> destinadas 
-              ao controle social, jornalismo investigativo e apoio a auditorias institucionais (CGU, TCU e MPF). Não consubstanciam, 
+              ao controle social, ao jornalismo investigativo e ao trabalho dos órgãos de controle. Não consubstanciam, 
               por si só, juízo de condenação penal ou administrativa.
             </p>
           </div>
@@ -759,7 +759,7 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
                   valor &ge; R$ 50 milhões (<strong>+25 pts</strong>), 
                   Lift &ge; 2.0x.
                 </td>
-                <td>Prioridade 1 para auditoria governamental e relatório de inteligência cívica para Ouvidoria Fala.BR/CGU.</td>
+                <td>Prioridade 1 para apuração e para manifestação cidadã pela plataforma Fala.BR.</td>
               </tr>
               <tr>
                 <td><span className={`${styles.scoreBadge} ${styles.badgeHigh}`}>ALTO</span></td>

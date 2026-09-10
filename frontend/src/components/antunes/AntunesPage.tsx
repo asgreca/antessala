@@ -79,7 +79,7 @@ export const AntunesPage: React.FC<AntunesPageProps> = ({ onNavigateTab }) => {
             }}
           />
           <div className={styles.imageBadge}>
-            <span>AUDITOR_ID: ANTUNES-CGU-001</span>
+            <span>AUDITOR_ID: ANTUNES-001</span>
           </div>
         </div>
       </section>

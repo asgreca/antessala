@@ -251,7 +251,7 @@ export const MinistryFichaPage: React.FC<MinistryFichaPageProps> = ({ onInspectP
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px', flexWrap: 'wrap' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#ECFDF5', color: '#047857', border: '1px solid #A7F3D0', fontSize: '0.74rem', fontWeight: 800, padding: '4px 12px', borderRadius: '9999px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              <Building2 size={13} /> Fiscalização de Audiências &bull; CGU
+              <Building2 size={13} /> Fiscalização de Audiências &bull; Controle social
             </div>
           </div>
           <h2>Quem visitou quem no Executivo federal</h2>

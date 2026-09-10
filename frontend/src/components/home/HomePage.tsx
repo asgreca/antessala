@@ -120,7 +120,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigateTab }) => {
           <p className={styles.bioCardText}>
             Enquanto a imprensa muitas vezes se perde em manchetes sensacionalistas e ruídos partidários, tratando 
             dados complexos como se fossem apenas torcida organizada, Antunes mergulha nos registros oficiais. Ele entra 
-            no sistema da Controladoria-Geral da União, disseca cada audiência ministerial realizada e remove a cortina 
+            nos registros públicos do e-Agendas, disseca cada audiência ministerial realizada e remove a cortina 
             de fumaça que separa quem visitou quem de quem foi efetivamente contratado pelo Estado.
           </p>
           <p className={styles.bioCardText}>
@@ -193,7 +193,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigateTab }) => {
           </div>
 
           <div className={styles.attributeCard}>
-            <span className={styles.attrLabel}>Fonte Oficial CGU &amp; DOU</span>
+            <span className={styles.attrLabel}>Fontes oficiais: e-Agendas &amp; DOU</span>
             <h3 className={styles.attrTitle}>Evidência Primária</h3>
             <p className={styles.attrDesc}>
               A única verdade que importa é a publicada nos diários e agendas do Estado: dados reais do e-Agendas 
