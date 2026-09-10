@@ -15,7 +15,7 @@ export const authorityService = {
     page?: number;
     size?: number;
   }): Promise<AuthoritiesListResponse> {
-    const url = new URL(getApiUrl('/api/v1/authorities'));
+    const url = new URL(getApiUrl('/api/v1/authorities'), window.location.origin);
     if (params.q) url.searchParams.set('q', params.q);
     if (params.company) url.searchParams.set('company', params.company);
     if (params.organ && params.organ !== 'ALL') url.searchParams.set('organ', params.organ);

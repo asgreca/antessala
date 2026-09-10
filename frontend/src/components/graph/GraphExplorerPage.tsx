@@ -5,6 +5,7 @@ import { GraphNetworkData, GraphNodeData } from '../../types/graph.types';
 import { graphService } from '../../services/graphService';
 import { getApiUrl } from '../../services/api';
 import { Share2, RefreshCw, Sparkles, Loader2, Filter, X, Building2, Calendar, User, FileText } from 'lucide-react';
+import { MarkdownRenderer } from '../common/MarkdownRenderer';
 import styles from './GraphExplorerPage.module.css';
 
 interface GraphExplorerPageProps {
@@ -40,7 +41,7 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
   const [dateFilter, setDateFilter] = useState<string>('');
   const [filtersLoading, setFiltersLoading] = useState<boolean>(false);
 
-  // Estado do Relatório de Rede por LLM (Robô Antunes / DeepSeek)
+  // Estado do Relatório de Rede por Inteligência Artificial (Robô Antunes / DeepSeek)
   const [llmReport, setLlmReport] = useState<string | null>(null);
   const [llmLoading, setLlmLoading] = useState<boolean>(false);
   const [showLlmModal, setShowLlmModal] = useState<boolean>(false);
@@ -178,7 +179,7 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
       const data = await res.json();
       setLlmReport(data.report || 'Relatório concluído.');
     } catch (e: any) {
-      setLlmReport('Erro ao comunicar com o modelo LLM do Robô Antunes.');
+      setLlmReport('Erro ao comunicar com a Inteligência Artificial do Robô Antunes.');
     } finally {
       setLlmLoading(false);
     }
@@ -208,40 +209,9 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-          <button
-            type="button"
-            className={styles.presidentialBadgeBtn}
-            onClick={async () => {
-              const lulaId = 'c3f4c2c8c370bc04';
-              setSelectedMinistry('Presidência da República');
-              setSelectedActors([lulaId]);
-              setFiltersLoading(true);
-              try {
-                const data = await graphService.getFilterOptions('Presidência da República', lulaId);
-                if (data.actors && data.actors.length > 0) {
-                  setActorsList(data.actors);
-                }
-              } catch (e) {
-                console.error('Erro ao carregar atores da Presidência:', e);
-              } finally {
-                setFiltersLoading(false);
-              }
-            }}
-            title="Carregar diretamente o mapa de rede da Presidência da República e do Presidente Lula"
-          >
-            <span role="img" aria-label="Brasil">🇧🇷</span>
-            <span>Grafo Presidencial</span>
-          </button>
+          
 
-          <button
-            type="button"
-            className={styles.dossierBadgeBtn}
-            onClick={() => onOpenDossier('c3f4c2c8c370bc04')}
-            title="Abrir a Ficha Unificada de Auditoria e Agenda do Presidente Lula"
-          >
-            <FileText size={15} />
-            <span>Ver Agenda &amp; Dossiê de Lula</span>
-          </button>
+          
 
           <button className={styles.reloadBtn} onClick={loadGraph} title="Recarregar Rede">
             <RefreshCw size={16} />
@@ -250,7 +220,7 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
         </div>
       </div>
 
-      {/* Barra de Filtros Interativos Intercambiáveis e Botão LLM */}
+      {/* Barra de Filtros Interativos Intercambiáveis e Botão de IA */}
       <div className={styles.filterBar}>
         {/* Filtro 1: Ministério / Órgão */}
         <div className={styles.filterGroup}>
@@ -411,7 +381,7 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
           </select>
         </div>
 
-        {/* Botão de Interpretação da Rede via LLM */}
+        {/* Botão de Interpretação da Rede via Inteligência Artificial */}
         <button
           type="button"
           className={styles.llmReportBtn}
@@ -499,7 +469,10 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
                   </div>
                 </div>
               ) : (
-                llmReport
+                /* Renderizado como markdown: o parecer vem com títulos, listas
+                   e negrito, que apareciam crus na tela (### e **) quando
+                   inseridos como texto puro. */
+                <MarkdownRenderer content={llmReport ?? ''} />
               )}
             </div>
           </div>

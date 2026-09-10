@@ -5,7 +5,7 @@ import { authorityService } from '../../services/authorityService';
 import { fetchApi } from '../../services/api';
 import { CompanyLogo } from '../common/CompanyLogo';
 import { AuthorityAvatar } from '../common/AuthorityAvatar';
-import { StructuredFilterPanel } from '../common/StructuredFilterPanel';
+import { StructuredFilterPanel, PERIODO_INICIO_PADRAO, periodoFimPadrao } from '../common/StructuredFilterPanel';
 import styles from './AuthoritiesPage.module.css';
 
 interface AuthoritiesPageProps {
@@ -25,8 +25,8 @@ export const AuthoritiesPage: React.FC<AuthoritiesPageProps> = ({ onInspectAutho
   const [sortBy, setSortBy] = useState('meetings');
   const [page, setPage] = useState(1);
 
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState(PERIODO_INICIO_PADRAO);
+  const [endDate, setEndDate] = useState(periodoFimPadrao());
   const [visitorSearch, setVisitorSearch] = useState('');
   const [filterOptions, setFilterOptions] = useState<any>(null);
 

@@ -2,6 +2,12 @@ import React from 'react';
 import { Filter, Calendar, Landmark, Building2, User, UserCheck, RotateCcw } from 'lucide-react';
 import styles from './StructuredFilterPanel.module.css';
 
+/** Período padrão da auditoria: 01/01/2023 (início da série do e-Agendas
+ *  consolidada) até hoje. Iniciar vazio fazia os campos exibirem a data
+ *  corrente nos dois lados, sugerindo uma janela de um único dia. */
+export const PERIODO_INICIO_PADRAO = '2023-01-01';
+export const periodoFimPadrao = (): string => new Date().toISOString().slice(0, 10);
+
 export interface FilterOptionsData {
   ministries?: string[];
   topCompanies?: string[];

@@ -2,6 +2,9 @@ import React from 'react';
 import { ShieldCheck, FileText, Search, Award, CheckCircle2, ArrowRight, UserCheck } from 'lucide-react';
 import styles from './AntunesPage.module.css';
 
+/** Vídeo de apresentação no YouTube (youtube.com/watch?v=M0sWB8w8hs8). */
+const ANTUNES_VIDEO_ID = 'M0sWB8w8hs8';
+
 interface AntunesPageProps {
   onNavigateTab: (tab: 'MINISTRIES' | 'LOBBYISTS' | 'ALERTS' | 'GRAPH' | 'TRANSPARENCY') => void;
 }
@@ -9,6 +12,26 @@ interface AntunesPageProps {
 export const AntunesPage: React.FC<AntunesPageProps> = ({ onNavigateTab }) => {
   return (
     <div className={styles.pageContainer}>
+      {/* VÍDEO DE APRESENTAÇÃO — primeiro elemento da página, para que o
+          autoplay aconteça dentro da área visível. Navegadores só permitem
+          reprodução automática SEM SOM (política de autoplay de Chrome,
+          Safari e Firefox); o visitante ativa o áudio pelo controle do player.
+          youtube-nocookie evita cookies de rastreamento antes do play. */}
+      <section className={styles.videoSection} aria-label="Vídeo de apresentação do Antunes">
+        <div className={styles.videoFrame}>
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${ANTUNES_VIDEO_ID}?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1`}
+            title="Conheça o Antunes — o auditor da República"
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+        </div>
+        <p className={styles.videoHint}>
+          O vídeo começa sem som. Clique no ícone de volume do player para ouvir.
+        </p>
+      </section>
+
       {/* HERO SECTION DO ANTUNES */}
       <section className={styles.heroSection}>
         <div className={styles.heroContent}>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Building2, ShieldAlert, Crown, User, Loader2, ArrowRight, ExternalLink, FileText, Users } from 'lucide-react';
 import { CompanyLogo } from '../common/CompanyLogo';
 import { FilterBar, FilterState, EMPTY_FILTERS, Facets } from '../filters/FilterBar';
-import { StructuredFilterPanel } from '../common/StructuredFilterPanel';
+import { StructuredFilterPanel, PERIODO_INICIO_PADRAO, periodoFimPadrao } from '../common/StructuredFilterPanel';
 import { InteractionsTable, InteractionRow } from './InteractionsTable';
 import { getApiUrl, fetchApi } from '../../services/api';
 import styles from './MinistryFichaPage.module.css';
@@ -209,8 +209,8 @@ export const MinistryFichaPage: React.FC<MinistryFichaPageProps> = ({ onInspectP
     fetchFicha(selectedMinistry);
   }, [selectedMinistry]);
 
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState(PERIODO_INICIO_PADRAO);
+  const [endDate, setEndDate] = useState(periodoFimPadrao());
   const [companySearch, setCompanySearch] = useState('');
   const [visitorSearch, setVisitorSearch] = useState('');
   const [authoritySearch, setAuthoritySearch] = useState('');

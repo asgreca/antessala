@@ -267,3 +267,38 @@
     align-items: flex-start;
   }
 }
+
+/* Vídeo de apresentação: largura total, proporção 16:9 mantida pelo
+   aspect-ratio para não depender de padding-hack nem de altura fixa. */
+.videoSection {
+  margin-bottom: 2rem;
+}
+
+.videoFrame {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0F172A;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.12);
+}
+
+.videoFrame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.videoHint {
+  max-width: 960px;
+  margin: 0.6rem auto 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #64748B;
+}

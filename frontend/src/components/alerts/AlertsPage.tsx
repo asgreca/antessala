@@ -10,7 +10,7 @@ import {
   ShieldAlert, Filter, ChevronLeft, ChevronRight, 
   ArrowRight, Search, Eye, Sparkles, Building2, User 
 } from 'lucide-react';
-import { StructuredFilterPanel } from '../common/StructuredFilterPanel';
+import { StructuredFilterPanel, PERIODO_INICIO_PADRAO, periodoFimPadrao } from '../common/StructuredFilterPanel';
 import styles from './AlertsPage.module.css';
 
 interface AlertsPageProps {
@@ -48,8 +48,8 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ onInspectPerson }) => {
   // total das correlações sorteadas que foram retiradas de circulação.
   const [totals, setTotals] = useState({ participations: 0, correlatedValue: 0, bodies: 0 });
 
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState(PERIODO_INICIO_PADRAO);
+  const [endDate, setEndDate] = useState(periodoFimPadrao());
   const [selectedMinistry, setSelectedMinistry] = useState('ALL');
   const [companySearch, setCompanySearch] = useState('');
   const [visitorSearch, setVisitorSearch] = useState('');

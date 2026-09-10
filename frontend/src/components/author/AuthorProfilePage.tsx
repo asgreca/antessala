@@ -308,7 +308,7 @@ export const AuthorProfilePage: React.FC<AuthorProfilePageProps> = ({ onNavigate
             <li className={styles.competencyItem}>
               <CheckCircle2 size={20} className={styles.competencyIconAmber} />
               <div className={styles.competencyContent}>
-                <strong>Inteligência Artificial Forense:</strong> Classificação automatizada de grandes volumes de texto governamental com LLMs em nuvem (DeepSeek) e guardrails rígidos para assegurar contraditório e reprodutibilidade científica.
+                <strong>Inteligência Artificial Forense:</strong> Classificação automatizada de grandes volumes de texto governamental com Inteligência Artificial em nuvem (DeepSeek) e guardrails rígidos para assegurar contraditório e reprodutibilidade científica.
               </div>
             </li>
           </ul>

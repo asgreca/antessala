@@ -103,7 +103,7 @@ export const UnifiedActorDossierModal: React.FC<UnifiedActorDossierModalProps> =
   const [audiencePage, setAudiencePage] = useState<number>(1);
   const AUDIENCES_PER_PAGE = 15;
 
-  // Estado do Relatório Completo via LLM (DeepSeek / OpenAI)
+  // Estado do Relatório Completo com Inteligência Artificial (DeepSeek / OpenAI)
   const [llmReport, setLlmReport] = useState<string | null>(null);
   const [llmLoading, setLlmLoading] = useState<boolean>(false);
   const [llmProvider, setLlmProvider] = useState<string | null>(null);
@@ -129,14 +129,142 @@ export const UnifiedActorDossierModal: React.FC<UnifiedActorDossierModalProps> =
         setLlmEvidenceCounts(data.evidenceCounts || null);
       }
     } catch (err: any) {
-      console.error('Erro ao gerar relatório LLM:', err);
+      console.error('Erro ao gerar relatório com Inteligência Artificial:', err);
     } finally {
       setLlmLoading(false);
     }
   };
 
   const handlePrintReport = () => {
-    window.print();
+    const reportEl = document.getElementById('printable-antunes-report');
+    if (!reportEl) {
+      window.print();
+      return;
+    }
+
+    const printFrame = document.createElement('iframe');
+    printFrame.style.position = 'fixed';
+    printFrame.style.right = '0';
+    printFrame.style.bottom = '0';
+    printFrame.style.width = '0';
+    printFrame.style.height = '0';
+    printFrame.style.border = '0';
+    document.body.appendChild(printFrame);
+
+    const frameDoc = printFrame.contentWindow?.document || printFrame.contentDocument;
+    if (!frameDoc) {
+      window.print();
+      return;
+    }
+
+    const clonedReport = reportEl.cloneNode(true) as HTMLElement;
+    const actionsBar = clonedReport.querySelector(`.${styles.reportActionsBar}`);
+    if (actionsBar) actionsBar.remove();
+
+    frameDoc.open();
+    frameDoc.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Relatório Forense de Auditoria — Robô Antunes — ${dossier?.person.name || ''}</title>
+          <meta charset="utf-8">
+          <style>
+            @page {
+              size: A4 portrait;
+              margin: 15mm 15mm 15mm 15mm;
+            }
+            * {
+              box-sizing: border-box;
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+            body {
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+              color: #0F172A;
+              background: #FFFFFF;
+              margin: 0;
+              padding: 0;
+              font-size: 11pt;
+              line-height: 1.6;
+            }
+            img {
+              max-width: 100%;
+            }
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 14px 0;
+              page-break-inside: avoid;
+            }
+            th, td {
+              border: 1px solid #CBD5E1;
+              padding: 8px 10px;
+              text-align: left;
+              font-size: 10pt;
+            }
+            th {
+              background-color: #F1F5F9 !important;
+              font-weight: 700;
+              color: #0F172A;
+            }
+            h1, h2, h3, h4 {
+              color: #0F172A;
+              page-break-after: avoid;
+              margin-top: 16px;
+              margin-bottom: 8px;
+            }
+            h1 { font-size: 16pt; border-bottom: 2px solid #00A859; padding-bottom: 4px; }
+            h2 { font-size: 13pt; border-bottom: 1px solid #E2E8F0; padding-bottom: 4px; }
+            h3 { font-size: 11pt; }
+            blockquote {
+              border-left: 4px solid #00A859;
+              background-color: #F8FAFC !important;
+              padding: 8px 14px;
+              margin: 12px 0;
+              font-style: italic;
+              color: #334155;
+            }
+            code {
+              background: #F1F5F9 !important;
+              border: 1px solid #E2E8F0;
+              padding: 2px 4px;
+              border-radius: 4px;
+              font-family: monospace;
+              font-size: 9pt;
+            }
+            pre {
+              background: #0F172A !important;
+              color: #F8FAFC !important;
+              padding: 10px;
+              border-radius: 6px;
+              font-size: 9pt;
+              white-space: pre-wrap;
+              page-break-inside: avoid;
+            }
+            .printHeaderBox {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              border-bottom: 2px solid #000000;
+              padding-bottom: 12px;
+              margin-bottom: 16px;
+            }
+          </style>
+        </head>
+        <body>
+          ${clonedReport.innerHTML}
+        </body>
+      </html>
+    `);
+    frameDoc.close();
+
+    setTimeout(() => {
+      printFrame.contentWindow?.focus();
+      printFrame.contentWindow?.print();
+      setTimeout(() => {
+        document.body.removeChild(printFrame);
+      }, 2000);
+    }, 350);
   };
 
   // Fechar com a tecla Escape
@@ -600,7 +728,7 @@ export const UnifiedActorDossierModal: React.FC<UnifiedActorDossierModalProps> =
                         ) : (
                           <>
                             <Sparkles size={16} />
-                            <span>{llmReport ? 'Regerar Relatório com Antunes' : 'Gerar Relatório Completo via LLM'}</span>
+                            <span>{llmReport ? 'Regerar Relatório com Antunes' : 'Gerar Relatório Completo via Inteligência Artificial'}</span>
                           </>
                         )}
                       </button>
