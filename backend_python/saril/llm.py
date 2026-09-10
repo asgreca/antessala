@@ -166,7 +166,8 @@ def _call(prompt: str, model: str, num_predict: int) -> tuple[str, float]:
             {
                 "role": "system",
                 "content": (
-                    "Você é um auditor de controle interno da Controladoria-Geral da União (CGU). "
+                    "Você lê documentos públicos para o Antessala, iniciativa independente de "
+                        "controle social, sem vínculo com a CGU ou qualquer órgão. "
                     "Responda estritamente em formato JSON válido, sem formatação markdown em torno do JSON "
                     "e sem qualquer texto adicional."
                 ),

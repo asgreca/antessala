@@ -279,3 +279,26 @@
   animation: spin 1s linear infinite !important;
   display: inline-block;
 }
+
+/* Procedência do parecer: o leitor precisa saber se o texto é leitura de IA ou
+   só a lista de fatos calculados. */
+.reportOriginAi,
+.reportOriginFacts {
+  margin: 0 0 0.75rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.reportOriginAi {
+  background: rgba(2, 132, 199, 0.08);
+  border-left: 2px solid #0284C7;
+  color: #0F172A;
+}
+
+.reportOriginFacts {
+  background: rgba(245, 158, 11, 0.12);
+  border-left: 2px solid #F59E0B;
+  color: #78350F;
+}

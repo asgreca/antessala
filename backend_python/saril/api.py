@@ -2553,14 +2553,23 @@ def _reliability_summary(data: dict) -> str:
     claimed = data.get("highStakesClaimed") or 0
     accuracy = data.get("accuracy")
     size = data.get("goldSize")
+    modelo = data.get("model") or "o modelo em produção"
     if claimed == 0:
-        return (f"Em {size} pares rotulados, o modelo não afirmou 'mesma matéria' "
-                f"nenhuma vez, e acertou {accuracy:.0%} das classificações. Os erros "
-                "restantes ficam entre 'sem relação' e 'indeterminado' — ambos "
-                "enfraquecem o indício, nenhum o reforça indevidamente.")
-    precision = data.get("highStakesPrecision")
-    return (f"Em {size} pares rotulados: acurácia {accuracy:.0%}; das {claimed} "
-            f"afirmações de matéria relacionada, {precision:.0%} corretas.")
+        return (f"Medido em {size} pares rotulados com {modelo}: acurácia {accuracy:.0%}. "
+                "O modelo não afirmou matéria relacionada nenhuma vez; os erros ficam entre "
+                "'sem relação' e 'indeterminado' e enfraquecem o indício, nunca o reforçam.")
+    precision = data.get("highStakesPrecision") or 0.0
+    if claimed == 1:
+        detalhe = ("fez uma única afirmação de matéria relacionada, e ela estava correta"
+                   if precision == 1 else
+                   "fez uma única afirmação de matéria relacionada, e ela estava errada")
+    else:
+        detalhe = f"das {claimed} afirmações de matéria relacionada, {precision:.0%} estavam corretas"
+    # Só se pode dizer que os erros não reforçam indícios quando nenhuma
+    # afirmação de matéria relacionada foi falsa.
+    cauda = (" Os erros restantes enfraquecem o indício, nunca o reforçam."
+             if precision == 1 else " Houve afirmação falsa de matéria relacionada: confira o ato.")
+    return f"Medido em {size} pares rotulados com {modelo}: acurácia {accuracy:.0%}; {detalhe}.{cauda}"
 
 
 @app.get("/api/v1/analytics/bodies")
@@ -2937,7 +2946,7 @@ def _call_deepseek(prompt: str, api_key: str, model: str = "deepseek-chat") -> t
                 "messages": [
                     {
                         "role": "system",
-                        "content": "Você é o Robô Antunes — Auditor Pericial de Inteligência e Integridade Pública da Controladoria-Geral da União (CGU)."
+                        "content": "Você é o Robô Antunes, assistente de análise cívica do Antessala — iniciativa independente de controle social, sem vínculo com a CGU ou com qualquer órgão público. Nunca se apresente como servidor, auditor ou documento oficial."
                     },
                     {
                         "role": "user",
@@ -3270,7 +3279,7 @@ REGRAS DE REDAÇÃO:
                 data=json.dumps({
                     "model": "gpt-4o-mini",
                     "messages": [
-                        {"role": "system", "content": "Você é o Robô Antunes, auditor de integridade da CGU."},
+                        {"role": "system", "content": "Você é o Robô Antunes, assistente de análise cívica do Antessala — iniciativa independente de controle social, sem vínculo com a CGU ou com qualquer órgão público. Nunca se apresente como servidor, auditor ou documento oficial."},
                         {"role": "user", "content": prompt}
                     ],
                     "temperature": 0.2,
@@ -3286,7 +3295,7 @@ REGRAS DE REDAÇÃO:
     # 4. Fallback determinístico pericial
     if not report_text:
         report_text = _generate_deterministic_dossier_report(dossier)
-        provider_name = "Robô Antunes — Inteligência Pericial (CGU)"
+        provider_name = "Resumo automático (sem Inteligência Artificial)"
 
     # Salva no cache com o hash de dados
     generated_iso = datetime.now().isoformat()
@@ -3316,92 +3325,288 @@ REGRAS DE REDAÇÃO:
         }
     }
 
-@app.post("/api/v1/graph/generate-report")
-def generate_graph_report(body: dict):
-    """Gera relatório de análise da rede de influência via LLM a partir de filtros e nós ativos."""
-    import urllib.request, json
-    nodes_count = body.get("nodesCount", 0)
-    edges_count = body.get("edgesCount", 0)
-    public_body = body.get("publicBody", "Todos os Órgãos")
-    filter_date = body.get("dateFilter", "Período Integral")
-    actor_name = body.get("actorName", "Múltiplos Atores")
-    
-    prompt = f"""Você é o Robô Antunes, Auditor Pericial da CGU e Especialista em Análise de Redes Sociais Complexas (SNA).
-Elabore uma análise pericial sintética da topologia e das conexões desta rede de influência:
+_GRAPH_TYPE_PT = {
+    "PERSON": "ator privado", "ORGANIZATION": "entidade", "PUBLIC_BODY": "órgão",
+    "AUTHORITY": "autoridade", "DOU_ACT": "ato do DOU",
+}
 
-PARÂMETROS DA REDE ATIVA:
-- Órgão / Ministério Selecionado: {public_body}
-- Filtro Temporal: {filter_date}
-- Ator de Referência: {actor_name}
-- Total de Nós (Entidades / Pessoas / Atos): {nodes_count}
-- Total de Arestas (Interações / Conexões): {edges_count}
 
-ESTRUTURA DO PARECER:
-1. Centralidade e Hubs de Influência: Como os atores privados e autoridades interagem nesta amostragem.
-2. Densidade da Rede e Pontes de Contato: Há concentração excessiva em gabinetes específicos?
-3. Riscos de Captura Regulatória / Integridade Pública.
-4. Próximos Passos recomendados aos Auditores da CGU.
+def _articulation_points(adj: dict) -> set:
+    """Nós cuja remoção desconecta a rede (Tarjan, sem recursão).
 
-Seja direto, técnico e institucional. Use markdown formal.
-"""
-    default_topology_report = f"""### 🌐 Parecer Pericial de Topologia de Rede — Robô Antunes (CGU)
+    É a medida honesta de "ponte": a versão anterior afirmava centralidade de
+    intermediação (betweenness) sem jamais calculá-la.
+    """
+    disc, low, parent, pontos, t = {}, {}, {}, set(), 0
+    for raiz in adj:
+        if raiz in disc:
+            continue
+        parent[raiz] = None
+        disc[raiz] = low[raiz] = t
+        t += 1
+        filhos_raiz = 0
+        pilha = [(raiz, iter(adj[raiz]))]
+        while pilha:
+            u, vizinhos = pilha[-1]
+            desceu = False
+            for v in vizinhos:
+                if v not in disc:
+                    parent[v] = u
+                    disc[v] = low[v] = t
+                    t += 1
+                    if u == raiz:
+                        filhos_raiz += 1
+                    pilha.append((v, iter(adj[v])))
+                    desceu = True
+                    break
+                if v != parent[u]:
+                    low[u] = min(low[u], disc[v])
+            if desceu:
+                continue
+            pilha.pop()
+            p = parent[u]
+            if p is not None:
+                low[p] = min(low[p], low[u])
+                if parent[p] is not None and low[u] >= disc[p]:
+                    pontos.add(p)
+        if filhos_raiz > 1:
+            pontos.add(raiz)
+    return pontos
 
-**1. Parâmetros e Centralidade da Amostragem:**
-- **Âmbito Auditado:** {public_body} (Filtro: {filter_date})
-- **Ator(es) de Referência:** {actor_name}
-- **Densidade Topológica:** A rede estruturada compreende **{nodes_count} nós** ativos e **{edges_count} conexões de interlocução**.
 
-**2. Padrão de Circulação e Pontes Institucionais:**
-- Observa-se a formação de clusters em torno de gabinetes ministeriais estratégicos e órgãos reguladores setoriais.
-- Atores com alta centralidade de intermediação (*betweenness*) atuam como pontes prioritárias entre grupos empresariais e centros de tomada de decisão pública.
+def _network_digest(nodes: list, edges: list, max_items: int = 12) -> dict:
+    """Fatos calculados da rede que está na tela.
 
-**3. Indicadores de Risco e Salvaguarda:**
-- Recomenda-se o cruzamento específico com os extratos de inexigibilidade, dispensa de licitação e termos aditivos publicados no Diário Oficial da União (DOU).
-- Correlações de rede fornecem sinalizadores de inteligência relacional para priorização pericial e não constituem presunção antecipada de irregularidade.
-"""
+    A versão anterior enviava à IA só a contagem de nós e arestas — ela não
+    tinha como escrever nada específico — e, sem IA, devolvia um "parecer
+    pericial" fixo que afirmava métricas nunca calculadas. Tudo aqui é
+    computado a partir dos nós e arestas recebidos.
+    """
+    from collections import Counter
 
-    keys = _get_api_keys()
-    report_text = ""
-    provider_name = ""
+    nos: dict[str, dict] = {}
+    for n in nodes or []:
+        d = n.get("data", n) if isinstance(n, dict) else {}
+        nid = str(d.get("id") or "")
+        if nid:
+            nos[nid] = d
+    adj: dict[str, set] = {nid: set() for nid in nos}
+    conexoes = 0
+    for e in edges or []:
+        d = e.get("data", e) if isinstance(e, dict) else {}
+        a, b = str(d.get("source") or ""), str(d.get("target") or "")
+        if a in adj and b in adj and a != b and b not in adj[a]:
+            adj[a].add(b)
+            adj[b].add(a)
+            conexoes += 1
 
-    # 1. PRIORIDADE MÁXIMA: DEEPSEEK
-    if keys.get("deepseek"):
-        report_text, provider_name = _call_deepseek(prompt, keys["deepseek"], model="deepseek-chat")
+    def rotulo(n): return str(nos[n].get("label") or n)[:80]
+    def tipo(n): return str(nos[n].get("type") or "")
+    def tipo_pt(n): return _GRAPH_TYPE_PT.get(tipo(n), tipo(n) or "outro")
 
-    if not report_text and keys.get("google"):
-        report_text = _call_gemini(prompt, keys["google"])
-        if report_text:
-            provider_name = "Robô Antunes — Inteligência Artificial"
+    por_grau = sorted(nos, key=lambda n: (-len(adj[n]), rotulo(n)))
 
-    if not report_text and keys.get("openai") and not keys["openai"].startswith("sua_"):
-        try:
-            req = urllib.request.Request(
-                "https://api.openai.com/v1/chat/completions",
-                headers={"Content-Type": "application/json", "Authorization": f"Bearer {keys['openai']}"},
-                data=json.dumps({
-                    "model": "gpt-4o-mini",
-                    "messages": [{"role": "system", "content": "Você é o Robô Antunes da CGU."}, {"role": "user", "content": prompt}],
-                    "temperature": 0.2
-                }).encode("utf-8")
-            )
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                res = json.loads(resp.read().decode("utf-8"))
-                report_text = res["choices"][0]["message"]["content"]
-                provider_name = "Robô Antunes — Inteligência Artificial"
-        except Exception:
-            report_text = ""
+    vistos, componentes = set(), 0
+    for n in nos:
+        if n in vistos:
+            continue
+        componentes += 1
+        pilha = [n]
+        while pilha:
+            x = pilha.pop()
+            if x not in vistos:
+                vistos.add(x)
+                pilha.extend(adj[x] - vistos)
 
-    if not report_text:
-        report_text = default_topology_report
-        provider_name = "Robô Antunes — Análise Pericial Cívica"
+    pontes = []
+    for n in sorted(_articulation_points(adj), key=lambda n: -len(adj[n]))[:6]:
+        pontes.append({"nome": rotulo(n), "tipo": tipo_pt(n),
+                       "liga": dict(Counter(tipo_pt(v) for v in adj[n]))})
+
+    entidades = []
+    for n in por_grau:
+        if tipo(n) != "ORGANIZATION":
+            continue
+        entidades.append({
+            "nome": rotulo(n),
+            "orgaos": sorted({rotulo(v) for v in adj[n] if tipo(v) == "PUBLIC_BODY"})[:6],
+            "autoridades": sorted({rotulo(v) for v in adj[n] if tipo(v) == "AUTHORITY"})[:6],
+            "atos_dou_ligados": sum(1 for v in adj[n] if tipo(v) == "DOU_ACT"),
+        })
+        if len(entidades) >= max_items:
+            break
+
+    atos = []
+    for n in nos:
+        if tipo(n) != "DOU_ACT":
+            continue
+        d = nos[n]
+        atos.append({
+            "tipo": rotulo(n),
+            "orgao_emissor": d.get("organRoot") or "",
+            "dias_apos_reuniao": d.get("deltaDays"),
+            "valor": d.get("monetaryValue") or 0,
+            "concedido": str(d.get("granted") or "")[:160],
+        })
+    atos.sort(key=lambda a: (a["dias_apos_reuniao"] is None, a["dias_apos_reuniao"] or 0))
 
     return {
-        "actorName": actor_name,
-        "report": report_text,
-        "generatedAt": datetime.now().isoformat(),
-        "provider": provider_name
+        "nos": len(nos),
+        "conexoes": conexoes,
+        "componentes": componentes,
+        "composicao": dict(Counter(tipo_pt(n) for n in nos)),
+        "maiores_conectores": [
+            {"nome": rotulo(n), "tipo": tipo_pt(n), "conexoes": len(adj[n])}
+            for n in por_grau[:8] if adj[n]
+        ],
+        "pontes_estruturais": pontes,
+        "entidades": entidades,
+        "orgaos": [
+            {"nome": rotulo(n), "tema": nos[n].get("sectorLabel") or "", "conexoes": len(adj[n])}
+            for n in por_grau if tipo(n) == "PUBLIC_BODY"
+        ][:max_items],
+        "autoridades": [
+            {"nome": rotulo(n), "cargo": nos[n].get("tierLabel") or nos[n].get("role") or "",
+             "conexoes": len(adj[n])}
+            for n in por_grau if tipo(n) == "AUTHORITY"
+        ][:max_items],
+        "atos_dou": atos[:max_items],
+        "atos_dou_total": len(atos),
     }
 
+
+def _brl(valor) -> str:
+    try:
+        return "R$ " + f"{float(valor):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    except (TypeError, ValueError):
+        return "valor não informado"
+
+
+def _network_facts_markdown(f: dict, params: dict) -> str:
+    """Resumo sem IA: só fatos calculados, rotulado como tal."""
+    linhas = [
+        "### Resumo automático da rede",
+        "",
+        "> A Inteligência Artificial não respondeu. Este resumo lista **apenas fatos "
+        "calculados** a partir da rede exibida, sem interpretação.",
+        "",
+        f"**Recorte:** {params['publicBody']} · {params['dateFilter']} · referência: {params['actorName']}",
+        "",
+    ]
+    if not f.get("nos"):
+        linhas.append("A rede está vazia para os filtros escolhidos.")
+        return "\n".join(linhas)
+
+    comp = " · ".join(f"{k}: {v}" for k, v in sorted(f["composicao"].items(), key=lambda kv: -kv[1]))
+    linhas.append(f"**Composição:** {f['nos']} nós e {f['conexoes']} conexões, em "
+                  f"{f['componentes']} componente(s) — {comp}.")
+    if f["maiores_conectores"]:
+        hubs = "; ".join(f"{h['nome']} ({h['tipo']}, {h['conexoes']} conexões)"
+                         for h in f["maiores_conectores"][:5])
+        linhas += ["", f"**Maiores conectores:** {hubs}."]
+    linhas.append("")
+    if f["pontes_estruturais"]:
+        pts = "; ".join(
+            f"{p['nome']} ({p['tipo']}) — liga " + ", ".join(f"{k}: {v}" for k, v in p["liga"].items())
+            for p in f["pontes_estruturais"])
+        linhas.append(f"**Pontes estruturais** (nós cuja remoção separa a rede): {pts}.")
+    else:
+        linhas.append("**Pontes estruturais:** nenhuma — a rede não se separa ao remover um único nó.")
+    for ent in f["entidades"][:5]:
+        partes = []
+        if ent["orgaos"]:
+            partes.append("órgãos: " + ", ".join(ent["orgaos"]))
+        if ent["autoridades"]:
+            partes.append("autoridades: " + ", ".join(ent["autoridades"]))
+        partes.append(f"atos do DOU ligados: {ent['atos_dou_ligados']}")
+        linhas += ["", f"**{ent['nome']}** — " + "; ".join(partes) + "."]
+    if f["atos_dou"]:
+        linhas += ["", f"**Atos do DOU na rede** ({f['atos_dou_total']}; os mais próximos da reunião):"]
+        for a in f["atos_dou"][:6]:
+            dt = (f"{a['dias_apos_reuniao']} dia(s) após a reunião"
+                  if a["dias_apos_reuniao"] is not None else "intervalo não informado")
+            extra = f" — concedido: {a['concedido']}" if a["concedido"] else ""
+            valor = f", {_brl(a['valor'])}" if a["valor"] else ""
+            linhas.append(f"- {a['tipo']} — {a['orgao_emissor'] or 'órgão não informado'}, {dt}{valor}{extra}")
+    linhas += ["", "> Proximidade temporal é indício para apuração, não prova de irregularidade."]
+    return "\n".join(linhas)
+
+
+@app.post("/api/v1/graph/generate-report")
+def generate_graph_report(body: dict):
+    """Parecer sobre a rede exibida: fatos calculados e, se disponível, leitura por IA."""
+    import urllib.request
+
+    params = {
+        "publicBody": body.get("publicBody") or "Todos os órgãos",
+        "dateFilter": body.get("dateFilter") or "Período integral",
+        "actorName": body.get("actorName") or "Múltiplos atores",
+    }
+    facts = _network_digest(body.get("nodes") or [], body.get("edges") or [])
+
+    prompt = f"""Você é o Robô Antunes, assistente de análise cívica do projeto Antessala — uma
+iniciativa independente de controle social, SEM vínculo oficial com a CGU ou com qualquer
+órgão público. Nunca se apresente como servidor, auditor ou documento da CGU ou de outro órgão.
+
+Analise a rede de relações descrita pelos FATOS abaixo, calculados a partir do e-Agendas e do
+Diário Oficial da União. Use SOMENTE esses fatos: não invente nomes, números, métricas nem
+relações. Se algo não constar, diga que não consta. Cite nominalmente as entidades, órgãos,
+autoridades e atos relevantes.
+
+Recorte: {params['publicBody']} · {params['dateFilter']} · referência: {params['actorName']}
+
+Estrutura (markdown, direto, até ~450 palavras):
+1. Quem está no centro da rede, usando o número de conexões informado.
+2. Pontes estruturais (nós cuja remoção separa a rede) e o que elas conectam.
+3. Entidades privadas e os órgãos e autoridades que alcançam.
+4. Atos do DOU presentes e sua proximidade com as reuniões. Proximidade é indício, não prova.
+5. O que um auditor deveria verificar a seguir — concreto e ligado aos fatos.
+
+FATOS:
+{json.dumps(facts, ensure_ascii=False, default=str)}
+"""
+
+    report_text, provider_name = "", ""
+    # Sem nós não há o que interpretar: a IA só produziria texto genérico.
+    if facts["nos"]:
+        keys = _get_api_keys()
+        if keys.get("deepseek"):
+            report_text, provider_name = _call_deepseek(prompt, keys["deepseek"], model="deepseek-chat")
+        if not report_text and keys.get("google"):
+            report_text = _call_gemini(prompt, keys["google"])
+            if report_text:
+                provider_name = "Robô Antunes — Inteligência Artificial"
+        if not report_text and keys.get("openai") and not keys["openai"].startswith("sua_"):
+            try:
+                req = urllib.request.Request(
+                    "https://api.openai.com/v1/chat/completions",
+                    headers={"Content-Type": "application/json", "Authorization": f"Bearer {keys['openai']}"},
+                    data=json.dumps({
+                        "model": "gpt-4o-mini",
+                        "messages": [{"role": "user", "content": prompt}],
+                        "temperature": 0.2,
+                    }).encode("utf-8"),
+                )
+                with urllib.request.urlopen(req, timeout=30) as resp:
+                    res = json.loads(resp.read().decode("utf-8"))
+                    report_text = res["choices"][0]["message"]["content"]
+                    provider_name = "Robô Antunes — Inteligência Artificial"
+            except Exception:
+                report_text = ""
+
+    ai_available = bool(report_text)
+    if not ai_available:
+        report_text = _network_facts_markdown(facts, params)
+        provider_name = "Resumo automático (sem Inteligência Artificial)"
+
+    return {
+        "actorName": params["actorName"],
+        "report": report_text,
+        "generatedAt": datetime.now().isoformat(),
+        "provider": provider_name,
+        "aiAvailable": ai_available,
+        "facts": facts,
+    }
 
 # =========================================================================
 # DOSSIÊ E ANÁLISE DE AUTORIDADES PÚBLICAS

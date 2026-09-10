@@ -43,6 +43,8 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
 
   // Estado do Relatório de Rede por Inteligência Artificial (Robô Antunes / DeepSeek)
   const [llmReport, setLlmReport] = useState<string | null>(null);
+  // Procedência do parecer: veio da IA ou do resumo automático de fatos?
+  const [llmMeta, setLlmMeta] = useState<{ provider?: string; aiAvailable?: boolean } | null>(null);
   const [llmLoading, setLlmLoading] = useState<boolean>(false);
   const [showLlmModal, setShowLlmModal] = useState<boolean>(false);
 
@@ -174,12 +176,33 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
           publicBody: selectedMinistry !== 'TODOS' ? selectedMinistry : 'Esplanada dos Ministérios (Geral)',
           dateFilter: dateFilter || 'Período Completo (2023-2026)',
           actorName: activeActorName,
+          // A rede que está na tela. Antes só as contagens eram enviadas, e a IA
+          // não tinha como citar nenhuma entidade, órgão ou ato específico.
+          nodes: (graphData?.nodes ?? []).slice(0, 300).map((n) => ({
+            id: n.data.id,
+            label: n.data.label,
+            type: n.data.type,
+            role: n.data.role,
+            tierLabel: n.data.tierLabel,
+            sectorLabel: n.data.sectorLabel,
+            granted: n.data.granted,
+            organRoot: n.data.organRoot,
+            deltaDays: n.data.deltaDays,
+            monetaryValue: n.data.monetaryValue,
+          })),
+          edges: (graphData?.edges ?? []).slice(0, 600).map((e) => ({
+            source: e.data.source,
+            target: e.data.target,
+            label: e.data.label,
+          })),
         }),
       });
       const data = await res.json();
       setLlmReport(data.report || 'Relatório concluído.');
+      setLlmMeta({ provider: data.provider, aiAvailable: data.aiAvailable });
     } catch (e: any) {
       setLlmReport('Erro ao comunicar com a Inteligência Artificial do Robô Antunes.');
+      setLlmMeta(null);
     } finally {
       setLlmLoading(false);
     }
@@ -472,7 +495,16 @@ export const GraphExplorerPage: React.FC<GraphExplorerPageProps> = ({
                 /* Renderizado como markdown: o parecer vem com títulos, listas
                    e negrito, que apareciam crus na tela (### e **) quando
                    inseridos como texto puro. */
-                <MarkdownRenderer content={llmReport ?? ''} />
+                <>
+                  {llmMeta?.provider && (
+                    <p className={llmMeta.aiAvailable ? styles.reportOriginAi : styles.reportOriginFacts}>
+                      {llmMeta.aiAvailable
+                        ? 'Leitura por Inteligência Artificial, a partir dos fatos calculados desta rede. Indício para apuração, não conclusão.'
+                        : 'Inteligência Artificial indisponível no momento — exibindo apenas fatos calculados.'}
+                    </p>
+                  )}
+                  <MarkdownRenderer content={llmReport ?? ''} />
+                </>
               )}
             </div>
           </div>

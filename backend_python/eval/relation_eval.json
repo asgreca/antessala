@@ -1,8 +1,8 @@
 {
-  "evaluated": 20,
-  "accuracy": 0.7,
-  "highStakesPrecision": null,
-  "highStakesClaimed": 0,
+  "evaluated": 22,
+  "accuracy": 0.636,
+  "highStakesPrecision": 1.0,
+  "highStakesClaimed": 1,
   "perLabel": {
     "mesma_materia": {
       "tp": 0,
@@ -12,56 +12,58 @@
       "recall": null
     },
     "materia_conexa": {
-      "tp": 0,
+      "tp": 1,
       "fp": 0,
-      "fn": 1,
-      "precision": null,
-      "recall": 0.0
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0
     },
     "sem_relacao": {
-      "tp": 7,
-      "fp": 3,
-      "fn": 3,
-      "precision": 0.7,
-      "recall": 0.7
+      "tp": 3,
+      "fp": 1,
+      "fn": 7,
+      "precision": 0.75,
+      "recall": 0.3
     },
     "indeterminado": {
-      "tp": 7,
-      "fp": 3,
-      "fn": 2,
-      "precision": 0.7,
-      "recall": 0.778
+      "tp": 10,
+      "fp": 7,
+      "fn": 1,
+      "precision": 0.588,
+      "recall": 0.909
     }
   },
   "confusion": [
     {
       "gold": "indeterminado",
       "predicted": "indeterminado",
-      "n": 7
-    },
-    {
-      "gold": "sem_relacao",
-      "predicted": "sem_relacao",
-      "n": 7
+      "n": 10
     },
     {
       "gold": "sem_relacao",
       "predicted": "indeterminado",
+      "n": 7
+    },
+    {
+      "gold": "sem_relacao",
+      "predicted": "sem_relacao",
       "n": 3
     },
     {
-      "gold": "indeterminado",
-      "predicted": "sem_relacao",
-      "n": 2
+      "gold": "materia_conexa",
+      "predicted": "materia_conexa",
+      "n": 1
     },
     {
-      "gold": "materia_conexa",
+      "gold": "indeterminado",
       "predicted": "sem_relacao",
       "n": 1
     }
   ],
   "promptVersion": "v2",
-  "model": "gemma4:latest",
+  "model": "deepseek-chat",
   "goldSize": 22,
-  "note": "Medido sobre conjunto rotulado à mão a partir de pares reais da base. Rótulos revisáveis em data/eval/gold_relations.json."
+  "failedCalls": 0,
+  "measuredOn": "2026-09-10",
+  "note": "Medido com o modelo em produção (deepseek-chat) sobre pares reais rotulados à mão. Rótulos revisáveis em backend_python/eval/gold_relations.json. A medição anterior (70%) foi feita com Gemma local e não vale para a produção."
 }

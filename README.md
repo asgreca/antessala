@@ -113,7 +113,7 @@ Usada em duas tarefas delimitadas — **resumir o que o ato concedeu** e **dizer
 
 - Prompts versionados por tarefa; cada resposta é gravada com modelo, versão e hash da entrada, para ser reproduzível.
 - Travas determinísticas: pauta sem assunto declarado nunca gera vínculo temático, e justificativas apoiadas apenas no nome da empresa são recusadas.
-- O julgamento de relação foi medido contra um conjunto de pares reais rotulados manualmente ([`backend_python/eval/gold_relations.json`](backend_python/eval/gold_relations.json), aberto a revisão; resultado em [`relation_eval.json`](backend_python/eval/relation_eval.json)). A primeira versão do prompt errava todas as afirmações de "mesma matéria"; a versão atual acerta 70% das classificações e erra apenas para o lado conservador. A confiabilidade medida é exibida na própria tela.
+- O julgamento de relação foi medido contra 22 pares reais rotulados manualmente ([`backend_python/eval/gold_relations.json`](backend_python/eval/gold_relations.json), aberto a revisão; resultado em [`relation_eval.json`](backend_python/eval/relation_eval.json)). A primeira versão do prompt, testada com um modelo local, errava todas as afirmações de "mesma matéria". A versão atual, medida no modelo em produção (deepseek-chat), acerta **63,6%** das classificações: a única afirmação de matéria relacionada que fez estava correta, e os erros restantes classificam como "indeterminado" pares que eram "sem relação" — enfraquecem o indício, nunca o reforçam. A confiabilidade medida é exibida na própria tela.
 
 ### Atualização mensal
 
