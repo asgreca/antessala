@@ -99,7 +99,7 @@ export const AuthoritiesPage: React.FC<AuthoritiesPageProps> = ({ onInspectAutho
 
         <div className={styles.bannerRight}>
           <div className={styles.bannerStatCard}>
-            <div className={styles.statNumber}>{data?.total ? data.total.toLocaleString('pt-BR') : '5.881'}</div>
+            <div className={styles.statNumber}>{data?.total ? data.total.toLocaleString('pt-BR') : '—'}</div>
             <div className={styles.statLabel}>Autoridades Cadastradas</div>
           </div>
         </div>

@@ -109,13 +109,81 @@ def health():
             "counts": counts,
             "last_ingestion": last,
             "sources": {
-                "e-Agendas/CGU": "ingerido (parquet consolidado 2023-2026)",
+                "e-Agendas/CGU": "pacote de dados abertos da CGU, atualização mensal",
                 "DOU/Imprensa Nacional": "ingestão dirigida por entidade",
                 **{k: f"NÃO DISPONÍVEL — {v}" for k, v in UNAVAILABLE_SOURCES.items()},
             },
         }
     finally:
         conn.close()
+
+
+# -------------------------------------------------------- totais da base
+_OVERVIEW_CACHE: dict = {}
+
+
+@app.get("/api/v1/stats/overview")
+def stats_overview():
+    """Totais da base publicada, para a interface não exibir números fixos.
+
+    Os números da tela eram escritos no código e ficavam errados a cada
+    atualização mensal — o site dizia 71 correlações de alto risco quando havia
+    46. O cálculo é refeito só quando o snapshot servido muda.
+    """
+    caminho = config.SERVING_DB_PATH if config.SERVING_DB_PATH.exists() else config.DB_PATH
+    marca = caminho.stat().st_mtime if caminho.exists() else 0
+    if _OVERVIEW_CACHE.get("marca") == marca:
+        return _OVERVIEW_CACHE["dados"]
+
+    conn = db()
+    try:
+        def total(sql: str) -> int:
+            return conn.execute(sql).fetchone()[0] or 0
+
+        gravidade = {
+            r[0]: r[1] for r in conn.execute(
+                "SELECT severity, count(*) FROM correlations GROUP BY 1").fetchall()
+        }
+        sancoes = {"CEIS": {"total": 0, "vigentes": 0}, "CNEP": {"total": 0, "vigentes": 0}}
+        try:
+            for registro, qtd, vigentes in conn.execute("""
+                SELECT registry, count(*),
+                       count(*) FILTER (WHERE start_date <= current_date
+                                        AND (end_date IS NULL OR end_date >= current_date))
+                FROM sanctions GROUP BY 1
+            """).fetchall():
+                sancoes[registro] = {"total": qtd, "vigentes": vigentes}
+        except duckdb.Error:
+            pass
+        inicio, fim = conn.execute("SELECT min(meeting_date), max(meeting_date) FROM meetings").fetchone()
+
+        dados = {
+            "participacoes": total("SELECT count(*) FROM meetings"),
+            "reunioes": total("SELECT count(DISTINCT event_id) FROM meetings"),
+            "autoridades": total("SELECT count(DISTINCT authority_name) FROM meetings"),
+            "orgaos": total("SELECT count(DISTINCT public_body) FROM meetings"),
+            "ministerios": total("SELECT count(DISTINCT public_body) FROM meetings "
+                                 "WHERE public_body LIKE 'Ministério%'"),
+            "representantes": total("SELECT count(DISTINCT lobbyist_name) FROM meetings"),
+            "entidades": total("SELECT count(*) FROM entities"),
+            "atosDou": total("SELECT count(*) FROM dou_acts"),
+            "correlacoes": sum(gravidade.values()),
+            "correlacoesAltoRisco": gravidade.get("CRITICA", 0) + gravidade.get("ALTA", 0),
+            "correlacoesPorGravidade": {
+                "critica": gravidade.get("CRITICA", 0), "alta": gravidade.get("ALTA", 0),
+                "media": gravidade.get("MEDIA", 0), "baixa": gravidade.get("BAIXA", 0),
+            },
+            "sancoes": {"ceis": sancoes["CEIS"], "cnep": sancoes["CNEP"]},
+            "periodo": {
+                "inicio": inicio.isoformat() if inicio else None,
+                "fim": fim.isoformat() if fim else None,
+            },
+        }
+    finally:
+        conn.close()
+
+    _OVERVIEW_CACHE.update(marca=marca, dados=dados)
+    return dados
 
 
 # ------------------------------------------------------------- sync status

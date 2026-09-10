@@ -20,6 +20,7 @@ import {
   Award
 } from 'lucide-react';
 import styles from './MethodologyPage.module.css';
+import { usePlatformStats, fmtInt } from '../../services/statsService';
 
 interface MethodologyPageProps {
   onNavigateTab?: (tab: any) => void;
@@ -87,6 +88,7 @@ const IAI_COMPONENTS: IAIComponentDef[] = [
 ];
 
 export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab }) => {
+  const stats = usePlatformStats();
   const [activeSection, setActiveSection] = useState<string>('manifesto');
 
   // Estado do Simulador Interativo do IAI
@@ -337,41 +339,27 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
                 <td><strong>e-Agendas Federal</strong></td>
                 <td>Controladoria-Geral da União (CGU)</td>
                 <td>Lei 12.813/2013 e Dec. 10.889/2021</td>
-                <td>CSV / CKAN API (Diária)</td>
+                <td>CSV em pacote ZIP (coleta mensal)</td>
                 <td>Extração de audiências, agentes públicos, pessoas físicas visitantes, entidades representadas e pautas declaradas.</td>
-              </tr>
-              <tr>
-                <td><strong>Agenda do Presidente da República</strong></td>
-                <td>Presidência da República (PR)</td>
-                <td>LAI - Lei 12.527/2011 &amp; Dados Abertos PR</td>
-                <td>CSV / API CKAN Presidência (Diária)</td>
-                <td>Registros de compromissos públicos oficiais do Chefe do Executivo Federal, audiências no Palácio do Planalto e encontros com autoridades/setor privado.</td>
               </tr>
               <tr>
                 <td><strong>Diário Oficial da União (DOU)</strong></td>
                 <td>Imprensa Nacional (IN / Presidência)</td>
                 <td>Decreto nº 9.215/2017 e LAI</td>
-                <td>HTML Estruturado / JSON (Diária)</td>
+                <td>HTML / JSON da consulta pública (coleta mensal dirigida)</td>
                 <td>Monitoramento de contratos, dispensas de licitação, convênios, parcerias (MROSC) e atos normativos das Seções 1 e 3.</td>
               </tr>
               <tr>
                 <td><strong>CEIS &amp; CNEP</strong></td>
                 <td>Controladoria-Geral da União (CGU)</td>
                 <td>Lei 12.846/2013 e Lei 14.133/2021</td>
-                <td>CSV Aberto (Semanal)</td>
-                <td>Cruzamento de sanções e inidoneidades ativas contra entidades e sócios que mantêm interlocução com ministérios.</td>
-              </tr>
-              <tr>
-                <td><strong>PNCP (Contratações Públicas)</strong></td>
-                <td>Ministério da Gestão e Inovação (MGI)</td>
-                <td>Lei nº 14.133/2021</td>
-                <td>API REST Aberta (Contínua)</td>
-                <td>Validação de valores homologados, termos aditivos e objetos contratuais correlacionados.</td>
+                <td>CSV (coleta mensal)</td>
+                <td>Cruzamento das sanções com as entidades que se reuniram com autoridades federais, respeitando a vigência e o alcance de cada sanção.</td>
               </tr>
               <tr>
                 <td><strong>Retratos Oficiais de Autoridades</strong></td>
-                <td>Presidência da República / Wikimedia</td>
-                <td>Domínio Público Governamental</td>
+                <td>Wikimedia Commons</td>
+                <td>Licença indicada em cada imagem</td>
                 <td>API Aberta (Automática)</td>
                 <td>Identificação visual de Ministros de Estado, Presidente e Secretários de Governo em substituição a ícones neutros.</td>
               </tr>
@@ -876,7 +864,7 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
           </div>
           <div className={styles.methodCard}>
             <h4>2. Relevância &amp; Impacto (Peso 2)</h4>
-            <p>Mais de 1,2 milhão de participações auditadas, 5.800+ autoridades monitoradas e identificação de dezenas de correlações probatórias com o DOU.</p>
+            <p>{fmtInt(stats?.participacoes)} participações auditadas, {fmtInt(stats?.autoridades)} autoridades monitoradas e {fmtInt(stats?.correlacoes)} correlações com atos do DOU, das quais {fmtInt(stats?.correlacoesAltoRisco)} de alto risco.</p>
           </div>
           <div className={styles.methodCard}>
             <h4>3. Inovação &amp; Originalidade (Peso 1)</h4>

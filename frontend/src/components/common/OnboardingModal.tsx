@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import { X, ArrowRight, ArrowLeft, Check, Sparkles, Landmark, FileSearch, ShieldCheck } from 'lucide-react';
 import styles from './OnboardingModal.module.css';
+import { usePlatformStats, fmtInt } from '../../services/statsService';
+import type { PlatformStats } from '../../services/statsService';
 
 interface OnboardingModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const STEPS = [
+const buildSteps = (s: PlatformStats | null) => [
   {
     icon: <Landmark size={44} color="#10B981" />,
     title: '1. Rastreamento Contínuo do e-Agendas (CGU)',
     description:
-      'O Antessala monitora mais de 1,2 milhão de compromissos oficiais das autoridades do Governo Federal. O sistema separa automaticamente encontros públicos de reuniões com agentes privados e avalia a clareza das pautas declaradas (Art. 11 do Decreto nº 10.889/2021).',
-    highlight: '1.220.000+ compromissos auditados • 5.880+ autoridades',
+      `O Antessala lê as agendas oficiais das autoridades do Governo Federal e separa as reuniões com agentes privados — ${fmtInt(s?.reunioes)} reuniões e ${fmtInt(s?.participacoes)} participações — avaliando a clareza das pautas declaradas (Art. 11 do Decreto nº 10.889/2021).`,
+    highlight: `${fmtInt(s?.participacoes)} participações • ${fmtInt(s?.autoridades)} autoridades`,
   },
   {
     icon: <FileSearch size={44} color="#38BDF8" />,
     title: '2. Cruzamento Temporal com o Diário Oficial (DOU)',
     description:
       'Utilizando modelagem matemática (Índice IAI, ETT e Proximity Lift), o motor Antessala correlaciona encontros privados com publicações do DOU em uma janela de 60 dias — identificando contratos de alto valor, dispensas e inexigibilidades de licitação.',
-    highlight: 'Janela Δt ≤ 60 dias • 71 correlações de alto risco mapeadas',
+    highlight: `Janela Δt ≤ 60 dias • ${fmtInt(s?.correlacoesAltoRisco)} correlações de alto risco`,
   },
   {
     icon: <ShieldCheck size={44} color="#F59E0B" />,
@@ -33,6 +35,8 @@ const STEPS = [
 
 export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClose }) => {
   const [currentStep, setCurrentStep] = useState(0);
+  const stats = usePlatformStats();
+  const STEPS = buildSteps(stats);
 
   if (!isOpen) return null;
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Database, ExternalLink, ShieldCheck, CheckCircle2, FileText, Globe, Layers, Download, Sparkles } from 'lucide-react';
 import styles from './OpenDataCatalogPage.module.css';
+import { usePlatformStats, fmtInt } from '../../services/statsService';
+import type { PlatformStats } from '../../services/statsService';
 
 interface OpenDataset {
   id: string;
@@ -21,9 +23,9 @@ const DATASETS: OpenDataset[] = [
     name: 'e-Agendas — Agendas de Autoridades do Executivo Federal',
     custodian: 'Controladoria-Geral da União (CGU)',
     portalUrl: 'https://dados.gov.br/dados/conjuntos-dados/agenda-de-autoridades',
-    format: 'CSV / CKAN API',
-    frequency: 'Diária / Contínua',
-    recordsCount: '1.220.000+ compromissos',
+    format: 'CSV (pacote ZIP)',
+    frequency: 'Mensal (pacote de dados abertos)',
+    recordsCount: '—',
     legalBasis: 'Lei nº 12.813/2013 e Decreto nº 10.889/2021',
     description:
       'Registro oficial e obrigatório de compromissos públicos de ministros, secretários e dirigentes federais com agentes privados e grupos de interesse.',
@@ -36,7 +38,7 @@ const DATASETS: OpenDataset[] = [
     portalUrl: 'https://www.in.gov.br/consulta/-/buscar/dou',
     format: 'JSON / HTML Estruturado',
     frequency: 'Diária (dias úteis)',
-    recordsCount: '1.539+ atos auditados',
+    recordsCount: '—',
     legalBasis: 'Decreto nº 9.215/2017 e Lei nº 12.527/2011 (LAI)',
     description:
       'Publicações de atos normativos, portarias, contratos de alto valor, dispensas e inexigibilidades de licitação submetidas a cruzamento temporal.',
@@ -49,7 +51,7 @@ const DATASETS: OpenDataset[] = [
     portalUrl: 'https://dados.gov.br/dados/conjuntos-dados/ceis',
     format: 'CSV / API de Transparência',
     frequency: 'Semanal',
-    recordsCount: '18.400+ sanções ativas',
+    recordsCount: '—',
     legalBasis: 'Lei nº 12.846/2013 (Lei Anticorrupção) e Lei nº 14.133/2021',
     description:
       'Relação consolidada de empresas e profissionais impedidos de licitar e contratar com a Administração Pública brasileira.',
@@ -62,7 +64,7 @@ const DATASETS: OpenDataset[] = [
     portalUrl: 'https://dados.gov.br/dados/conjuntos-dados/cnep',
     format: 'CSV / API de Transparência',
     frequency: 'Semanal',
-    recordsCount: '1.900+ penalidades gravadas',
+    recordsCount: '—',
     legalBasis: 'Art. 22 da Lei nº 12.846/2013 (Lei Anticorrupção)',
     description:
       'Cadastro de pessoas jurídicas sancionadas pela prática de atos lesivos contra a administração pública nacional ou estrangeira.',
@@ -75,7 +77,7 @@ const DATASETS: OpenDataset[] = [
     portalUrl: 'https://pncp.gov.br',
     format: 'REST API / Open Data',
     frequency: 'Tempo Real',
-    recordsCount: 'Integrado sob demanda',
+    recordsCount: 'Não integrado nesta versão',
     legalBasis: 'Art. 174 da Lei nº 14.133/2021 (Nova Lei de Licitações)',
     description:
       'Sítio eletrônico oficial para divulgação obrigatória dos atos de contratação pública, licitações, atas e contratos federais.',
@@ -83,7 +85,25 @@ const DATASETS: OpenDataset[] = [
   },
 ];
 
+/** Volume de cada conjunto, lido da base publicada (era texto fixo e desatualizado). */
+const recordsFor = (id: string, s: PlatformStats | null): string | undefined => {
+  if (!s) return undefined;
+  switch (id) {
+    case 'e-agendas':
+      return `${fmtInt(s.reunioes)} reuniões · ${fmtInt(s.participacoes)} participações`;
+    case 'dou':
+      return `${fmtInt(s.atosDou)} atos coletados`;
+    case 'ceis':
+      return `${fmtInt(s.sancoes.ceis.vigentes)} sanções vigentes (de ${fmtInt(s.sancoes.ceis.total)})`;
+    case 'cnep':
+      return `${fmtInt(s.sancoes.cnep.total)} penalidades registradas`;
+    default:
+      return undefined;
+  }
+};
+
 export const OpenDataCatalogPage: React.FC = () => {
+  const stats = usePlatformStats();
   return (
     <div className={styles.container}>
       {/* Banner Principal */}
@@ -154,7 +174,7 @@ export const OpenDataCatalogPage: React.FC = () => {
               </div>
               <div className={styles.metaItem}>
                 <span className={styles.metaLabel}>Registros Processados:</span>
-                <span className={styles.metaValue}>{ds.recordsCount}</span>
+                <span className={styles.metaValue}>{recordsFor(ds.id, stats) ?? ds.recordsCount}</span>
               </div>
               <div className={styles.metaItem} style={{ gridColumn: 'span 2' }}>
                 <span className={styles.metaLabel}>Fundamento Legal:</span>

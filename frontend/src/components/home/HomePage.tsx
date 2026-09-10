@@ -5,12 +5,14 @@ import {
 } from 'lucide-react';
 import { AntessalaLogo } from '../common/AntessalaLogo';
 import styles from './HomePage.module.css';
+import { usePlatformStats, fmtInt, fmtCompact } from '../../services/statsService';
 
 interface HomePageProps {
   onNavigateTab: (tab: 'MINISTRIES' | 'LOBBYISTS' | 'ALERTS' | 'GRAPH' | 'TRANSPARENCY') => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigateTab }) => {
+  const stats = usePlatformStats();
   return (
     <div className={styles.homeContainer}>
       {/* HERO SECTION COM LOGOMARCA DO ANTESSALA CENTRALIZADA EM GRANDE DESTAQUE E O ROBÔ ANTUNES */}
@@ -161,10 +163,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigateTab }) => {
           </p>
           <div className={styles.rigorHighlights}>
             <div className={styles.rigorPill}>
-              <strong>+1,22 Mi</strong> reuniões auditadas
+              <strong>{fmtCompact(stats?.reunioes)}</strong> reuniões com agentes privados
             </div>
             <div className={styles.rigorPill}>
-              <strong>38</strong> Ministérios monitorados
+              <strong>{fmtInt(stats?.ministerios)}</strong> Ministérios monitorados
             </div>
             <div className={styles.rigorPill}>
               <strong>100%</strong> registros públicos auditáveis
