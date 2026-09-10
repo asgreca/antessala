@@ -6,6 +6,8 @@
 
 # Roteiros e Documentos Internos de Produção de Vídeo (Não devem subir para o GitHub)
 *.txt
+# ...exceto dependências, necessárias para replicar o projeto.
+!requirements.txt
 ROTEIRO_*.txt
 roteiro_*.txt
 

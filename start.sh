@@ -5,13 +5,20 @@ echo "============================================================"
 echo " SARIL — Auditoria Contínua de Lobby (e-Agendas x DOU)"
 echo "============================================================"
 
-ROOT="/Users/macmini/apps/CGU"
+# Resolvido a partir do próprio script, para funcionar em qualquer clone.
+ROOT="$(cd "$(dirname "$0")" && pwd)"
 PYTHON_VENV="$ROOT/backend_python/venv/bin"
+
+if [ ! -x "$PYTHON_VENV/uvicorn" ]; then
+  echo "Ambiente Python não encontrado. Crie com:"
+  echo "  cd backend_python && python3 -m venv venv && ./venv/bin/pip install -r requirements.txt"
+  exit 1
+fi
 
 if [ ! -f "$ROOT/data/saril.duckdb" ]; then
   echo "AVISO: data/saril.duckdb não existe. Rode a ingestão antes:"
   echo "  cd $ROOT/backend_python"
-  echo "  ./venv/bin/python -m saril.pipeline all --top 40"
+  echo "  ./venv/bin/python -m saril.pipeline sync-cgu"
   echo ""
 fi
 

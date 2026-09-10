@@ -1,0 +1,16 @@
+# Backend do Antessala. O frontend é estático: gere com `npm run build` em
+# frontend/ e sirva frontend/dist pelo nginx (veja deploy/nginx.conf.example).
+services:
+  backend:
+    build:
+      context: ./backend_python
+    container_name: antessala_backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # O código resolve a pasta de dados como /data dentro do contêiner.
+      - ./data:/data
+    ports:
+      - "127.0.0.1:8000:8000"
