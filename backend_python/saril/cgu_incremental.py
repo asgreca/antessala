@@ -22,6 +22,75 @@ from . import config, store
 from .eagendas import PRIVATE_LABEL, explode_private_participants
 from .normalize import is_public_entity
 
+# Uma participação é única por evento, lobista, entidade, autoridade e data.
+MEETING_KEY = ("event_id", "lobbyist_name", "entity_norm", "authority_name", "meeting_date")
+_KEY_MATCH = " AND ".join(f"m.{k} IS NOT DISTINCT FROM n.{k}" for k in MEETING_KEY)
+
+# Offset usado pela antiga rotina que fabricava reuniões presidenciais.
+FABRICATED_EVENT_OFFSET = 800_000_000
+
+
+def dedupe_meetings(conn) -> dict:
+    """Remove reuniões fabricadas e participações duplicadas.
+
+    Precisa rodar DEPOIS de qualquer canonicalização: unify_canonical_entities
+    reescreve entity_norm e pode fundir duas grafias numa só, criando
+    duplicatas que não existiam antes do UPDATE. Mantém uma linha por chave,
+    preferindo a que tem CNPJ.
+    """
+    antes = conn.execute("SELECT count(*) FROM meetings").fetchone()[0]
+    fabricadas = conn.execute(
+        "SELECT count(*) FROM meetings WHERE event_id >= ?", [FABRICATED_EVENT_OFFSET]
+    ).fetchone()[0]
+    conn.execute("DELETE FROM meetings WHERE event_id >= ?", [FABRICATED_EVENT_OFFSET])
+    particao = ", ".join(MEETING_KEY)
+    conn.execute(f"""
+        CREATE OR REPLACE TEMP TABLE meetings_dedup AS
+        SELECT * EXCLUDE (rn) FROM (
+            SELECT *, row_number() OVER (
+                PARTITION BY {particao}
+                ORDER BY entity_cnpj NULLS LAST, entity_name
+            ) AS rn
+            FROM meetings
+        ) WHERE rn = 1
+    """)
+    conn.execute("DELETE FROM meetings")
+    conn.execute("INSERT INTO meetings SELECT * FROM meetings_dedup")
+    conn.execute("DROP TABLE meetings_dedup")
+    depois = conn.execute("SELECT count(*) FROM meetings").fetchone()[0]
+    return {"antes": antes, "fabricadas": fabricadas,
+            "duplicatas": antes - fabricadas - depois, "depois": depois}
+
+
+def rebuild_entities(conn) -> int:
+    """Recalcula `entities` a partir de `meetings`.
+
+    As contagens de entidade (reuniões, lobistas, órgãos) somavam as linhas
+    duplicadas; depois de deduplicar, precisam ser refeitas. No servidor não há
+    o parquet de origem, então build-meetings não serve — a fonte é a própria
+    tabela meetings.
+    """
+    from .pipeline import _refine_entity_cnpjs
+    conn.execute("DELETE FROM entities")
+    conn.execute("""
+        INSERT INTO entities
+        SELECT
+            entity_norm,
+            mode(entity_name)                                           AS display_name,
+            mode(entity_cnpj) FILTER (WHERE entity_cnpj IS NOT NULL)    AS cnpj,
+            NULL                                                        AS cnpjs,
+            count(*)                                                    AS meetings_count,
+            count(DISTINCT lobbyist_name)                               AS lobbyists_count,
+            count(DISTINCT public_body)                                 AS bodies_count,
+            count(DISTINCT authority_name)                              AS authorities_count,
+            min(meeting_date)                                           AS first_meeting,
+            max(meeting_date)                                           AS last_meeting
+        FROM meetings
+        GROUP BY entity_norm
+    """)
+    _refine_entity_cnpjs(conn)
+    return conn.execute("SELECT count(*) FROM entities").fetchone()[0]
+
 logger = logging.getLogger("saril.cgu_incremental")
 
 COLS_MAP = {
@@ -173,34 +242,30 @@ def process_cgu_deltas(csv_paths: list[Path], conn=None) -> tuple[int, list[dict
         df_all_new = consolidate_entities(df_all_new)
         df_all_new = consolidate_by_similarity(df_all_new)
 
-        total_new_rows = len(df_all_new)
-        logger.info(f"Inserindo {total_new_rows:,} novas linhas em meetings...")
+        # A checagem acima usa o entity_norm CRU; consolidate_* reescreve-o em
+        # seguida ("nu financeira s a…" vira "nubank"). Sem conferir de novo a
+        # chave final, a linha que parecia nova duplicava uma já existente —
+        # foi assim que a base acumulou 308 mil duplicatas (25,6%).
+        df_all_new = df_all_new.drop_duplicates(subset=list(MEETING_KEY))
 
-        # Inserção transacional
+        antes = conn.execute("SELECT count(*) FROM meetings").fetchone()[0]
         conn.register("df_new_meetings", df_all_new)
-        conn.execute("INSERT INTO meetings SELECT * FROM df_new_meetings")
-
-        # Synthesize presidential meetings where President Lula is mentioned in declared_topic
-        conn.execute("""
-            INSERT INTO meetings (event_id, meeting_date, public_body, declared_topic, authority_name, authority_role, lobbyist_name, lobbyist_role, lobbyist_masked_cpf, entity_name, entity_norm, entity_cnpj)
-            SELECT 
-                event_id + 800000000 AS event_id,
-                meeting_date,
-                'Presidência da República' AS public_body,
-                declared_topic,
-                'LUIZ INÁCIO LULA DA SILVA' AS authority_name,
-                'Presidente da República' AS authority_role,
-                lobbyist_name,
-                lobbyist_role,
-                lobbyist_masked_cpf,
-                entity_name,
-                entity_norm,
-                entity_cnpj
-            FROM meetings
-            WHERE (lower(declared_topic) LIKE '%lula%' OR lower(declared_topic) LIKE '%presidente da rep%')
-              AND authority_name != 'LUIZ INÁCIO LULA DA SILVA'
-              AND (event_id + 800000000) NOT IN (SELECT DISTINCT event_id FROM meetings WHERE authority_name = 'LUIZ INÁCIO LULA DA SILVA')
+        conn.execute(f"""
+            INSERT INTO meetings
+            SELECT n.* FROM df_new_meetings n
+            WHERE NOT EXISTS (
+                SELECT 1 FROM meetings m WHERE {_KEY_MATCH}
+            )
         """)
+        total_new_rows = conn.execute("SELECT count(*) FROM meetings").fetchone()[0] - antes
+        logger.info(f"Inseridas {total_new_rows:,} novas linhas em meetings "
+                    f"({len(df_all_new) - total_new_rows:,} já existiam após canonicalização).")
+
+        # (Removido) Aqui havia uma rotina que CRIAVA reuniões com o Presidente
+        # da República para toda pauta que citasse "lula" ou "presidente da
+        # rep", com event_id deslocado em 800.000.000. Eram 4.497 reuniões
+        # inexistentes no e-Agendas — evidência fabricada. Menção na pauta não
+        # é presença na reunião.
 
         # Atualiza tabela de entidades
         conn.execute("DELETE FROM entities")

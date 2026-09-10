@@ -2963,10 +2963,10 @@ def _call_deepseek(prompt: str, api_key: str, model: str = "deepseek-chat") -> t
                 content = choice["message"].get("content", "")
                 reasoning = choice["message"].get("reasoning_content", "")
                 
-                label = f"Robô Antunes — DeepSeek V3 (Oficial)" if m == "deepseek-chat" else f"Robô Antunes — DeepSeek R1 (Thinking Mode)"
+                label = "Robô Antunes — Inteligência Artificial"
                 if reasoning and m == "deepseek-reasoner":
-                    # Adiciona bloco de raciocínio se for R1
-                    content = f"> 🧠 **Raciocínio Pericial (DeepSeek Thinking Mode):**\n> {reasoning.strip().replace(chr(10), chr(10) + '> ')}\n\n---\n\n{content}"
+                    # Adiciona bloco de raciocínio se for modelo de raciocínio profundo
+                    content = f"> 🧠 **Raciocínio Pericial (Inteligência Artificial):**\n> {reasoning.strip().replace(chr(10), chr(10) + '> ')}\n\n---\n\n{content}"
                 
                 if content:
                     return content, label
@@ -3026,7 +3026,11 @@ def generate_dossier_report(person_key: str):
     """Gera relatório investigativo forense completo via LLM para a Ficha do Ator, com cache inteligente por hash."""
     import urllib.request, json, hashlib
     
-    dossier = person_dossier(person_key)
+    # Os parâmetros opcionais precisam vir explícitos: chamado assim, fora da
+    # injeção do FastAPI, os defaults seriam objetos Query() — que o DuckDB
+    # rejeita com "Unable to transform python value of type Query".
+    dossier = person_dossier(person_key, start_date=None, end_date=None,
+                             public_body=None)
     name = dossier["person"]["name"]
     p = dossier["person"]
     meetings = dossier.get("audienceTimeline", [])
@@ -3252,7 +3256,7 @@ REGRAS DE REDAÇÃO:
     if not report_text and keys.get("google"):
         report_text = _call_gemini(prompt, keys["google"])
         if report_text:
-            provider_name = "Robô Antunes — Google Gemini Flash (Fallback)"
+            provider_name = "Robô Antunes — Inteligência Artificial"
 
     # 3. Se não, tenta OpenAI
     if not report_text and keys.get("openai") and not keys["openai"].startswith("sua_"):
@@ -3275,7 +3279,7 @@ REGRAS DE REDAÇÃO:
             with urllib.request.urlopen(req, timeout=30) as resp:
                 res = json.loads(resp.read().decode("utf-8"))
                 report_text = res["choices"][0]["message"]["content"]
-                provider_name = "Robô Antunes — OpenAI GPT-4o-mini"
+                provider_name = "Robô Antunes — Inteligência Artificial"
         except Exception:
             report_text = ""
 
@@ -3367,7 +3371,7 @@ Seja direto, técnico e institucional. Use markdown formal.
     if not report_text and keys.get("google"):
         report_text = _call_gemini(prompt, keys["google"])
         if report_text:
-            provider_name = "Robô Antunes — Google Gemini Flash (Fallback)"
+            provider_name = "Robô Antunes — Inteligência Artificial"
 
     if not report_text and keys.get("openai") and not keys["openai"].startswith("sua_"):
         try:
@@ -3383,7 +3387,7 @@ Seja direto, técnico e institucional. Use markdown formal.
             with urllib.request.urlopen(req, timeout=30) as resp:
                 res = json.loads(resp.read().decode("utf-8"))
                 report_text = res["choices"][0]["message"]["content"]
-                provider_name = "Robô Antunes — OpenAI GPT-4o-mini"
+                provider_name = "Robô Antunes — Inteligência Artificial"
         except Exception:
             report_text = ""
 
@@ -3921,7 +3925,7 @@ REGRAS DE REDAÇÃO:
     if not report_text and keys.get("google") and not keys["google"].startswith("sua_"):
         report_text = _call_gemini_rest(prompt, keys["google"])
         if report_text:
-            provider_name = "Robô Antunes — Google Gemini Flash (Fallback)"
+            provider_name = "Robô Antunes — Inteligência Artificial"
 
     if not report_text:
         report_text = _generate_deterministic_authority_report(dossier)

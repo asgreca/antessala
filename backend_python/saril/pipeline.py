@@ -1043,6 +1043,17 @@ def sync_cgu(force: bool = False, limit: int | None = None, year: int = 2023) ->
             print(f"      ⚠ Falha na unificação canônica: {e} (non-fatal)")
         print()
 
+        # Fase 2.6 — Deduplicação APÓS a canonicalização. unify_canonical_entities
+        # reescreve entity_norm e pode fundir duas grafias numa só, criando
+        # duplicatas que a checagem da ingestão não tinha como ver.
+        print("[2.6] Removendo participações duplicadas...")
+        from saril.cgu_incremental import dedupe_meetings, rebuild_entities
+        dedupe_stats = dedupe_meetings(conn)
+        rebuild_entities(conn)
+        print(f"      ✔ {dedupe_stats['duplicatas']:,} duplicata(s) removida(s); "
+              f"{dedupe_stats['depois']:,} participações na base.")
+        print()
+
         # Fase 3 — Recálculo de correlações DOU (janela de 60 dias)
         print("[3/5] Recalculando correlações DOU para novas entidades...")
         conn.close()
@@ -1114,6 +1125,19 @@ def sync_cgu(force: bool = False, limit: int | None = None, year: int = 2023) ->
                 pass
 
 
+def dedupe_command() -> None:
+    """Deduplica a base, reconstrói entidades e refaz os cruzamentos."""
+    from .cgu_incremental import dedupe_meetings, rebuild_entities
+    with store.session() as conn:
+        st = dedupe_meetings(conn)
+        n = rebuild_entities(conn)
+    print(f"Antes: {st['antes']:,} | fabricadas removidas: {st['fabricadas']:,} | "
+          f"duplicatas removidas: {st['duplicatas']:,} | depois: {st['depois']:,}")
+    print(f"Entidades reconstruídas: {n:,}")
+    correlate()
+    cross_sanctions()
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(prog="saril.pipeline")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -1149,6 +1173,8 @@ def main(argv=None) -> int:
     p_read.add_argument("--limit", type=int, default=None)
     p_read.add_argument("--model", default=llm.DEFAULT_MODEL)
     p_read.add_argument("--force", action="store_true", help="ignora o cache")
+    sub.add_parser("dedupe-meetings",
+                   help="remove duplicatas e reuniões fabricadas, e refaz os cruzamentos")
     sub.add_parser("status")
     sub.add_parser("publish", help="republica o snapshot lido pela API")
     sub.add_parser("reparse", help="reaplica o parser aos atos já coletados")
@@ -1219,6 +1245,8 @@ def main(argv=None) -> int:
         cross_sanctions()
     elif args.command == "read-acts":
         read_acts(args.limit, args.model, args.force)
+    elif args.command == "dedupe-meetings":
+        dedupe_command()
     elif args.command == "status":
         status()
     elif args.command == "reparse":
