@@ -146,7 +146,7 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ onInspectPerson }) => {
 
           <div className={styles.antunesQuoteCard}>
             <p>
-              <strong>Metodologia Probatória Abrangente:</strong> Cruzamento algorítmico estrito entre o CNPJ da entidade externa (empresa, associação, federação, sindicato, ONG ou fundação) e os extratos publicados no DOU. Todo apontamento exibe a base de vínculo probatório e link direto para conferência na Imprensa Nacional.
+              <strong>Metodologia Verificável:</strong> Cruzamento algorítmico estrito entre o CNPJ da entidade externa (empresa, associação, federação, sindicato, ONG ou fundação) e os extratos publicados no DOU. Todo apontamento exibe a base do vínculo (CNPJ ou razão social) e link direto para conferência na Imprensa Nacional.
             </p>
           </div>
 

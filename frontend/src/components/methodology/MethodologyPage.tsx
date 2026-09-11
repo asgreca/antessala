@@ -172,7 +172,7 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
         <div className={styles.heroTopRow}>
           <div className={styles.badgeGroup}>
             <span className={styles.heroBadge}>
-              <Scale size={13} /> Metodologia Científica &amp; Probatória
+              <Scale size={13} /> Metodologia Científica &amp; Verificável
             </span>
             <span className={styles.cguBadge}>
               <Award size={13} /> Edital CGU nº 46/2026 &bull; Reúso de Dados Abertos
@@ -291,7 +291,7 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
           </div>
 
           <div className={styles.methodCard}>
-            <h4><AlertTriangle size={18} color="#D97706" /> Caráter Probatório e Sem Juízo de Culpa</h4>
+            <h4><AlertTriangle size={18} color="#D97706" /> Caráter Indiciário e Sem Juízo de Culpa</h4>
             <p>
               Os apontamentos do sistema constituem <strong>anomalias estatísticas e correlações temporais fáticas</strong> destinadas 
               ao controle social, ao jornalismo investigativo e ao trabalho dos órgãos de controle. Não consubstanciam, 
@@ -411,7 +411,7 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ onNavigateTab 
                 <th>Dimensão de Auditoria</th>
                 <th>Peso Máx.</th>
                 <th>Denominador</th>
-                <th>Racionalidade Probatória</th>
+                <th>Fundamentação</th>
               </tr>
             </thead>
             <tbody>
